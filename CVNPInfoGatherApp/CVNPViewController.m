@@ -7,6 +7,7 @@
 //
 
 #import "CVNPViewController.h"
+#import "CVNPSqliteManager.h"
 
 #define kRegularSourceID   @"changshu1991.kal6f5d3"
 #define kTerrainSourceID   @"changshu1991.l2e7f119"
@@ -33,7 +34,17 @@
     
     _mapCenter = CLLocationCoordinate2DMake(41.2854277, -81.5656396);
     _mapView = [[RMMapView alloc] initWithFrame:self.view.bounds andTilesource:_offlineTileSource];
-
+    
+    CVNPSqliteManager *dao = [CVNPSqliteManager sharedCVNPSqliteManager];
+    CVNPSqliteManager *dao1 = [CVNPSqliteManager sharedCVNPSqliteManager];
+    
+    [dao InsertLocal:nil];
+    [dao1 InsertLocal:nil];
+    
+    NSArray *test = [[NSArray alloc] initWithArray:[dao QueryAllLocal]];
+    NSArray *test1 = [[NSArray alloc] initWithArray:[dao1 QueryAllLocal]];
+    [dao DeleteLocalById:1];
+    [dao UpdateLocalById:2 newPoint:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated

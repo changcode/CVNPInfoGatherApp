@@ -11,6 +11,8 @@
 		A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */; };
 		A044685A1B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468571B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles */; };
 		A044685B1B255BD20037C9C6 /* CVNPpos.GPX in Resources */ = {isa = PBXBuildFile; fileRef = A04468581B255BD20037C9C6 /* CVNPpos.GPX */; };
+		A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A044685D1B2562A60037C9C6 /* CVNPPointsModel.m */; };
+		A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A04468611B2566860037C9C6 /* CVNPSqliteManager.m */; };
 		A086032F1B254F890076D9B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A086032E1B254F890076D9B7 /* main.m */; };
 		A08603321B254F890076D9B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603311B254F890076D9B7 /* AppDelegate.m */; };
 		A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603341B254F890076D9B7 /* CVNPViewController.m */; };
@@ -36,6 +38,10 @@
 		A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "1-18mapboxtiles.mbtiles"; sourceTree = "<group>"; };
 		A04468571B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "1-16_jpg_tiles.mbtiles"; sourceTree = "<group>"; };
 		A04468581B255BD20037C9C6 /* CVNPpos.GPX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CVNPpos.GPX; sourceTree = "<group>"; };
+		A044685C1B2562A60037C9C6 /* CVNPPointsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPPointsModel.h; sourceTree = "<group>"; };
+		A044685D1B2562A60037C9C6 /* CVNPPointsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPPointsModel.m; sourceTree = "<group>"; };
+		A04468601B2566860037C9C6 /* CVNPSqliteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPSqliteManager.h; sourceTree = "<group>"; };
+		A04468611B2566860037C9C6 /* CVNPSqliteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPSqliteManager.m; sourceTree = "<group>"; };
 		A08603291B254F890076D9B7 /* CVNPInfoGatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CVNPInfoGatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A086032D1B254F890076D9B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A086032E1B254F890076D9B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -91,6 +97,15 @@
 			path = GeoFiles;
 			sourceTree = "<group>";
 		};
+		A044685F1B2562AD0037C9C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A044685C1B2562A60037C9C6 /* CVNPPointsModel.h */,
+				A044685D1B2562A60037C9C6 /* CVNPPointsModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		A08603201B254F890076D9B7 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +129,9 @@
 		A086032B1B254F890076D9B7 /* CVNPInfoGatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				A044685F1B2562AD0037C9C6 /* Model */,
+				A04468601B2566860037C9C6 /* CVNPSqliteManager.h */,
+				A04468611B2566860037C9C6 /* CVNPSqliteManager.m */,
 				A08603301B254F890076D9B7 /* AppDelegate.h */,
 				A08603311B254F890076D9B7 /* AppDelegate.m */,
 				A08603331B254F890076D9B7 /* CVNPViewController.h */,
@@ -299,7 +317,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */,
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
+				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
 				A08603321B254F890076D9B7 /* AppDelegate.m in Sources */,
 				A086032F1B254F890076D9B7 /* main.m in Sources */,
 			);
