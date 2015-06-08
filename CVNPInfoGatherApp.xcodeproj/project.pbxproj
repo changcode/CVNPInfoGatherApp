@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7404F0338E929D32430B4649 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DC6E751E2DB010D862BBF0 /* libPods.a */; };
+		A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */; };
+		A044685A1B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468571B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles */; };
+		A044685B1B255BD20037C9C6 /* CVNPpos.GPX in Resources */ = {isa = PBXBuildFile; fileRef = A04468581B255BD20037C9C6 /* CVNPpos.GPX */; };
 		A086032F1B254F890076D9B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A086032E1B254F890076D9B7 /* main.m */; };
 		A08603321B254F890076D9B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603311B254F890076D9B7 /* AppDelegate.m */; };
-		A08603351B254F890076D9B7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603341B254F890076D9B7 /* ViewController.m */; };
+		A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603341B254F890076D9B7 /* CVNPViewController.m */; };
 		A08603381B254F890076D9B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08603361B254F890076D9B7 /* Main.storyboard */; };
 		A086033A1B254F890076D9B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A08603391B254F890076D9B7 /* Images.xcassets */; };
 		A086033D1B254F890076D9B7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A086033B1B254F890076D9B7 /* LaunchScreen.xib */; };
@@ -30,13 +33,16 @@
 /* Begin PBXFileReference section */
 		7B6732F6B7ABD46D574536EA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		83DC6E751E2DB010D862BBF0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "1-18mapboxtiles.mbtiles"; sourceTree = "<group>"; };
+		A04468571B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "1-16_jpg_tiles.mbtiles"; sourceTree = "<group>"; };
+		A04468581B255BD20037C9C6 /* CVNPpos.GPX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CVNPpos.GPX; sourceTree = "<group>"; };
 		A08603291B254F890076D9B7 /* CVNPInfoGatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CVNPInfoGatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A086032D1B254F890076D9B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A086032E1B254F890076D9B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A08603301B254F890076D9B7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A08603311B254F890076D9B7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A08603331B254F890076D9B7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A08603341B254F890076D9B7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A08603331B254F890076D9B7 /* CVNPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CVNPViewController.h; sourceTree = "<group>"; };
+		A08603341B254F890076D9B7 /* CVNPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CVNPViewController.m; sourceTree = "<group>"; };
 		A08603371B254F890076D9B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A08603391B254F890076D9B7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A086033C1B254F890076D9B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -74,6 +80,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A04468551B255B2B0037C9C6 /* GeoFIles */ = {
+			isa = PBXGroup;
+			children = (
+				A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */,
+				A04468571B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles */,
+				A04468581B255BD20037C9C6 /* CVNPpos.GPX */,
+			);
+			name = GeoFIles;
+			path = GeoFiles;
+			sourceTree = "<group>";
+		};
 		A08603201B254F890076D9B7 = {
 			isa = PBXGroup;
 			children = (
@@ -99,11 +116,12 @@
 			children = (
 				A08603301B254F890076D9B7 /* AppDelegate.h */,
 				A08603311B254F890076D9B7 /* AppDelegate.m */,
-				A08603331B254F890076D9B7 /* ViewController.h */,
-				A08603341B254F890076D9B7 /* ViewController.m */,
+				A08603331B254F890076D9B7 /* CVNPViewController.h */,
+				A08603341B254F890076D9B7 /* CVNPViewController.m */,
 				A08603361B254F890076D9B7 /* Main.storyboard */,
 				A08603391B254F890076D9B7 /* Images.xcassets */,
 				A086033B1B254F890076D9B7 /* LaunchScreen.xib */,
+				A04468551B255B2B0037C9C6 /* GeoFIles */,
 				A086032C1B254F890076D9B7 /* Supporting Files */,
 			);
 			path = CVNPInfoGatherApp;
@@ -225,9 +243,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */,
 				A08603381B254F890076D9B7 /* Main.storyboard in Resources */,
 				A086033D1B254F890076D9B7 /* LaunchScreen.xib in Resources */,
+				A044685A1B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles in Resources */,
 				A086033A1B254F890076D9B7 /* Images.xcassets in Resources */,
+				A044685B1B255BD20037C9C6 /* CVNPpos.GPX in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A08603351B254F890076D9B7 /* ViewController.m in Sources */,
+				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
 				A08603321B254F890076D9B7 /* AppDelegate.m in Sources */,
 				A086032F1B254F890076D9B7 /* main.m in Sources */,
 			);
