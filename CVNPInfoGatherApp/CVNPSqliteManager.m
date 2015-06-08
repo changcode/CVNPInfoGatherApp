@@ -7,7 +7,6 @@
 //
 
 #import "CVNPSqliteManager.h"
-#import "CVNPPointsModel.h"
 
 #import "FMDatabase.h"
 
@@ -56,7 +55,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
             NSLog(@"error when open db");
         }
     }
-    NSLog(@"%@",self.dbPath);
+    NSLog(@"%@",dbPath);
 }
 
 - (BOOL)InsertLocal: (CVNPPointsModel *)Point

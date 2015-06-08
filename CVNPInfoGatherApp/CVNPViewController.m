@@ -22,6 +22,8 @@
 @property (strong, nonatomic) RMMBTilesSource *offlineTileSource;
 @property (assign, nonatomic) CLLocationCoordinate2D mapCenter;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *tileSourceSegmentSwith;
+
 @end
 
 @implementation CVNPViewController
@@ -35,16 +37,17 @@
     _mapCenter = CLLocationCoordinate2DMake(41.2854277, -81.5656396);
     _mapView = [[RMMapView alloc] initWithFrame:self.view.bounds andTilesource:_offlineTileSource];
     
-    CVNPSqliteManager *dao = [CVNPSqliteManager sharedCVNPSqliteManager];
-    CVNPSqliteManager *dao1 = [CVNPSqliteManager sharedCVNPSqliteManager];
+//    CVNPSqliteManager *dao = [CVNPSqliteManager sharedCVNPSqliteManager];
+//    CVNPSqliteManager *dao1 = [CVNPSqliteManager sharedCVNPSqliteManager];
+//    
+//    [dao InsertLocal:nil];
+//    [dao1 InsertLocal:nil];
+//    
+//    NSArray *test = [[NSArray alloc] initWithArray:[dao QueryAllLocal]];
+//    NSArray *test1 = [[NSArray alloc] initWithArray:[dao1 QueryAllLocal]];
+//    [dao DeleteLocalById:1];
+//    [dao UpdateLocalById:2 newPoint:nil];
     
-    [dao InsertLocal:nil];
-    [dao1 InsertLocal:nil];
-    
-    NSArray *test = [[NSArray alloc] initWithArray:[dao QueryAllLocal]];
-    NSArray *test1 = [[NSArray alloc] initWithArray:[dao1 QueryAllLocal]];
-    [dao DeleteLocalById:1];
-    [dao UpdateLocalById:2 newPoint:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -52,6 +55,7 @@
     [self.view addSubview:_mapView];
     _mapView.centerCoordinate = _mapCenter;
     _mapView.zoom = 12;
+    [self.view bringSubviewToFront:_tileSourceSegmentSwith];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,6 +66,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)tileSourceSwith:(id)sender {
+    if (_tileSourceSegmentSwith.selectedSegmentIndex == 0) {
+        [_mapView setTileSource:_onlineTileSource];
+    } else if (_tileSourceSegmentSwith.selectedSegmentIndex == 1) {
+        [_mapView setTileSource:_offlineTileSource];
+    }
 }
 
 @end
