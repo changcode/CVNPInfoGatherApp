@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CVNPPointsModel.h"
 
 @interface CVNPPointDetailViewController : UIViewController
+
+@property (strong, nonatomic) CVNPPointsModel *currPoint;
 
 @end

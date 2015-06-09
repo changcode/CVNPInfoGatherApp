@@ -7,6 +7,7 @@
 //
 
 #import "CVNPViewController.h"
+#import "CVNPPointDetailViewController.h"
 #import "CVNPSqliteManager.h"
 #import "BFPaperButton.h"
 
@@ -16,15 +17,18 @@
 
 #define kAccessKey @"pk.eyJ1IjoianVzdGluIiwiYSI6IlpDbUJLSUEifQ.4mG8vhelFMju6HpIY-Hi5A"
 
-@interface CVNPViewController ()
+@interface CVNPViewController () <RMMapViewDelegate>
 
 @property (strong, nonatomic) RMMapView *mapView;
 @property (strong, nonatomic) RMMapboxSource *onlineTileSource;
 @property (strong, nonatomic) RMMBTilesSource *offlineTileSource;
-@property (assign, nonatomic) CLLocationCoordinate2D mapCenter;
+@property (assign, nonatomic) CLLocationCoordinate2D startmapCenter;
+
+@property (strong, nonatomic) CVNPPointsModel *centerPoint;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tileSourceSegmentSwith;
 @property (weak, nonatomic) IBOutlet UIView *recordButtonView;
+@property (weak, nonatomic) IBOutlet UIImageView *centerPinImg;
 
 @end
 
@@ -38,9 +42,15 @@
     _onlineTileSource = [[RMMapboxSource alloc] initWithMapID:kRegularSourceID];
     _offlineTileSource = [[RMMBTilesSource alloc] initWithTileSetResource:@"1-16_jpg_tiles" ofType:@"mbtiles"];
     
-    _mapCenter = CLLocationCoordinate2DMake(41.2854277, -81.5656396);
+    _startmapCenter = CLLocationCoordinate2DMake(41.2854277, -81.5656396);
     _mapView = [[RMMapView alloc] initWithFrame:self.view.bounds andTilesource:_offlineTileSource];
     
+    [self.view addSubview:_mapView];
+    _mapView.centerCoordinate = _startmapCenter;
+    _mapView.zoom = 12;
+    _mapView.delegate = self;
+    
+    _centerPoint = [[CVNPPointsModel alloc] init];
 //    CVNPSqliteManager *dao = [CVNPSqliteManager sharedCVNPSqliteManager];
 //    CVNPSqliteManager *dao1 = [CVNPSqliteManager sharedCVNPSqliteManager];
 //    
@@ -68,11 +78,11 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.view addSubview:_mapView];
-    _mapView.centerCoordinate = _mapCenter;
-    _mapView.zoom = 12;
+
     [self.view bringSubviewToFront:_tileSourceSegmentSwith];
     [self.view bringSubviewToFront:_recordButtonView];
+    [self.view bringSubviewToFront:_centerPinImg];
+        NSLog(@"2");
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -85,6 +95,43 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"GoCVNPPointDetailViewController"]) {
+        NSLog(@"pre");
+        
+        UINavigationController *navigationController = segue.destinationViewController;
+        CVNPPointDetailViewController *pdvc = [navigationController viewControllers][0];
+        [pdvc setCurrPoint:_centerPoint];
+    }
+}
+
+#pragma mark - MapBox Methods
+
+- (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation
+{
+    if (annotation.isUserLocationAnnotation) {
+        return nil;
+    }
+    
+    UIColor *metroBlue = [UIColor colorWithRed:0.01 green:0.22 blue:0.41 alpha:1];
+    RMMarker *marker = [[RMMarker alloc] initWithMapboxMarkerImage:@"rail-metro" tintColor:metroBlue];
+    marker.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    marker.canShowCallout = YES;
+//    NSSet *lines = annotation.userInfo[@"lines"];
+//    StationDotsView *dots = [[StationDotsView alloc] initWithLines:lines];
+//    marker.leftCalloutAccessoryView = dots;
+//    
+//    marker.hidden = [self annotationShouldBeHidden:annotation];
+    return marker;
+}
+
+- (void)LoadPoints
+{
+    CLLocationCoordinate2D coordinate = [_mapView centerCoordinate];
+    RMAnnotation *one = [RMAnnotation annotationWithMapView:_mapView coordinate:coordinate andTitle:@"test"];
+    [_mapView addAnnotation:one];
+}
 
 #pragma mark - Button Methods
 
@@ -97,7 +144,37 @@
 }
 
 - (void)recordButtonPressed:(id)sender {
+//    CVNPPointDetailViewController *pdvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CVNPPointDetailViewController"];
+//    [self presentViewController:pdvc animated:YES completion: nil];
+    [self LoadPoints];
+    [self setCenterPointwithMapboxCenterPoint];
+    [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:sender];
     
+}
+
+#pragma mark - Ulti Methods
+
+- (void)setCenterPointwithMapboxCenterPoint
+{
+
+    [_centerPoint setLongitude:[NSString stringWithFormat:@"%f", [_mapView centerCoordinate].longitude]];
+    [_centerPoint setLatitude:[NSString stringWithFormat:@"%f", [_mapView centerCoordinate].latitude]];
+    [_centerPoint setCreateDate:[self getCurrtimString]];
+}
+
+- (NSString *)getCurrtimString
+{
+    // 获取系统当前时间
+    NSDate * date = [NSDate date];
+    NSTimeInterval sec = [date timeIntervalSinceNow];
+    NSDate * currentDate = [[NSDate alloc] initWithTimeIntervalSinceNow:sec];
+    
+    //设置时间输出格式：
+    NSDateFormatter * df = [[NSDateFormatter alloc] init ];
+    [df setDateFormat:@"yy/MM/dd HH:mm:ss"];
+    NSString * Createdate = [df stringFromDate:currentDate];
+    
+    return Createdate;
 }
 
 @end

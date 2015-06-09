@@ -9,21 +9,41 @@
 #import "CVNPPointDetailViewController.h"
 
 @interface CVNPPointDetailViewController ()
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *latiudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createTimeLabel;
+
+
 
 @end
 
 @implementation CVNPPointDetailViewController
 
+@synthesize currPoint;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    _scrollView.contentSize = self.view.bounds.size;
+    NSLog(@"%@:%@", [currPoint Longitude], [currPoint Latitude]);
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    _longitudeLabel.text = currPoint.Longitude;
+    _latiudeLabel.text = currPoint.Latitude;
+    _createTimeLabel.text = currPoint.CreateDate;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)cancelItemButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)addItemButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

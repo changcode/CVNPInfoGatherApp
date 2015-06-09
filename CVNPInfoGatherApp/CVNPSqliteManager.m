@@ -43,7 +43,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
         if ([db open]) {
             NSString * Localsql  = @"CREATE TABLE 'Location' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'Title' VARCHAR(100), 'Longitude' VARCHAR(30), 'Latitude' VARCHAR(30), 'Description' VARCHAR(255), 'Createdate' VARCHAR(50), 'User_ID' VARCHAR(30))";
-            NSString * Remotesql = @"";
+//            NSString * Remotesql = @"";
             BOOL res = [db executeUpdate:Localsql];
             if (!res) {
                 NSLog(@"error when creating db table");
