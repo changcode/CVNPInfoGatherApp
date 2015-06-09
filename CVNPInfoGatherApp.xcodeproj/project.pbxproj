@@ -13,6 +13,7 @@
 		A044685B1B255BD20037C9C6 /* CVNPpos.GPX in Resources */ = {isa = PBXBuildFile; fileRef = A04468581B255BD20037C9C6 /* CVNPpos.GPX */; };
 		A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A044685D1B2562A60037C9C6 /* CVNPPointsModel.m */; };
 		A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A04468611B2566860037C9C6 /* CVNPSqliteManager.m */; };
+		A04468651B25F9E60037C9C6 /* CVNPPointDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04468641B25F9E60037C9C6 /* CVNPPointDetailViewController.m */; };
 		A086032F1B254F890076D9B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A086032E1B254F890076D9B7 /* main.m */; };
 		A08603321B254F890076D9B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603311B254F890076D9B7 /* AppDelegate.m */; };
 		A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603341B254F890076D9B7 /* CVNPViewController.m */; };
@@ -42,6 +43,8 @@
 		A044685D1B2562A60037C9C6 /* CVNPPointsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPPointsModel.m; sourceTree = "<group>"; };
 		A04468601B2566860037C9C6 /* CVNPSqliteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPSqliteManager.h; sourceTree = "<group>"; };
 		A04468611B2566860037C9C6 /* CVNPSqliteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPSqliteManager.m; sourceTree = "<group>"; };
+		A04468631B25F9E60037C9C6 /* CVNPPointDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPPointDetailViewController.h; sourceTree = "<group>"; };
+		A04468641B25F9E60037C9C6 /* CVNPPointDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPPointDetailViewController.m; sourceTree = "<group>"; };
 		A08603291B254F890076D9B7 /* CVNPInfoGatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CVNPInfoGatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A086032D1B254F890076D9B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A086032E1B254F890076D9B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -100,10 +103,23 @@
 		A044685F1B2562AD0037C9C6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A04468601B2566860037C9C6 /* CVNPSqliteManager.h */,
+				A04468611B2566860037C9C6 /* CVNPSqliteManager.m */,
 				A044685C1B2562A60037C9C6 /* CVNPPointsModel.h */,
 				A044685D1B2562A60037C9C6 /* CVNPPointsModel.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		A04468661B25F9F20037C9C6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A08603331B254F890076D9B7 /* CVNPViewController.h */,
+				A08603341B254F890076D9B7 /* CVNPViewController.m */,
+				A04468631B25F9E60037C9C6 /* CVNPPointDetailViewController.h */,
+				A04468641B25F9E60037C9C6 /* CVNPPointDetailViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		A08603201B254F890076D9B7 = {
@@ -130,12 +146,9 @@
 			isa = PBXGroup;
 			children = (
 				A044685F1B2562AD0037C9C6 /* Model */,
-				A04468601B2566860037C9C6 /* CVNPSqliteManager.h */,
-				A04468611B2566860037C9C6 /* CVNPSqliteManager.m */,
+				A04468661B25F9F20037C9C6 /* Controller */,
 				A08603301B254F890076D9B7 /* AppDelegate.h */,
 				A08603311B254F890076D9B7 /* AppDelegate.m */,
-				A08603331B254F890076D9B7 /* CVNPViewController.h */,
-				A08603341B254F890076D9B7 /* CVNPViewController.m */,
 				A08603361B254F890076D9B7 /* Main.storyboard */,
 				A08603391B254F890076D9B7 /* Images.xcassets */,
 				A086033B1B254F890076D9B7 /* LaunchScreen.xib */,
@@ -321,6 +334,7 @@
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
 				A08603321B254F890076D9B7 /* AppDelegate.m in Sources */,
+				A04468651B25F9E60037C9C6 /* CVNPPointDetailViewController.m in Sources */,
 				A086032F1B254F890076D9B7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
