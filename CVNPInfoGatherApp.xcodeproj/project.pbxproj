@@ -21,6 +21,7 @@
 		A086033A1B254F890076D9B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A08603391B254F890076D9B7 /* Images.xcassets */; };
 		A086033D1B254F890076D9B7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A086033B1B254F890076D9B7 /* LaunchScreen.xib */; };
 		A08603491B254F890076D9B7 /* CVNPInfoGatherAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603481B254F890076D9B7 /* CVNPInfoGatherAppTests.m */; };
+		A09D01D51B27C42600678032 /* CVNPLoaclPointsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		A08603421B254F890076D9B7 /* CVNPInfoGatherAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CVNPInfoGatherAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A08603471B254F890076D9B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A08603481B254F890076D9B7 /* CVNPInfoGatherAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CVNPInfoGatherAppTests.m; sourceTree = "<group>"; };
+		A09D01D31B27C42600678032 /* CVNPLoaclPointsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPLoaclPointsTableViewController.h; sourceTree = "<group>"; };
+		A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPLoaclPointsTableViewController.m; sourceTree = "<group>"; };
 		C3181F7B247E1410C6C0F8C4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +121,8 @@
 				A08603341B254F890076D9B7 /* CVNPViewController.m */,
 				A04468631B25F9E60037C9C6 /* CVNPPointDetailViewController.h */,
 				A04468641B25F9E60037C9C6 /* CVNPPointDetailViewController.m */,
+				A09D01D31B27C42600678032 /* CVNPLoaclPointsTableViewController.h */,
+				A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 				A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */,
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
+				A09D01D51B27C42600678032 /* CVNPLoaclPointsTableViewController.m in Sources */,
 				A08603321B254F890076D9B7 /* AppDelegate.m in Sources */,
 				A04468651B25F9E60037C9C6 /* CVNPPointDetailViewController.m in Sources */,
 				A086032F1B254F890076D9B7 /* main.m in Sources */,

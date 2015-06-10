@@ -17,6 +17,7 @@
 - (NSArray *)QueryAllLocal;
 - (BOOL)InsertLocal: (CVNPPointsModel *)Point;
 - (BOOL)DeleteLocalById: (int)ID;
+- (BOOL)DeleteLocalByIds:(NSArray *)IDs;
 - (BOOL)UpdateLocalById: (int)ID newPoint:(CVNPPointsModel *)Point;
 
 @end

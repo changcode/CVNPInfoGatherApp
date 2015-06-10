@@ -116,6 +116,15 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     }
     return false;
 }
+
+- (BOOL)DeleteLocalByIds:(NSArray *)IDs
+{
+    for (NSString *ID in IDs) {
+        [self DeleteLocalById:[ID intValue]];
+    }
+    return true;
+}
+
 - (BOOL)UpdateLocalById: (int)ID newPoint:(CVNPPointsModel *)Point
 {
     FMDatabase * db = [FMDatabase databaseWithPath:dbPath];

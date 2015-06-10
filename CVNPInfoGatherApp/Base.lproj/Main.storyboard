@@ -5,6 +5,60 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--All Points In Local-->
+        <scene sceneID="qAh-BW-rgg">
+            <objects>
+                <tableViewController id="Ykb-IX-o1S" customClass="CVNPLoaclPointsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fqk-Xo-gWO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellID" id="p6R-7G-dJh">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p6R-7G-dJh" id="TMm-df-GGf">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ykb-IX-o1S" id="6Ir-mo-6Q7"/>
+                            <outlet property="delegate" destination="Ykb-IX-o1S" id="x8a-nw-1p9"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="All Points In Local" id="gY6-xP-kK0"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="Z8g-SK-DdX" id="tiS-xe-g7b"/>
+                        <outlet property="deleteButton" destination="6HQ-z7-ZXq" id="3Jd-Al-Obs"/>
+                        <outlet property="editButton" destination="I99-wo-BGl" id="oq8-vE-Edh"/>
+                        <outlet property="uploadButton" destination="OF9-pv-gdm" id="wrU-ja-UEc"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G4H-4K-6TP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Upload" id="OF9-pv-gdm" userLabel="UploadButton">
+                    <connections>
+                        <action selector="uploadAction:" destination="Ykb-IX-o1S" id="dKa-CD-vQK"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="edit" id="I99-wo-BGl" userLabel="EditButton">
+                    <connections>
+                        <action selector="editAction:" destination="Ykb-IX-o1S" id="JaU-fZ-qLp"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="cancel" id="Z8g-SK-DdX" userLabel="CancelButton">
+                    <connections>
+                        <action selector="cancelAction:" destination="Ykb-IX-o1S" id="yAT-rc-KmO"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Item" id="6HQ-z7-ZXq" userLabel="DeleteButton">
+                    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="deleteAction:" destination="Ykb-IX-o1S" id="njy-3M-1N2"/>
+                    </connections>
+                </barButtonItem>
+            </objects>
+            <point key="canvasLocation" x="2472" y="62"/>
+        </scene>
         <!--Point Detail-->
         <scene sceneID="wms-OP-uLf">
             <objects>
@@ -255,7 +309,13 @@
                             <constraint firstItem="qRn-J5-WeG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="wQT-4f-7CG"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="CVNP Info Gather" id="NXC-Xr-V4u"/>
+                    <navigationItem key="navigationItem" title="CVNP Info Gather" id="NXC-Xr-V4u">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="0TI-tv-LZD">
+                            <connections>
+                                <segue destination="f09-SQ-XFz" kind="show" id="f9f-sQ-beh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="centerPinImg" destination="64j-wD-OMv" id="qK1-d9-eRv"/>
                         <outlet property="recordButtonView" destination="qRn-J5-WeG" id="ofK-he-WCN"/>
@@ -302,6 +362,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qg6-Ki-giB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1013" y="1275"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mdN-i8-8Is">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f09-SQ-XFz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JPd-ZB-KcW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ykb-IX-o1S" kind="relationship" relationship="rootViewController" id="Jol-LL-PI5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vwh-Vp-ffl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1771" y="62"/>
         </scene>
     </scenes>
     <resources>

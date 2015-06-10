@@ -50,9 +50,16 @@
     _mapView.centerCoordinate = _startmapCenter;
     _mapView.zoom = 12;
     _mapView.delegate = self;
+    self.mapView.showsUserLocation = YES;
+    self.mapView.userTrackingMode = RMUserTrackingModeFollow;
+    
+    self.navigationItem.leftBarButtonItem = [[RMUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
+    self.navigationItem.leftBarButtonItem.tintColor = self.navigationController.navigationBar.tintColor;
     
     _centerPoint = [[CVNPPointsModel alloc] init];
     _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
+    
+    
 
     BFPaperButton *recordButton = [[BFPaperButton alloc] initWithFrame:CGRectMake(0, 0, 86, 86) raised:YES];
     [recordButton setTitle:@"Record" forState:UIControlStateNormal];
@@ -75,7 +82,6 @@
     [self.view bringSubviewToFront:_tileSourceSegmentSwith];
     [self.view bringSubviewToFront:_recordButtonView];
     [self.view bringSubviewToFront:_centerPinImg];
-        NSLog(@"2");
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -85,7 +91,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -117,7 +122,7 @@
     [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:annotation.userInfo];
 }
 
-- (void)LoadPoints
+- (void)LoadAllLocalPoints
 {
     dispatch_queue_t backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     dispatch_async(backgroundQueue, ^(void)
@@ -146,7 +151,6 @@
 }
 
 - (void)recordButtonPressed:(id)sender {
-    [self LoadPoints];
     [self setCenterPointwithMapboxCenterPoint];
     [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:_centerPoint];
     
