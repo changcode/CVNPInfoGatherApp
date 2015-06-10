@@ -82,6 +82,7 @@
     [self.view bringSubviewToFront:_tileSourceSegmentSwith];
     [self.view bringSubviewToFront:_recordButtonView];
     [self.view bringSubviewToFront:_centerPinImg];
+    [self LoadAllLocalPoints];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -153,7 +154,6 @@
 - (void)recordButtonPressed:(id)sender {
     [self setCenterPointwithMapboxCenterPoint];
     [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:_centerPoint];
-    
 }
 
 #pragma mark - Ulti Methods

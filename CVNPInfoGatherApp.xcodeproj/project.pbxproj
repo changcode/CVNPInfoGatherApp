@@ -22,6 +22,9 @@
 		A086033D1B254F890076D9B7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A086033B1B254F890076D9B7 /* LaunchScreen.xib */; };
 		A08603491B254F890076D9B7 /* CVNPInfoGatherAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603481B254F890076D9B7 /* CVNPInfoGatherAppTests.m */; };
 		A09D01D51B27C42600678032 /* CVNPLoaclPointsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */; };
+		A09D01D81B28AF2500678032 /* CVNPUserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */; };
+		A09D01DB1B28B08800678032 /* CVNPUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DA1B28B08800678032 /* CVNPUserModel.m */; };
+		A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DD1B28B33300678032 /* CVNPUserManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,12 @@
 		A08603481B254F890076D9B7 /* CVNPInfoGatherAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CVNPInfoGatherAppTests.m; sourceTree = "<group>"; };
 		A09D01D31B27C42600678032 /* CVNPLoaclPointsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPLoaclPointsTableViewController.h; sourceTree = "<group>"; };
 		A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPLoaclPointsTableViewController.m; sourceTree = "<group>"; };
+		A09D01D61B28AF2500678032 /* CVNPUserLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserLoginViewController.h; sourceTree = "<group>"; };
+		A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserLoginViewController.m; sourceTree = "<group>"; };
+		A09D01D91B28B08800678032 /* CVNPUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserModel.h; sourceTree = "<group>"; };
+		A09D01DA1B28B08800678032 /* CVNPUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserModel.m; sourceTree = "<group>"; };
+		A09D01DC1B28B33300678032 /* CVNPUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserManager.h; sourceTree = "<group>"; };
+		A09D01DD1B28B33300678032 /* CVNPUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserManager.m; sourceTree = "<group>"; };
 		C3181F7B247E1410C6C0F8C4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +119,10 @@
 				A04468611B2566860037C9C6 /* CVNPSqliteManager.m */,
 				A044685C1B2562A60037C9C6 /* CVNPPointsModel.h */,
 				A044685D1B2562A60037C9C6 /* CVNPPointsModel.m */,
+				A09D01D91B28B08800678032 /* CVNPUserModel.h */,
+				A09D01DA1B28B08800678032 /* CVNPUserModel.m */,
+				A09D01DC1B28B33300678032 /* CVNPUserManager.h */,
+				A09D01DD1B28B33300678032 /* CVNPUserManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -123,6 +136,8 @@
 				A04468641B25F9E60037C9C6 /* CVNPPointDetailViewController.m */,
 				A09D01D31B27C42600678032 /* CVNPLoaclPointsTableViewController.h */,
 				A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */,
+				A09D01D61B28AF2500678032 /* CVNPUserLoginViewController.h */,
+				A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -338,9 +353,12 @@
 				A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */,
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
+				A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */,
 				A09D01D51B27C42600678032 /* CVNPLoaclPointsTableViewController.m in Sources */,
 				A08603321B254F890076D9B7 /* AppDelegate.m in Sources */,
+				A09D01DB1B28B08800678032 /* CVNPUserModel.m in Sources */,
 				A04468651B25F9E60037C9C6 /* CVNPPointDetailViewController.m in Sources */,
+				A09D01D81B28AF2500678032 /* CVNPUserLoginViewController.m in Sources */,
 				A086032F1B254F890076D9B7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

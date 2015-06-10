@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 @property (strong, nonatomic) NSMutableArray *dataArray;
 @property (strong, nonatomic) CVNPSqliteManager *DAO;
@@ -178,7 +179,6 @@
     {
         // Not in editing mode.
         self.navigationItem.leftBarButtonItem = self.uploadButton;
-        
         // Show the edit button, but disable the edit button if there's nothing to edit.
 
         if (self.dataArray.count > 0)

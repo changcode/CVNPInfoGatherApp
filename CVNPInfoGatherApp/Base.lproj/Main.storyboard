@@ -28,6 +28,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="All Points In Local" id="gY6-xP-kK0"/>
                     <connections>
+                        <outlet property="backButton" destination="aej-lq-qnc" id="5Ui-0q-dHS"/>
                         <outlet property="cancelButton" destination="Z8g-SK-DdX" id="tiS-xe-g7b"/>
                         <outlet property="deleteButton" destination="6HQ-z7-ZXq" id="3Jd-Al-Obs"/>
                         <outlet property="editButton" destination="I99-wo-BGl" id="oq8-vE-Edh"/>
@@ -56,8 +57,9 @@
                         <action selector="deleteAction:" destination="Ykb-IX-o1S" id="njy-3M-1N2"/>
                     </connections>
                 </barButtonItem>
+                <barButtonItem title="Back" id="aej-lq-qnc" userLabel="BackButton"/>
             </objects>
-            <point key="canvasLocation" x="2472" y="62"/>
+            <point key="canvasLocation" x="3055" y="-87"/>
         </scene>
         <!--Point Detail-->
         <scene sceneID="wms-OP-uLf">
@@ -99,7 +101,7 @@
                                 <rect key="frame" x="66" y="79" width="513" height="30"/>
                                 <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pLF-sX-7lx">
                                 <rect key="frame" x="21" y="159" width="558" height="128"/>
@@ -109,7 +111,7 @@
                                 </constraints>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0r-B4-8YQ">
                                 <rect key="frame" x="226" y="295" width="68" height="14.5"/>
@@ -195,6 +197,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="lVE-M0-jfF" firstAttribute="leading" secondItem="IXC-iK-wdV" secondAttribute="leading" id="1Hq-yV-ice"/>
                             <constraint firstItem="pLF-sX-7lx" firstAttribute="leading" secondItem="IXC-iK-wdV" secondAttribute="leading" id="2DU-9F-iVl"/>
@@ -237,6 +240,9 @@
                                 <exclude reference="CXP-25-RpF"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="pHc-9y-62m" appends="YES" id="USg-yy-O9L"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Point Detail" id="RNe-JB-KPQ">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Y0o-gu-FB3">
@@ -252,12 +258,19 @@
                     </navigationItem>
                     <connections>
                         <outlet property="createTimeLabel" destination="d0G-K4-f1E" id="zKC-Cm-0Jd"/>
+                        <outlet property="descriptionTextView" destination="pLF-sX-7lx" id="gLi-oR-ita"/>
                         <outlet property="latiudeLabel" destination="Q0r-B4-8YQ" id="GER-to-YSo"/>
                         <outlet property="localIDLabel" destination="vI8-BA-mXI" id="hDh-2H-9Ig"/>
                         <outlet property="longitudeLabel" destination="0LI-FW-JuL" id="pB4-wE-fZx"/>
+                        <outlet property="titleTextField" destination="QVY-ke-smF" id="1Jw-cA-Asj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4s-dy-909" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="pHc-9y-62m">
+                    <connections>
+                        <action selector="dismissKeybaord:" destination="1lg-hA-tv1" id="GVH-VX-rtz"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1685" y="1275"/>
         </scene>
@@ -310,9 +323,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="CVNP Info Gather" id="NXC-Xr-V4u">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="0TI-tv-LZD">
+                        <barButtonItem key="rightBarButtonItem" title="Login" id="0TI-tv-LZD">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="f09-SQ-XFz" kind="show" id="f9f-sQ-beh"/>
+                                <segue destination="5Wm-X7-rHw" kind="show" id="Xyx-DC-Jfx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -335,6 +349,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="M90-k9-cbS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.2901960784" green="0.6705882353" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -353,6 +368,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GKb-L9-umz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -379,7 +395,102 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vwh-Vp-ffl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1771" y="62"/>
+            <point key="canvasLocation" x="2362" y="-87"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="hfX-WH-yqC">
+            <objects>
+                <viewController id="QzV-pA-KhS" customClass="CVNPUserLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ro0-hw-hqk"/>
+                        <viewControllerLayoutGuide type="bottom" id="gkB-9K-Vsu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zla-HV-2VE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YNW-k4-mKB">
+                                <rect key="frame" x="16" y="84" width="568" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PTv-Dp-QHl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O6K-r2-o4N">
+                                <rect key="frame" x="16" y="133" width="568" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="sbM-mR-W5L"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0P-lh-7Eh">
+                                <rect key="frame" x="152.5" y="213" width="135" height="83"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="E9x-wW-WxR"/>
+                                    <constraint firstAttribute="height" constant="83" id="tnD-DJ-tvT"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGS-RJ-RDb">
+                                <rect key="frame" x="311.5" y="213" width="135" height="83"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="83" id="EeC-O2-tHw"/>
+                                    <constraint firstAttribute="width" constant="135" id="RyE-or-jVO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.25098040699958801" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="N0P-lh-7Eh" secondAttribute="centerX" constant="80" id="0ET-XD-4re"/>
+                            <constraint firstItem="O6K-r2-o4N" firstAttribute="leading" secondItem="YNW-k4-mKB" secondAttribute="leading" id="1WO-e0-SP8"/>
+                            <constraint firstItem="O6K-r2-o4N" firstAttribute="trailing" secondItem="zla-HV-2VE" secondAttribute="trailingMargin" id="4GE-ly-mA2"/>
+                            <constraint firstAttribute="centerY" secondItem="YNW-k4-mKB" secondAttribute="centerY" constant="201" id="K2v-SS-2Sl"/>
+                            <constraint firstItem="qGS-RJ-RDb" firstAttribute="leading" secondItem="N0P-lh-7Eh" secondAttribute="trailing" constant="24" id="Ktb-bp-mgA"/>
+                            <constraint firstItem="qGS-RJ-RDb" firstAttribute="top" secondItem="O6K-r2-o4N" secondAttribute="bottom" constant="50" id="NQA-1F-fcK"/>
+                            <constraint firstItem="N0P-lh-7Eh" firstAttribute="top" secondItem="O6K-r2-o4N" secondAttribute="bottom" constant="50" id="Zsd-HI-HdR"/>
+                            <constraint firstItem="YNW-k4-mKB" firstAttribute="top" secondItem="ro0-hw-hqk" secondAttribute="bottom" constant="20" id="aUg-jN-pT3"/>
+                            <constraint firstItem="YNW-k4-mKB" firstAttribute="leading" secondItem="zla-HV-2VE" secondAttribute="leadingMargin" id="nDA-Q9-y1t"/>
+                            <constraint firstItem="YNW-k4-mKB" firstAttribute="trailing" secondItem="zla-HV-2VE" secondAttribute="trailingMargin" id="pcb-bZ-E78"/>
+                            <constraint firstItem="O6K-r2-o4N" firstAttribute="top" secondItem="YNW-k4-mKB" secondAttribute="bottom" constant="19" id="sb0-2D-55J"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Login" id="PhM-gv-tLS"/>
+                    <connections>
+                        <outlet property="LoginButtonView" destination="N0P-lh-7Eh" id="4jn-q2-JL9"/>
+                        <outlet property="anotherButtonView" destination="qGS-RJ-RDb" id="R2v-Cz-1NQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d2O-Se-8Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2362" y="572"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2be-XW-hlc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Wm-X7-rHw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XWj-89-Rqy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.2901960784" green="0.6705882353" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QzV-pA-KhS" kind="relationship" relationship="rootViewController" id="qlh-Og-A3g"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lrJ-lo-8gw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1685" y="572"/>
         </scene>
     </scenes>
     <resources>
