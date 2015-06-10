@@ -19,12 +19,13 @@
 
 @interface CVNPViewController () <RMMapViewDelegate>
 
+@property (strong, nonatomic) CVNPSqliteManager *DAO;
+@property (strong, nonatomic) CVNPPointsModel *centerPoint;
+
 @property (strong, nonatomic) RMMapView *mapView;
 @property (strong, nonatomic) RMMapboxSource *onlineTileSource;
 @property (strong, nonatomic) RMMBTilesSource *offlineTileSource;
 @property (assign, nonatomic) CLLocationCoordinate2D startmapCenter;
-
-@property (strong, nonatomic) CVNPPointsModel *centerPoint;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tileSourceSegmentSwith;
 @property (weak, nonatomic) IBOutlet UIView *recordButtonView;
@@ -51,16 +52,8 @@
     _mapView.delegate = self;
     
     _centerPoint = [[CVNPPointsModel alloc] init];
-//    CVNPSqliteManager *dao = [CVNPSqliteManager sharedCVNPSqliteManager];
-//    CVNPSqliteManager *dao1 = [CVNPSqliteManager sharedCVNPSqliteManager];
-//    
-//    [dao InsertLocal:nil];
-//    [dao1 InsertLocal:nil];
-//    
-//    NSArray *test = [[NSArray alloc] initWithArray:[dao QueryAllLocal]];
-//    NSArray *test1 = [[NSArray alloc] initWithArray:[dao1 QueryAllLocal]];
-//    [dao DeleteLocalById:1];
-//    [dao UpdateLocalById:2 newPoint:nil];
+    _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
+
     BFPaperButton *recordButton = [[BFPaperButton alloc] initWithFrame:CGRectMake(0, 0, 86, 86) raised:YES];
     [recordButton setTitle:@"Record" forState:UIControlStateNormal];
     [recordButton setTitleFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.f]];
@@ -98,11 +91,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"GoCVNPPointDetailViewController"]) {
-        NSLog(@"pre");
-        
         UINavigationController *navigationController = segue.destinationViewController;
         CVNPPointDetailViewController *pdvc = [navigationController viewControllers][0];
-        [pdvc setCurrPoint:_centerPoint];
+        [pdvc setCurrPoint:sender];
     }
 }
 
@@ -118,19 +109,30 @@
     RMMarker *marker = [[RMMarker alloc] initWithMapboxMarkerImage:@"rail-metro" tintColor:metroBlue];
     marker.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     marker.canShowCallout = YES;
-//    NSSet *lines = annotation.userInfo[@"lines"];
-//    StationDotsView *dots = [[StationDotsView alloc] initWithLines:lines];
-//    marker.leftCalloutAccessoryView = dots;
-//    
-//    marker.hidden = [self annotationShouldBeHidden:annotation];
     return marker;
+}
+
+- (void)tapOnCalloutAccessoryControl:(UIControl *)control forAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map
+{
+    [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:annotation.userInfo];
 }
 
 - (void)LoadPoints
 {
-    CLLocationCoordinate2D coordinate = [_mapView centerCoordinate];
-    RMAnnotation *one = [RMAnnotation annotationWithMapView:_mapView coordinate:coordinate andTitle:@"test"];
-    [_mapView addAnnotation:one];
+    dispatch_queue_t backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    dispatch_async(backgroundQueue, ^(void)
+    {
+        NSArray *pointsInFMDB = [_DAO QueryAllLocal];
+        for (CVNPPointsModel *Point in pointsInFMDB) {
+            CLLocationCoordinate2D coordinate = {
+                .longitude = [[Point Longitude] floatValue],
+                .latitude = [[Point Latitude] floatValue]
+            };
+            RMAnnotation *one = [RMAnnotation annotationWithMapView:_mapView coordinate:coordinate andTitle:[Point Title]];
+            one.userInfo = Point;
+            [_mapView addAnnotation:one];
+        }
+    });
 }
 
 #pragma mark - Button Methods
@@ -144,11 +146,9 @@
 }
 
 - (void)recordButtonPressed:(id)sender {
-//    CVNPPointDetailViewController *pdvc = [self.storyboard instantiateViewControllerWithIdentifier:@"CVNPPointDetailViewController"];
-//    [self presentViewController:pdvc animated:YES completion: nil];
     [self LoadPoints];
     [self setCenterPointwithMapboxCenterPoint];
-    [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:sender];
+    [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:_centerPoint];
     
 }
 

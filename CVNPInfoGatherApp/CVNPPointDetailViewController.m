@@ -12,8 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *latiudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createTimeLabel;
-
-
+@property (weak, nonatomic) IBOutlet UILabel *localIDLabel;
 
 @end
 
@@ -23,7 +22,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@:%@", [currPoint Longitude], [currPoint Latitude]);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -31,6 +29,7 @@
     _longitudeLabel.text = currPoint.Longitude;
     _latiudeLabel.text = currPoint.Latitude;
     _createTimeLabel.text = currPoint.CreateDate;
+    _localIDLabel.text = currPoint.Local_ID;
 }
 
 - (void)didReceiveMemoryWarning {

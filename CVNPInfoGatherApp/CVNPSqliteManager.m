@@ -151,7 +151,9 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
             NSString *Description = [rs stringForColumn:@"Description"];
             NSString *Date = [rs stringForColumn:@"CreateDate"];
             NSString *User_ID = [rs stringForColumn:@"User_ID"];
+            NSString *Local_ID = [rs stringForColumn:@"ID"];
             CVNPPointsModel *point = [[CVNPPointsModel alloc] initWithLongitude:Longtitude Latitdue:Latitude Title:Title Description:Description User_ID:User_ID Server_ID:nil CreateDate:Date];
+            [point setLocal_ID:Local_ID];
             [allLocalPoints addObject:point];
             NSLog(@"ID = %d, Title = %@, Longitude = %@, Latitude = %@, Description = %@, Date = %@, User_ID = %@", ID, Title, Longtitude, Latitude, Description, Date, User_ID);
         }
