@@ -5,20 +5,22 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--All Points In Local-->
+        <!--Local Points-->
         <scene sceneID="qAh-BW-rgg">
             <objects>
                 <tableViewController id="Ykb-IX-o1S" customClass="CVNPLoaclPointsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fqk-Xo-gWO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellID" id="p6R-7G-dJh">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p6R-7G-dJh" id="TMm-df-GGf">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -26,21 +28,15 @@
                             <outlet property="delegate" destination="Ykb-IX-o1S" id="x8a-nw-1p9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="All Points In Local" id="gY6-xP-kK0"/>
+                    <navigationItem key="navigationItem" title="Local Points" id="NtW-VQ-vR0"/>
                     <connections>
-                        <outlet property="backButton" destination="aej-lq-qnc" id="5Ui-0q-dHS"/>
                         <outlet property="cancelButton" destination="Z8g-SK-DdX" id="tiS-xe-g7b"/>
                         <outlet property="deleteButton" destination="6HQ-z7-ZXq" id="3Jd-Al-Obs"/>
                         <outlet property="editButton" destination="I99-wo-BGl" id="oq8-vE-Edh"/>
-                        <outlet property="uploadButton" destination="OF9-pv-gdm" id="wrU-ja-UEc"/>
+                        <segue destination="1lg-hA-tv1" kind="show" identifier="GoCVNPPointDetailViewController" id="Gsq-Pi-JdV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4H-4K-6TP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <barButtonItem title="Upload" id="OF9-pv-gdm" userLabel="UploadButton">
-                    <connections>
-                        <action selector="uploadAction:" destination="Ykb-IX-o1S" id="dKa-CD-vQK"/>
-                    </connections>
-                </barButtonItem>
                 <barButtonItem systemItem="edit" id="I99-wo-BGl" userLabel="EditButton">
                     <connections>
                         <action selector="editAction:" destination="Ykb-IX-o1S" id="JaU-fZ-qLp"/>
@@ -57,9 +53,8 @@
                         <action selector="deleteAction:" destination="Ykb-IX-o1S" id="njy-3M-1N2"/>
                     </connections>
                 </barButtonItem>
-                <barButtonItem title="Back" id="aej-lq-qnc" userLabel="BackButton"/>
             </objects>
-            <point key="canvasLocation" x="3055" y="-87"/>
+            <point key="canvasLocation" x="3038" y="572"/>
         </scene>
         <!--Point Detail-->
         <scene sceneID="wms-OP-uLf">
@@ -396,24 +391,6 @@
             </objects>
             <point key="canvasLocation" x="1013" y="1275"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="mdN-i8-8Is">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f09-SQ-XFz" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JPd-ZB-KcW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Ykb-IX-o1S" kind="relationship" relationship="rootViewController" id="Jol-LL-PI5"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vwh-Vp-ffl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2362" y="-87"/>
-        </scene>
         <!--Login-->
         <scene sceneID="hfX-WH-yqC">
             <objects>
@@ -478,7 +455,7 @@
                     <connections>
                         <outlet property="LoginButtonView" destination="N0P-lh-7Eh" id="4jn-q2-JL9"/>
                         <outlet property="anotherButtonView" destination="qGS-RJ-RDb" id="R2v-Cz-1NQ"/>
-                        <segue destination="f09-SQ-XFz" kind="show" identifier="GoCVNPPointsTableViewContrller" id="h8z-CC-9Tf"/>
+                        <segue destination="Ykb-IX-o1S" kind="show" identifier="GoCVNPPointsTableViewContrller" id="ecI-BO-CVS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2O-Se-8Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -514,4 +491,7 @@
     <resources>
         <image name="pin" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Gsq-Pi-JdV"/>
+    </inferredMetricsTieBreakers>
 </document>

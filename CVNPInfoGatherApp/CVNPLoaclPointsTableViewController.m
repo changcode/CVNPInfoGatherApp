@@ -9,9 +9,10 @@
 #import "CVNPLoaclPointsTableViewController.h"
 #import "CVNPSqliteManager.h"
 
+#import "CVNPPointDetailViewController.h"
+
 @interface CVNPLoaclPointsTableViewController () <UIActionSheetDelegate>
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *uploadButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
@@ -30,23 +31,14 @@
     [self updateButtonsToMatchTableState];
 }
 
-#pragma mark - Action methods
-- (IBAction)uploadAction:(id)sender {
-    NSString *actionTitle = NSLocalizedString(@"Are you sure you want to upload all item?", @"");
-    NSString *cancelTitle = NSLocalizedString(@"Cancel", @"Cancel title for item upload action");
-    NSString *okTitle = NSLocalizedString(@"Upload", @"OK title for item upload action");
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.dataArray = [[NSMutableArray alloc] initWithArray:[self.DAO QueryAllLocal]];
+    [self.tableView reloadData];
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:actionTitle
-                                                             delegate:self
-                                                    cancelButtonTitle:cancelTitle
-                                               destructiveButtonTitle:okTitle
-                                                    otherButtonTitles:nil];
-    [actionSheet setTag:2];
-    actionSheet.actionSheetStyle = UIBarStyleBlackTranslucent;
-    
-    // Show from our table view (pops up in the middle of the table).
-    [actionSheet showInView:self.view];
 }
+
+#pragma mark - Action methods
 
 - (IBAction)editAction:(id)sender {
     [self.tableView setEditing:YES animated:YES];
@@ -82,6 +74,15 @@
     
     // Show from our table view (pops up in the middle of the table).
     [actionSheet showInView:self.view];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"GoCVNPPointDetailViewController"]) {
+        CVNPPointDetailViewController *pdvc = segue.destinationViewController;
+        [pdvc setCurrPoint:sender];
+        pdvc.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
+    }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -125,7 +126,6 @@
     }
     if (actionSheet.tag == 2) {
         if (buttonIndex == 0) {
-            NSLog(@"upload");
             [self updateButtonsToMatchTableState];
         }
     }
@@ -140,6 +140,9 @@
 {
     // Update the delete button's title based on how many items are selected.
     [self updateButtonsToMatchTableState];
+    if (!self.tableView.editing) {
+        [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:[self.dataArray objectAtIndex:indexPath.row]];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -178,7 +181,7 @@
     else
     {
         // Not in editing mode.
-        self.navigationItem.leftBarButtonItem = self.uploadButton;
+        self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
         // Show the edit button, but disable the edit button if there's nothing to edit.
 
         if (self.dataArray.count > 0)

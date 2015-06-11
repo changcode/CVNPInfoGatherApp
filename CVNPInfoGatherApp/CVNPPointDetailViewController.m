@@ -87,7 +87,11 @@
         
         if (buttonIndex == 0) {
             [_DAO DeleteLocalById:[currPoint.Local_ID intValue]];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            if (self.navigationItem.leftBarButtonItem == self.navigationItem.backBarButtonItem) {
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
         }
     }
     if (actionSheet.tag == 1) {
@@ -96,8 +100,11 @@
             currPoint.Description = _descriptionTextView.text;
             
             [_DAO UpdateLocalById:[currPoint.Local_ID intValue] newPoint:currPoint];
-            [self dismissViewControllerAnimated:YES completion:nil];
-
+            if (self.navigationItem.leftBarButtonItem == self.navigationItem.backBarButtonItem) {
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
         }
     }
 }

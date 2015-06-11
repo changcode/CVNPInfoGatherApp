@@ -45,15 +45,16 @@
     _onlineTileSource = [[RMMapboxSource alloc] initWithMapID:kRegularSourceID];
     _offlineTileSource = [[RMMBTilesSource alloc] initWithTileSetResource:@"1-16_jpg_tiles" ofType:@"mbtiles"];
     
-    _startmapCenter = CLLocationCoordinate2DMake(41.2854277, -81.5656396);
     _mapView = [[RMMapView alloc] initWithFrame:self.view.bounds andTilesource:_offlineTileSource];
-    
-    [self.view addSubview:_mapView];
+    _startmapCenter = CLLocationCoordinate2DMake(41.2854277, -81.5656396);
+    _mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _mapView.centerCoordinate = _startmapCenter;
     _mapView.zoom = 12;
     _mapView.delegate = self;
     self.mapView.showsUserLocation = YES;
     self.mapView.userTrackingMode = RMUserTrackingModeFollow;
+    
+    [self.view addSubview:_mapView];
     
     self.navigationItem.leftBarButtonItem = [[RMUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
 //    self.navigationItem.leftBarButtonItem.tintColor = self.navigationController.navigationBar.tintColor;
@@ -75,7 +76,7 @@
     recordButton.rippleBeyondBounds = YES;
     recordButton.tapCircleDiameter = MAX(recordButton.frame.size.width, recordButton.frame.size.height) * 1.3;
     [_recordButtonView addSubview:recordButton];
-    NSLog(@"viewDidLoad");
+//    NSLog(@"viewDidLoad");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -85,13 +86,14 @@
     [self.view bringSubviewToFront:_recordButtonView];
     [self.view bringSubviewToFront:_centerPinImg];
     
-    NSLog(@"viewDidAppear");
+//    NSLog(@"viewDidAppear");
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+
     [self LoadAllLocalPoints];
-    NSLog(@"viewWillAppear");
+//    NSLog(@"viewWillAppear");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -165,7 +167,8 @@
 
 - (void)setCenterPointwithMapboxCenterPoint
 {
-
+    [_centerPoint setTitle:@""];
+    [_centerPoint setDescription:@""];
     [_centerPoint setLongitude:[NSString stringWithFormat:@"%f", [_mapView centerCoordinate].longitude]];
     [_centerPoint setLatitude:[NSString stringWithFormat:@"%f", [_mapView centerCoordinate].latitude]];
     [_centerPoint setCreateDate:[self getCurrtimString]];
