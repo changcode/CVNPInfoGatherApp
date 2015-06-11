@@ -21,22 +21,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    BFPaperButton *bfRaisedSmartSmall = [[BFPaperButton alloc] initWithFrame:CGRectMake(0, 0, 135, 83) raised:YES];
-    [bfRaisedSmartSmall setBackgroundColor:[UIColor paperColorOrange]];
-    bfRaisedSmartSmall.titleLabel.numberOfLines = 0;
-    bfRaisedSmartSmall.titleLabel.font = [UIFont systemFontOfSize:10.f];
-    [bfRaisedSmartSmall setTitle:@"Login" forState:UIControlStateNormal];
-    [bfRaisedSmartSmall setTitleFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.f]];
-    [bfRaisedSmartSmall addTarget:self action:@selector(buttonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.LoginButtonView addSubview:bfRaisedSmartSmall];
+    BFPaperButton *loginButton = [[BFPaperButton alloc] initWithFrame:CGRectMake(0, 0, 135, 83) raised:YES];
+    [loginButton setBackgroundColor:[UIColor paperColorOrange]];
+    loginButton.titleLabel.numberOfLines = 0;
+    loginButton.titleLabel.font = [UIFont systemFontOfSize:10.f];
+    [loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    [loginButton setTitleFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.f]];
+    [loginButton addTarget:self action:@selector(LoginbuttonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.LoginButtonView addSubview:loginButton];
+    
+    BFPaperButton *ViewLocalPoints = [[BFPaperButton alloc] initWithFrame:CGRectMake(0, 0, 135, 83) raised:YES];
+    [ViewLocalPoints setBackgroundColor:[UIColor paperColorOrange]];
+    ViewLocalPoints.titleLabel.numberOfLines = 0;
+    ViewLocalPoints.titleLabel.font = [UIFont systemFontOfSize:10.f];
+    [ViewLocalPoints setTitle:@"Points In Local" forState:UIControlStateNormal];
+    [ViewLocalPoints setTitleFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.f]];
+    [ViewLocalPoints addTarget:self action:@selector(PointsListbuttonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.anotherButtonView addSubview:ViewLocalPoints];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (void)buttonWasPressed:(id)sender
+- (void)LoginbuttonWasPressed:(id)sender
 {
     NSLog(@"%@ was pressed!", ((UIButton *)sender).titleLabel.text);
+}
+
+- (void)PointsListbuttonWasPressed:(id)sender
+{
+    [self performSegueWithIdentifier:@"GoCVNPPointsTableViewContrller" sender:nil];
 }
 @end

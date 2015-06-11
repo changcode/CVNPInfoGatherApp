@@ -459,7 +459,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.25098040699958801" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="N0P-lh-7Eh" secondAttribute="centerX" constant="80" id="0ET-XD-4re"/>
                             <constraint firstItem="O6K-r2-o4N" firstAttribute="leading" secondItem="YNW-k4-mKB" secondAttribute="leading" id="1WO-e0-SP8"/>
@@ -478,6 +478,7 @@
                     <connections>
                         <outlet property="LoginButtonView" destination="N0P-lh-7Eh" id="4jn-q2-JL9"/>
                         <outlet property="anotherButtonView" destination="qGS-RJ-RDb" id="R2v-Cz-1NQ"/>
+                        <segue destination="f09-SQ-XFz" kind="show" identifier="GoCVNPPointsTableViewContrller" id="h8z-CC-9Tf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2O-Se-8Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>

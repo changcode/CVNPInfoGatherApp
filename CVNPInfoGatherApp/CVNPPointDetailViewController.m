@@ -12,7 +12,7 @@
 #import "BFPaperButton.h"
 #import "UIColor+BFPaperColors.h"
 
-@interface CVNPPointDetailViewController () <UITextViewDelegate, UITextFieldDelegate>
+@interface CVNPPointDetailViewController () <UITextViewDelegate, UITextFieldDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *latiudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createTimeLabel;
@@ -30,6 +30,8 @@
 @implementation CVNPPointDetailViewController
 
 @synthesize currPoint;
+
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,6 +64,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UI delegate Methods
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [_descriptionTextView becomeFirstResponder];
@@ -77,6 +81,29 @@
     return YES;
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet.tag == 0) {
+        
+        if (buttonIndex == 0) {
+            [_DAO DeleteLocalById:[currPoint.Local_ID intValue]];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    if (actionSheet.tag == 1) {
+        if (buttonIndex == 0) {
+            currPoint.Title = _titleTextField.text;
+            currPoint.Description = _descriptionTextView.text;
+            
+            [_DAO UpdateLocalById:[currPoint.Local_ID intValue] newPoint:currPoint];
+            [self dismissViewControllerAnimated:YES completion:nil];
+
+        }
+    }
+}
+
+#pragma mark - Button Methods
+
 - (IBAction)cancelItemButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -91,16 +118,31 @@
 }
 
 - (IBAction)modifyItemButtonPressed:(id)sender {
-    currPoint.Title = _titleTextField.text;
-    currPoint.Description = _descriptionTextView.text;
-    [_DAO UpdateLocalById:[currPoint.Local_ID intValue] newPoint:currPoint];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Modify this point"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Modify"
+                                                    otherButtonTitles:nil];
+    [actionSheet setTag:1];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    
+    [actionSheet showInView:self.view];
 }
 
 - (IBAction)delButtonPressed:(id)sender {
-    [_DAO DeleteLocalById:[currPoint.Local_ID intValue]];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Delete this point"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Delete"
+                                                    otherButtonTitles:nil];
+    [actionSheet setTag:0];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    
+    [actionSheet showInView:self.view];
 }
+
+#pragma mark - other Methods
 
 - (IBAction)dismissKeybaord:(id)sender {
     [_titleTextField resignFirstResponder];
