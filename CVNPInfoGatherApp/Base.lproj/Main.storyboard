@@ -195,6 +195,14 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-Iw-yl0">
+                                <rect key="frame" x="160" y="443" width="280" height="43"/>
+                                <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="8X9-uC-NZz"/>
+                                    <constraint firstAttribute="width" constant="280" id="Cda-XS-bBH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -202,6 +210,8 @@
                             <constraint firstItem="lVE-M0-jfF" firstAttribute="leading" secondItem="IXC-iK-wdV" secondAttribute="leading" id="1Hq-yV-ice"/>
                             <constraint firstItem="pLF-sX-7lx" firstAttribute="leading" secondItem="IXC-iK-wdV" secondAttribute="leading" id="2DU-9F-iVl"/>
                             <constraint firstItem="d0G-K4-f1E" firstAttribute="leading" secondItem="h88-UT-aGd" secondAttribute="trailing" constant="4" id="41v-7z-jYE"/>
+                            <constraint firstAttribute="centerX" secondItem="nKk-Iw-yl0" secondAttribute="centerX" id="4JN-lE-0qN"/>
+                            <constraint firstItem="26L-s8-apz" firstAttribute="top" secondItem="nKk-Iw-yl0" secondAttribute="bottom" constant="8" id="7wV-Zz-xSN"/>
                             <constraint firstItem="pLF-sX-7lx" firstAttribute="leading" secondItem="1h1-cl-dCC" secondAttribute="leadingMargin" constant="5" id="8bZ-Xy-Irf"/>
                             <constraint firstItem="pLF-sX-7lx" firstAttribute="top" secondItem="lVE-M0-jfF" secondAttribute="bottom" constant="10" id="Aa2-PV-HT0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="26L-s8-apz" secondAttribute="trailing" constant="432" id="CXP-25-RpF"/>
@@ -258,10 +268,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="createTimeLabel" destination="d0G-K4-f1E" id="zKC-Cm-0Jd"/>
+                        <outlet property="delButtonView" destination="nKk-Iw-yl0" id="XOj-14-9Dh"/>
                         <outlet property="descriptionTextView" destination="pLF-sX-7lx" id="gLi-oR-ita"/>
                         <outlet property="latiudeLabel" destination="Q0r-B4-8YQ" id="GER-to-YSo"/>
                         <outlet property="localIDLabel" destination="vI8-BA-mXI" id="hDh-2H-9Ig"/>
                         <outlet property="longitudeLabel" destination="0LI-FW-JuL" id="pB4-wE-fZx"/>
+                        <outlet property="modifyButton" destination="b6w-Xu-6Ej" id="EYr-pt-k27"/>
                         <outlet property="titleTextField" destination="QVY-ke-smF" id="1Jw-cA-Asj"/>
                     </connections>
                 </viewController>
@@ -271,6 +283,11 @@
                         <action selector="dismissKeybaord:" destination="1lg-hA-tv1" id="GVH-VX-rtz"/>
                     </connections>
                 </tapGestureRecognizer>
+                <barButtonItem title="Modify" id="b6w-Xu-6Ej">
+                    <connections>
+                        <action selector="modifyItemButtonPressed:" destination="1lg-hA-tv1" id="Txr-cg-RtA"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="1685" y="1275"/>
         </scene>
@@ -292,13 +309,13 @@
                                     <segment title="Online"/>
                                     <segment title="Offline"/>
                                 </segments>
+                                <color key="tintColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="tileSourceSwith:" destination="BYZ-38-t0r" eventType="valueChanged" id="RQe-cM-2Jo"/>
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRn-J5-WeG">
                                 <rect key="frame" x="10" y="464" width="86" height="86"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="86" id="Dju-Az-X5N"/>
                                     <constraint firstAttribute="width" constant="86" id="MgH-2B-aEh"/>
@@ -358,7 +375,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bE9-nj-Lpj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="294" y="344"/>
+            <point key="canvasLocation" x="345" y="572"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XW7-3J-sil">

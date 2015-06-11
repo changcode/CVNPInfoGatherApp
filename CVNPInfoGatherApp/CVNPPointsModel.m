@@ -13,7 +13,7 @@
 @end
 
 @implementation CVNPPointsModel
-@synthesize Longitude, Latitude, Title, Description, User_ID, Server_ID, CreateDate;
+@synthesize Longitude, Latitude, Title, Description, User_ID, Server_ID, CreateDate, isCenter;
 
 - (id)initWithLongitude:(NSString *)longitude Latitdue:(NSString *)latitude Title:(NSString *)title Description:(NSString *)description User_ID:(NSString *)user_ID Server_ID:(NSString *)server_ID CreateDate:(NSString *)createDate
 {
@@ -25,6 +25,7 @@
         User_ID = user_ID ? user_ID : @"";
         Server_ID = server_ID ? server_ID : @"";
         CreateDate = createDate ? createDate : @"";
+        isCenter = FALSE;
     }
     return self;
 }

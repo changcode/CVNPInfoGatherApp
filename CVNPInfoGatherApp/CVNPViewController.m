@@ -9,7 +9,9 @@
 #import "CVNPViewController.h"
 #import "CVNPPointDetailViewController.h"
 #import "CVNPSqliteManager.h"
+
 #import "BFPaperButton.h"
+#import "UIColor+BFPaperColors.h"
 
 #define kRegularSourceID   @"changshu1991.kal6f5d3"
 #define kTerrainSourceID   @"changshu1991.l2e7f119"
@@ -54,12 +56,11 @@
     self.mapView.userTrackingMode = RMUserTrackingModeFollow;
     
     self.navigationItem.leftBarButtonItem = [[RMUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
-    self.navigationItem.leftBarButtonItem.tintColor = self.navigationController.navigationBar.tintColor;
+//    self.navigationItem.leftBarButtonItem.tintColor = self.navigationController.navigationBar.tintColor;
     
     _centerPoint = [[CVNPPointsModel alloc] init];
+    _centerPoint.isCenter = TRUE;
     _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
-    
-    
 
     BFPaperButton *recordButton = [[BFPaperButton alloc] initWithFrame:CGRectMake(0, 0, 86, 86) raised:YES];
     [recordButton setTitle:@"Record" forState:UIControlStateNormal];
@@ -67,13 +68,14 @@
     [recordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [recordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    recordButton.backgroundColor = [UIColor colorWithRed:0.3 green:0 blue:1 alpha:1];
-    recordButton.tapCircleColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:0.6];  // Setting this color overrides "Smart Color".
+    recordButton.backgroundColor = [UIColor paperColorBlue];
+    recordButton.tapCircleColor = [UIColor paperColorBlueA100];
     recordButton.cornerRadius = recordButton.frame.size.width / 2;
     recordButton.rippleFromTapLocation = NO;
     recordButton.rippleBeyondBounds = YES;
     recordButton.tapCircleDiameter = MAX(recordButton.frame.size.width, recordButton.frame.size.height) * 1.3;
     [_recordButtonView addSubview:recordButton];
+    NSLog(@"viewDidLoad");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,12 +84,14 @@
     [self.view bringSubviewToFront:_tileSourceSegmentSwith];
     [self.view bringSubviewToFront:_recordButtonView];
     [self.view bringSubviewToFront:_centerPinImg];
-    [self LoadAllLocalPoints];
+    
+    NSLog(@"viewDidAppear");
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+    [self LoadAllLocalPoints];
+    NSLog(@"viewWillAppear");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,6 +129,7 @@
 
 - (void)LoadAllLocalPoints
 {
+    [_mapView removeAllAnnotations];
     dispatch_queue_t backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     dispatch_async(backgroundQueue, ^(void)
     {

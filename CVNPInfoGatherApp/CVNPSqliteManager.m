@@ -116,10 +116,11 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 {
     FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
     if ([db open]) {
-        NSString * sql = @"UPDATE Location SET Title = ? WHERE id = ?";
+        NSString * sql = @"UPDATE Location SET Title = ?, Description = ? WHERE ID = ?";
         NSNumber *updateid = [[NSNumber alloc] initWithInt:ID];
         
-        BOOL res = [db executeUpdate:sql, @"test", updateid];
+//        BOOL res = [db executeUpdate:sql, Point.Title, Point.Description, updateid];
+        BOOL res = [db executeUpdateWithFormat:@"UPDATE Location SET Title = %@, Description = %@ WHERE ID = %@", Point.Title, Point.description, updateid];
         [db close];
         if (!res) {
             NSLog(@"error to update data");
@@ -140,7 +141,6 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         NSString * sql = @"SELECT * FROM Location";
         FMResultSet * rs = [db executeQuery:sql];
         while ([rs next]) {
-            int ID = [rs intForColumn:@"ID"];
             NSString *Title = [rs stringForColumn:@"Title"];
             NSString *Longtitude = [rs stringForColumn:@"Longitude"];
             NSString *Latitude = [rs stringForColumn:@"Latitude"];
@@ -151,7 +151,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
             CVNPPointsModel *point = [[CVNPPointsModel alloc] initWithLongitude:Longtitude Latitdue:Latitude Title:Title Description:Description User_ID:User_ID Server_ID:nil CreateDate:Date];
             [point setLocal_ID:Local_ID];
             [allLocalPoints addObject:point];
-            NSLog(@"ID = %d, Title = %@, Longitude = %@, Latitude = %@, Description = %@, Date = %@, User_ID = %@", ID, Title, Longtitude, Latitude, Description, Date, User_ID);
+//            NSLog(@"ID = %d, Title = %@, Longitude = %@, Latitude = %@, Description = %@, Date = %@, User_ID = %@", ID, Title, Longtitude, Latitude, Description, Date, User_ID);
         }
         [db close];
     }
