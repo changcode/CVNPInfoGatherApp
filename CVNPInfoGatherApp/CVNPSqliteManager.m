@@ -118,9 +118,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     if ([db open]) {
         NSString * sql = @"UPDATE Location SET Title = ?, Description = ? WHERE ID = ?";
         NSNumber *updateid = [[NSNumber alloc] initWithInt:ID];
-        
-//        BOOL res = [db executeUpdate:sql, Point.Title, Point.Description, updateid];
-        BOOL res = [db executeUpdateWithFormat:@"UPDATE Location SET Title = %@, Description = %@ WHERE ID = %@", Point.Title, Point.description, updateid];
+        BOOL res = [db executeUpdate:sql, Point.Title, Point.Description, updateid];
         [db close];
         if (!res) {
             NSLog(@"error to update data");
