@@ -25,6 +25,7 @@
 		A09D01D81B28AF2500678032 /* CVNPUserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */; };
 		A09D01DB1B28B08800678032 /* CVNPUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DA1B28B08800678032 /* CVNPUserModel.m */; };
 		A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DD1B28B33300678032 /* CVNPUserManager.m */; };
+		A09D01E11B2A5A7D00678032 /* CVNPNetworkingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01E01B2A5A7D00678032 /* CVNPNetworkingManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		A09D01DA1B28B08800678032 /* CVNPUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserModel.m; sourceTree = "<group>"; };
 		A09D01DC1B28B33300678032 /* CVNPUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserManager.h; sourceTree = "<group>"; };
 		A09D01DD1B28B33300678032 /* CVNPUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserManager.m; sourceTree = "<group>"; };
+		A09D01DF1B2A5A7D00678032 /* CVNPNetworkingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPNetworkingManager.h; sourceTree = "<group>"; };
+		A09D01E01B2A5A7D00678032 /* CVNPNetworkingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPNetworkingManager.m; sourceTree = "<group>"; };
 		C3181F7B247E1410C6C0F8C4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +126,8 @@
 				A09D01DA1B28B08800678032 /* CVNPUserModel.m */,
 				A09D01DC1B28B33300678032 /* CVNPUserManager.h */,
 				A09D01DD1B28B33300678032 /* CVNPUserManager.m */,
+				A09D01DF1B2A5A7D00678032 /* CVNPNetworkingManager.h */,
+				A09D01E01B2A5A7D00678032 /* CVNPNetworkingManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A09D01E11B2A5A7D00678032 /* CVNPNetworkingManager.m in Sources */,
 				A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */,
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,

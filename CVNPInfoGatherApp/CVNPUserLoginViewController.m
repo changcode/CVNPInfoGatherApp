@@ -7,14 +7,18 @@
 //
 
 #import "CVNPUserLoginViewController.h"
+#import "CVNPNetworkingManager.h"
+
 #import "BFPaperButton.h"
 #import "UIColor+BFPaperColors.h"
 
 
 @interface CVNPUserLoginViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextfiled;
+@property (weak, nonatomic) IBOutlet UITextField *usernameTextfield;
 @property (weak, nonatomic) IBOutlet UIView *LoginButtonView;
 @property (weak, nonatomic) IBOutlet UIView *anotherButtonView;
-
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @end
 
 @implementation CVNPUserLoginViewController
@@ -46,11 +50,42 @@
 
 - (void)LoginbuttonWasPressed:(id)sender
 {
-    NSLog(@"%@ was pressed!", ((UIButton *)sender).titleLabel.text);
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 200, 30, 30)];
+    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    [self.view addSubview:self.activityIndicatorView];
+    [self.activityIndicatorView startAnimating];
+    
+//    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
+//    [operationQueue setMaxConcurrentOperationCount:1];
+//    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(runIndicator) object:nil];
+//    [operationQueue addOperation:operation];
+    CVNPNetworkingManager *cvnpnetworking = [CVNPNetworkingManager sharedCVNPNetworkingManager];
+    NSDictionary *test = [cvnpnetworking userLoginwithUsername:_usernameTextfield.text andPassword:_passwordTextfiled.text];
+//    NSDictionary *test = [cvnpnetworking ManageruserLoginwithUsername:_usernameTextfield.text andPassword:_passwordTextfiled.text];
+//    [cvnpnetworking userAllPoints:test[@"userid"]];
+    NSLog(@"%@", test);
 }
 
 - (void)PointsListbuttonWasPressed:(id)sender
 {
     [self performSegueWithIdentifier:@"GoCVNPPointsTableViewContrller" sender:nil];
+}
+
+-(void)runIndicator
+{
+    //开启线程并睡眠三秒钟
+    [NSThread sleepForTimeInterval:1];
+    //停止UIActivityIndicatorView
+    [self.activityIndicatorView stopAnimating];
+}
+
+- (IBAction)startNetWork:(id)sender {
+    UIApplication *app = [UIApplication sharedApplication];
+    if (app.isNetworkActivityIndicatorVisible) {
+        app.networkActivityIndicatorVisible = NO;
+    }else {
+        app.networkActivityIndicatorVisible = YES;
+    }
 }
 @end

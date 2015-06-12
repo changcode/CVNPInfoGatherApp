@@ -441,13 +441,13 @@
                             <constraint firstAttribute="centerX" secondItem="N0P-lh-7Eh" secondAttribute="centerX" constant="80" id="0ET-XD-4re"/>
                             <constraint firstItem="O6K-r2-o4N" firstAttribute="leading" secondItem="YNW-k4-mKB" secondAttribute="leading" id="1WO-e0-SP8"/>
                             <constraint firstItem="O6K-r2-o4N" firstAttribute="trailing" secondItem="zla-HV-2VE" secondAttribute="trailingMargin" id="4GE-ly-mA2"/>
-                            <constraint firstAttribute="centerY" secondItem="YNW-k4-mKB" secondAttribute="centerY" constant="201" id="K2v-SS-2Sl"/>
+                            <constraint firstAttribute="centerX" secondItem="YNW-k4-mKB" secondAttribute="centerX" id="AUe-Qs-MWJ"/>
+                            <constraint firstItem="YNW-k4-mKB" firstAttribute="trailing" secondItem="zla-HV-2VE" secondAttribute="trailingMargin" id="CyS-jR-ieR"/>
                             <constraint firstItem="qGS-RJ-RDb" firstAttribute="leading" secondItem="N0P-lh-7Eh" secondAttribute="trailing" constant="24" id="Ktb-bp-mgA"/>
                             <constraint firstItem="qGS-RJ-RDb" firstAttribute="top" secondItem="O6K-r2-o4N" secondAttribute="bottom" constant="50" id="NQA-1F-fcK"/>
                             <constraint firstItem="N0P-lh-7Eh" firstAttribute="top" secondItem="O6K-r2-o4N" secondAttribute="bottom" constant="50" id="Zsd-HI-HdR"/>
                             <constraint firstItem="YNW-k4-mKB" firstAttribute="top" secondItem="ro0-hw-hqk" secondAttribute="bottom" constant="20" id="aUg-jN-pT3"/>
-                            <constraint firstItem="YNW-k4-mKB" firstAttribute="leading" secondItem="zla-HV-2VE" secondAttribute="leadingMargin" id="nDA-Q9-y1t"/>
-                            <constraint firstItem="YNW-k4-mKB" firstAttribute="trailing" secondItem="zla-HV-2VE" secondAttribute="trailingMargin" id="pcb-bZ-E78"/>
+                            <constraint firstItem="YNW-k4-mKB" firstAttribute="leading" secondItem="zla-HV-2VE" secondAttribute="leadingMargin" id="mHH-Tp-Erx"/>
                             <constraint firstItem="O6K-r2-o4N" firstAttribute="top" secondItem="YNW-k4-mKB" secondAttribute="bottom" constant="19" id="sb0-2D-55J"/>
                         </constraints>
                     </view>
@@ -455,6 +455,8 @@
                     <connections>
                         <outlet property="LoginButtonView" destination="N0P-lh-7Eh" id="4jn-q2-JL9"/>
                         <outlet property="anotherButtonView" destination="qGS-RJ-RDb" id="R2v-Cz-1NQ"/>
+                        <outlet property="passwordTextfiled" destination="O6K-r2-o4N" id="3yk-d0-ljQ"/>
+                        <outlet property="usernameTextfield" destination="YNW-k4-mKB" id="o92-aM-dhJ"/>
                         <segue destination="Ykb-IX-o1S" kind="show" identifier="GoCVNPPointsTableViewContrller" id="ecI-BO-CVS"/>
                     </connections>
                 </viewController>
