@@ -7,18 +7,25 @@
 //
 
 #import "CVNPUserLoginViewController.h"
-#import "CVNPNetworkingManager.h"
+#import "CVNPUserModel.h"
+#import "Config.h"
 
 #import "BFPaperButton.h"
 #import "UIColor+BFPaperColors.h"
+#import "AFNetworking.h"
+#import "MBProGressHUD.h"
 
+static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
 
 @interface CVNPUserLoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextfiled;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextfield;
 @property (weak, nonatomic) IBOutlet UIView *LoginButtonView;
 @property (weak, nonatomic) IBOutlet UIView *anotherButtonView;
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
+
+@property (strong, nonatomic) MBProgressHUD *HUD;
+
+@property (strong) NSDictionary *userInfo;
 @end
 
 @implementation CVNPUserLoginViewController
@@ -42,6 +49,9 @@
     [ViewLocalPoints setTitleFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.f]];
     [ViewLocalPoints addTarget:self action:@selector(PointsListbuttonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.anotherButtonView addSubview:ViewLocalPoints];
+    
+    NSArray *accountAndPassword = [Config getOwnAccountAndPassword];
+    _usernameTextfield.text = accountAndPassword? accountAndPassword[0] : @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,21 +60,35 @@
 
 - (void)LoginbuttonWasPressed:(id)sender
 {
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 200, 30, 30)];
-    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    self.activityIndicatorView.hidesWhenStopped = YES;
-    [self.view addSubview:self.activityIndicatorView];
-    [self.activityIndicatorView startAnimating];
+    _HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_HUD];
+    _HUD.labelText = @"Loging...";
+    _HUD.dimBackground = YES;
+    _HUD.userInteractionEnabled = NO;
+    [_HUD show:YES];
     
-//    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
-//    [operationQueue setMaxConcurrentOperationCount:1];
-//    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(runIndicator) object:nil];
-//    [operationQueue addOperation:operation];
-    CVNPNetworkingManager *cvnpnetworking = [CVNPNetworkingManager sharedCVNPNetworkingManager];
-    NSDictionary *test = [cvnpnetworking userLoginwithUsername:_usernameTextfield.text andPassword:_passwordTextfiled.text];
-//    NSDictionary *test = [cvnpnetworking ManageruserLoginwithUsername:_usernameTextfield.text andPassword:_passwordTextfiled.text];
-//    [cvnpnetworking userAllPoints:test[@"userid"]];
-    NSLog(@"%@", test);
+    NSString *URLstring = [NSString stringWithFormat:@"%@login_location.php?username=%@&password=%@",BaseURLString, _usernameTextfield.text, _passwordTextfiled.text];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    [manager GET:URLstring parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"result"] isEqualToString:@"false"]) {
+            _HUD.mode = MBProgressHUDModeText;
+            _HUD.labelText = @"Username/password unmatch!";
+            [_HUD hide:YES afterDelay:1];
+            return;
+        }
+        
+//        CVNPUserModel *user = [[CVNPUserModel alloc] initWithDictionary:responseObject];
+        [Config saveOwnAccount:_usernameTextfield.text andPassword:_passwordTextfiled.text];
+        
+        [self performSegueWithIdentifier:@"GoCVNPPointsTableViewContrller" sender:nil];
+        [_HUD hide:YES];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        _HUD.labelText = [NSString stringWithFormat:@"Networking error:%@", error.localizedDescription];
+        [_HUD hide:YES afterDelay:1];
+    }];
 }
 
 - (void)PointsListbuttonWasPressed:(id)sender
@@ -72,13 +96,6 @@
     [self performSegueWithIdentifier:@"GoCVNPPointsTableViewContrller" sender:nil];
 }
 
--(void)runIndicator
-{
-    //开启线程并睡眠三秒钟
-    [NSThread sleepForTimeInterval:1];
-    //停止UIActivityIndicatorView
-    [self.activityIndicatorView stopAnimating];
-}
 
 - (IBAction)startNetWork:(id)sender {
     UIApplication *app = [UIApplication sharedApplication];

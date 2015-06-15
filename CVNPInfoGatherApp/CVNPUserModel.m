@@ -8,16 +8,27 @@
 
 #import "CVNPUserModel.h"
 
+static NSString * const kID = @"uid";
+static NSString * const kUserID = @"userid";
+static NSString * const kUserEmail = @"email";
+static NSString * const kLocation = @"location";
+static NSString * const kFrom = @"from";
+static NSString * const kName = @"name";
+static NSString * const kFollowers = @"followers";
+static NSString * const kFans = @"fans";
+static NSString * const kScore = @"score";
+static NSString * const kPortrait = @"portrait";
+static NSString * const kFavoriteCount = @"favoritecount";
+static NSString * const kExpertise = @"expertise";
+
+
 @implementation CVNPUserModel
 
-@synthesize User_Name, User_Email, User_ID;
-
-
-- (id)initWithUser_ID:(NSString *)userID
+- (instancetype)initWithDictionary: (NSDictionary *)dict
 {
     if (self = [super init]) {
-        self.User_ID = userID;
-        self.Logined = false;
+        _User_ID = dict[kUserID];
+        _User_Email = dict[kUserEmail];
     }
     return self;
 }

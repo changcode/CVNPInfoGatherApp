@@ -7,11 +7,14 @@
 //
 
 #import "CVNPNetworkingManager.h"
+#import "CVNPUserManager.h"
+
 #import "AFNetworking.h"
 @interface CVNPNetworkingManager ()
 
-@property (strong, nonatomic) NSDictionary *userInfo;
+@property (strong) NSDictionary *userInfo;
 @property (strong, nonatomic) NSArray *userPoints;
+@property (strong, nonatomic) CVNPUserManager *usermanager;
 @end
 
 @implementation CVNPNetworkingManager
@@ -32,20 +35,6 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
 - (NSDictionary *)userLoginwithUsername:(NSString *)username andPassword:(NSString *)password
 {
     NSString *string = [NSString stringWithFormat:@"%@login_location.php?username=%@&password=%@",BaseURLString, username, password];
-
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-//    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-//    [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                NSLog(@"%@", responseObject);
-//        self.userInfo= [[NSDictionary alloc] initWithDictionary:
-//        (NSDictionary *)responseObject];
-//
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"%@",error.localizedDescription);
-//    }];
-    
     
     NSURL *url = [NSURL URLWithString:string];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -56,9 +45,14 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", responseObject);
-        self.userInfo= [[NSDictionary alloc] initWithDictionary:
-                        (NSDictionary *)responseObject];
+        NSLog(@"%@", responseObject);
+
+                self.userInfo= [[NSDictionary alloc] initWithDictionary:
+                                (NSDictionary *)responseObject];
+                [self.usermanager.User setUser_ID:@"123"];
+
+
+//        NSLog(@"%@",responseObject);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -71,11 +65,13 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
     }];
     
     [operation start];
+    [operation waitUntilFinished];
     return self.userInfo;
 }
 
 - (NSDictionary *)ManageruserLoginwithUsername:(NSString *)username andPassword:(NSString *)password
 {
+    
     NSString *string = [NSString stringWithFormat:@"%@login_location.php?username=%@&password=%@",BaseURLString, username, password];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

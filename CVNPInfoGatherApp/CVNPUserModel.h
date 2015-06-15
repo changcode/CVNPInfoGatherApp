@@ -15,6 +15,6 @@
 @property (strong, nonatomic) NSString *User_Email;
 @property (assign, nonatomic) BOOL *Logined;
 
-- (id)initWithUser_ID:(NSString *)userID;
+- (instancetype)initWithDictionary: (NSDictionary *)dict;
 
 @end
