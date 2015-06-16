@@ -16,7 +16,6 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 @property (strong, nonatomic) NSMutableArray *dataArray;
 @property (strong, nonatomic) CVNPSqliteManager *DAO;

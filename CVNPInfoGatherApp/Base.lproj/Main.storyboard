@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9TH-5A-Ziy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6nv-Oh-kKD">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Local Points-->
+        <!--Loacl Points Table View Controller-->
         <scene sceneID="qAh-BW-rgg">
             <objects>
                 <tableViewController id="Ykb-IX-o1S" customClass="CVNPLoaclPointsTableViewController" sceneMemberID="viewController">
@@ -28,7 +28,18 @@
                             <outlet property="delegate" destination="Ykb-IX-o1S" id="x8a-nw-1p9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Local Points" id="NtW-VQ-vR0"/>
+                    <navigationItem key="navigationItem" id="NtW-VQ-vR0">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Edh-a7-kfX">
+                            <rect key="frame" x="235" y="7" width="130" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Local"/>
+                                <segment title="Remote"/>
+                            </segments>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="Z8g-SK-DdX" id="tiS-xe-g7b"/>
                         <outlet property="deleteButton" destination="6HQ-z7-ZXq" id="3Jd-Al-Obs"/>
@@ -420,7 +431,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0P-lh-7Eh">
-                                <rect key="frame" x="152.5" y="213" width="135" height="83"/>
+                                <rect key="frame" x="152" y="213" width="135" height="83"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="E9x-wW-WxR"/>
@@ -428,13 +439,22 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGS-RJ-RDb">
-                                <rect key="frame" x="311.5" y="213" width="135" height="83"/>
+                                <rect key="frame" x="311" y="213" width="135" height="83"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="83" id="EeC-O2-tHw"/>
                                     <constraint firstAttribute="width" constant="135" id="RyE-or-jVO"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xqi-6N-ead">
+                                <rect key="frame" x="152" y="331" width="104" height="30"/>
+                                <state key="normal" title="getUser_points">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getPoints:" destination="QzV-pA-KhS" eventType="touchUpInside" id="AgR-4N-Asu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -463,6 +483,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2O-Se-8Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2362" y="572"/>
+        </scene>
+        <!--Remote Points Table View Controller-->
+        <scene sceneID="SdP-Bm-6xV">
+            <objects>
+                <tableViewController id="6nv-Oh-kKD" customClass="CVNPRemotePointsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="HwU-Bv-2dj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="DLK-Qk-jau">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DLK-Qk-jau" id="QwC-fa-SFt">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="6nv-Oh-kKD" id="qJU-CP-Z1n"/>
+                            <outlet property="delegate" destination="6nv-Oh-kKD" id="ymM-FF-31c"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QOM-ww-5hu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2362" y="1275"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2be-XW-hlc">
