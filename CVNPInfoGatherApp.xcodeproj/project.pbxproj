@@ -10,6 +10,7 @@
 		7404F0338E929D32430B4649 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DC6E751E2DB010D862BBF0 /* libPods.a */; };
 		A025AF741B2F636B0048A1BF /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF731B2F636B0048A1BF /* Config.m */; };
 		A025AF771B309BC90048A1BF /* CVNPRemotePointsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF761B309BC90048A1BF /* CVNPRemotePointsTableViewController.m */; };
+		A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF791B30A44A0048A1BF /* CVNPAPIClient.m */; };
 		A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */; };
 		A044685A1B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468571B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles */; };
 		A044685B1B255BD20037C9C6 /* CVNPpos.GPX in Resources */ = {isa = PBXBuildFile; fileRef = A04468581B255BD20037C9C6 /* CVNPpos.GPX */; };
@@ -46,6 +47,8 @@
 		A025AF731B2F636B0048A1BF /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		A025AF751B309BC90048A1BF /* CVNPRemotePointsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPRemotePointsTableViewController.h; sourceTree = "<group>"; };
 		A025AF761B309BC90048A1BF /* CVNPRemotePointsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPRemotePointsTableViewController.m; sourceTree = "<group>"; };
+		A025AF781B30A44A0048A1BF /* CVNPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPAPIClient.h; sourceTree = "<group>"; };
+		A025AF791B30A44A0048A1BF /* CVNPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPAPIClient.m; sourceTree = "<group>"; };
 		A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "1-18mapboxtiles.mbtiles"; sourceTree = "<group>"; };
 		A04468571B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "1-16_jpg_tiles.mbtiles"; sourceTree = "<group>"; };
 		A04468581B255BD20037C9C6 /* CVNPpos.GPX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CVNPpos.GPX; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 			children = (
 				A025AF721B2F636B0048A1BF /* Config.h */,
 				A025AF731B2F636B0048A1BF /* Config.m */,
+				A025AF781B30A44A0048A1BF /* CVNPAPIClient.h */,
+				A025AF791B30A44A0048A1BF /* CVNPAPIClient.m */,
 				A044685F1B2562AD0037C9C6 /* Model */,
 				A04468661B25F9F20037C9C6 /* Controller */,
 				A08603301B254F890076D9B7 /* AppDelegate.h */,
@@ -363,6 +368,7 @@
 				A025AF741B2F636B0048A1BF /* Config.m in Sources */,
 				A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */,
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
+				A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */,
 				A025AF771B309BC90048A1BF /* CVNPRemotePointsTableViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
 				A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "CVNPPointsModel.h"
+#import "CVNPAPIClient.h"
 
 @interface CVNPPointsModel()
 
@@ -30,4 +31,38 @@
     return self;
 }
 
+- (instancetype)initWithAttributes:(NSDictionary *)attributes {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    Longitude = attributes[@"Longitude"];
+    Latitude = attributes[@"Latitude"];
+    Title = attributes[@"Title"];
+    Description = attributes[@"Description"];
+    User_ID = attributes[@"User_ID"];
+    Server_ID = attributes[@"ID"];
+    return self;
+}
+
++ (NSURLSessionDataTask *)allRemotePointsWithBlock:(void(^)(NSArray *points, NSError *error))block {
+    CVNPAPIClient *api = [CVNPAPIClient sharedClient];
+    api.responseSerializer.acceptableContentTypes = [api.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    return [api GET:@"load_location.php?userid=18" parameters:nil success:^(NSURLSessionDataTask *__unused task, id responseObject) {
+        NSArray *pointsFromResponse = [responseObject valueForKey:@"data"];
+        NSMutableArray *mutablePoints = [NSMutableArray arrayWithCapacity:[pointsFromResponse count]];
+        for (NSDictionary *PointDict in pointsFromResponse) {
+            CVNPPointsModel *Point = [[CVNPPointsModel alloc] initWithAttributes:PointDict];
+            [mutablePoints addObject:Point];
+        }
+        if (block) {
+            block([NSArray arrayWithArray:mutablePoints], nil);
+        }
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+        if (block) {
+            block([NSArray array], error);
+        }
+    }];
+}
 @end

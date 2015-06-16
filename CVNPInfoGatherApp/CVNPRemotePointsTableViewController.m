@@ -7,6 +7,7 @@
 //
 
 #import "CVNPRemotePointsTableViewController.h"
+#import "CVNPPointsModel.h"
 
 #import "UIRefreshControl+AFNetworking.h"
 #import "UIAlertView+AFNetworking.h"
@@ -29,7 +30,7 @@
     [self.tableView.tableHeaderView addSubview:self.refreshControl];
     
     self.tableView.rowHeight = 70.0f;
-    
+    [self reload:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,21 +53,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [self.posts objectAtIndex:(NSUInteger)indexPath.row];
-    
+    cell.textLabel.text = [[self.posts objectAtIndex:(NSUInteger)indexPath.row] Title];
+    cell.detailTextLabel.text = [[self.posts objectAtIndex:(NSUInteger)indexPath.row] Description];
     return cell;
 }
 
 - (void)reload:(__unused id)sender {
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    NSURLSessionTask *task = [Post globalTimelinePostsWithBlock:^(NSArray *posts, NSError *error) {
+    NSURLSessionTask *task = [CVNPPointsModel allRemotePointsWithBlock:^(NSArray *points, NSError *error) {
         if (!error) {
-            self.posts = posts;
+            self.posts = points;
             [self.tableView reloadData];
         }
     }];
-    
     [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
     [self.refreshControl setRefreshingWithStateOfTask:task];
 }
