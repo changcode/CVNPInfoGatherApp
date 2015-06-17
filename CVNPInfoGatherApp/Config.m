@@ -40,7 +40,7 @@ NSString * const kPosition = @"position";
     
 }
 
-+ (void)saveOwnID:(int64_t)userID
++ (void)saveOwnID:(NSString *)userID
          userName:(NSString *)userName
             score:(int)score
     favoriteCount:(int)favoriteCount
@@ -48,7 +48,7 @@ NSString * const kPosition = @"position";
  andFollowerCount:(int)followerCount
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:@(userID) forKey:kUserID];
+    [userDefaults setObject:userID forKey:kUserID];
     [userDefaults setObject:userName forKey:kUserName];
     [userDefaults setObject:@(score) forKey:kUserScore];
     [userDefaults setObject:@(favoriteCount) forKey:kFavoriteCount];
@@ -66,13 +66,13 @@ NSString * const kPosition = @"position";
     return nil;
 }
 
-+ (int64_t)getOwnID
++ (NSString *)getOwnID
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *userID = [userDefaults objectForKey:kUserID];
+    NSString *userID = [userDefaults objectForKey:kUserID];
     
-    if (userID) {return [userID longLongValue];}
-    return 0;
+    if (userID) {return userID;}
+    return @"";
 }
 
 + (NSString *)getOwnUserName

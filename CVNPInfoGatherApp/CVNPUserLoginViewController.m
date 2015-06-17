@@ -81,8 +81,8 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
             return;
         }
         
-//        CVNPUserModel *user = [[CVNPUserModel alloc] initWithDictionary:responseObject];
         [Config saveOwnAccount:_usernameTextfield.text andPassword:_passwordTextfiled.text];
+        [Config saveOwnID:result[@"userid"] userName:_usernameTextfield.text score:0 favoriteCount:0 fansCount:0 andFollowerCount:0];
         
         [self performSegueWithIdentifier:@"GoCVNPPointsTableViewContrller" sender:nil];
         [_HUD hide:YES];
@@ -91,29 +91,6 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
         [_HUD hide:YES afterDelay:1];
     }];
 }
-
-- (IBAction)getPoints:(id)sender {
-    NSString *URLstring = [NSString stringWithFormat:@"%@load_location.php?userid=%@",BaseURLString, @"13"];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-    [manager GET:URLstring parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
-        if ([result[@"result"] isEqualToString:@"false"]) {
-            _HUD.mode = MBProgressHUDModeText;
-            _HUD.labelText = @"Unkonwn Error";
-            [_HUD hide:YES afterDelay:1];
-            return;
-        }
-        [_HUD hide:YES];
-        NSLog(@"%@", result[@"data"]);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        _HUD.labelText = [NSString stringWithFormat:@"Networking error:%@", error.localizedDescription];
-        [_HUD hide:YES afterDelay:1];
-    }];
-    
-}
-
 
 - (void)PointsListbuttonWasPressed:(id)sender
 {

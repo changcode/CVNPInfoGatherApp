@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Kent State University. All rights reserved.
 //
 
+#import "Config.h"
+
 #import "CVNPRemotePointsTableViewController.h"
 #import "CVNPPointsModel.h"
 
@@ -61,7 +63,7 @@
 - (void)reload:(__unused id)sender {
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    NSURLSessionTask *task = [CVNPPointsModel allRemotePointsWithBlock:^(NSArray *points, NSError *error) {
+    NSURLSessionTask *task = [CVNPPointsModel User:[Config getOwnID] withRemotePointsWithBlock:^(NSArray *points, NSError *error) {
         if (!error) {
             self.posts = points;
             [self.tableView reloadData];

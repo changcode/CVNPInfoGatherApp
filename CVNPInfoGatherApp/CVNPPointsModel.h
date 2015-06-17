@@ -23,5 +23,5 @@
 @property (assign, nonatomic) BOOL isCenter;
 
 - (id)initWithLongitude:(NSString *)longitude Latitdue:(NSString *)latitude Title:(NSString *)title Description:(NSString *)description User_ID:(NSString *)user_ID Server_ID:(NSString *)server_ID CreateDate:(NSString *)createDate;
-+ (NSURLSessionDataTask *)allRemotePointsWithBlock:(void(^)(NSArray *points, NSError *error))block;
++ (NSURLSessionDataTask *)User:(NSString *)user_id withRemotePointsWithBlock:(void(^)(NSArray *points, NSError *error))block;
 @end

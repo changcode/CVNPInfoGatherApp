@@ -12,10 +12,10 @@
 
 + (void)saveOwnAccount:(NSString *)account andPassword:(NSString *)password;
 
-+ (void)saveOwnID:(int64_t)userID userName:(NSString *)userName score:(int)score favoriteCount:(int)favoriteCount fansCount:(int)fanCount andFollowerCount:(int)followerCount;
++ (void)saveOwnID:(NSString *)userID userName:(NSString *)userName score:(int)score favoriteCount:(int)favoriteCount fansCount:(int)fanCount andFollowerCount:(int)followerCount;
 
 + (NSArray *)getOwnAccountAndPassword;
-+ (int64_t)getOwnID;
++ (NSString *)getOwnID;
 + (NSString *)getOwnUserName;
 + (NSArray *)getActivitySignUpInfomation;
 + (NSArray *)getUsersInformation;

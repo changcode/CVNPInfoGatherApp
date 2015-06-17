@@ -5,7 +5,6 @@
 //  Created by Chang on 6/8/15.
 //  Copyright (c) 2015 Kent State University. All rights reserved.
 //
-
 #import "CVNPPointsModel.h"
 #import "CVNPAPIClient.h"
 
@@ -43,13 +42,15 @@
     Description = attributes[@"Description"];
     User_ID = attributes[@"User_ID"];
     Server_ID = attributes[@"ID"];
+    CreateDate = attributes[@"Createdate"];
     return self;
 }
 
-+ (NSURLSessionDataTask *)allRemotePointsWithBlock:(void(^)(NSArray *points, NSError *error))block {
++ (NSURLSessionDataTask *)User:(NSString *)user_id withRemotePointsWithBlock:(void(^)(NSArray *points, NSError *error))block{
     CVNPAPIClient *api = [CVNPAPIClient sharedClient];
     api.responseSerializer.acceptableContentTypes = [api.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-    return [api GET:@"load_location.php?userid=18" parameters:nil success:^(NSURLSessionDataTask *__unused task, id responseObject) {
+    NSString *str = [NSString stringWithFormat:@"%@%@", @"load_location.php?userid=", user_id];
+    return [api GET:str parameters:nil success:^(NSURLSessionDataTask *__unused task, id responseObject) {
         NSArray *pointsFromResponse = [responseObject valueForKey:@"data"];
         NSMutableArray *mutablePoints = [NSMutableArray arrayWithCapacity:[pointsFromResponse count]];
         for (NSDictionary *PointDict in pointsFromResponse) {
