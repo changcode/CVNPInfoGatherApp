@@ -6,6 +6,10 @@
 //  Copyright (c) 2015 Kent State University. All rights reserved.
 //
 
+#import "CVNPSqliteManager.h"
+#import "CVNPPointsModel.h"
+#import "CVNPAPIClient.h"
+
 #import "CVNPUserLoginViewController.h"
 #import "CVNPUserModel.h"
 #import "Config.h"
@@ -105,5 +109,14 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
     }else {
         app.networkActivityIndicatorVisible = YES;
     }
+}
+- (IBAction)testUpload:(id)sender {
+    NSArray *localUploadingData = [[CVNPSqliteManager sharedCVNPSqliteManager] QueryAllLocal];
+    __block NSString *serverID;
+    [CVNPPointsModel UserUpload:[Config getOwnID] Points:localUploadingData[0] withRemotePointsWithBlock:^(NSString *pointID, NSError *error) {
+        if (!error) {
+            serverID = pointID;
+        }
+    }];
 }
 @end

@@ -66,4 +66,23 @@
         }
     }];
 }
+
++ (NSURLSessionDataTask *)UserUpload:(NSString *)user_id Points:(CVNPPointsModel *)Points withRemotePointsWithBlock:(void(^)(NSString *pointID, NSError *error))block{
+    CVNPAPIClient *api = [CVNPAPIClient sharedClient];
+    api.responseSerializer.acceptableContentTypes = [api.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    NSString *uploadStr = [NSString stringWithFormat:@"add_location.php?title=%@&longitude=%@&latitude=%@&description=%@&userid=%@", Points.Title, Points.Longitude, Points.Latitude, Points.Description, user_id];
+    NSLog(@"%@", uploadStr);
+    return [api GET:uploadStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSString *pointsFromResponse = [responseObject valueForKey:@"id"];
+        if (block) {
+            NSLog(@"%@",pointsFromResponse);
+            block(pointsFromResponse, nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (block) {
+            block(@"-1", error);
+        }
+    }];
+}
+
 @end

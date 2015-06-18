@@ -24,4 +24,5 @@
 
 - (id)initWithLongitude:(NSString *)longitude Latitdue:(NSString *)latitude Title:(NSString *)title Description:(NSString *)description User_ID:(NSString *)user_ID Server_ID:(NSString *)server_ID CreateDate:(NSString *)createDate;
 + (NSURLSessionDataTask *)User:(NSString *)user_id withRemotePointsWithBlock:(void(^)(NSArray *points, NSError *error))block;
++ (NSURLSessionDataTask *)UserUpload:(NSString *)user_id Points:(CVNPPointsModel *)Points withRemotePointsWithBlock:(void(^)(NSString *pointID, NSError *error))block;
 @end

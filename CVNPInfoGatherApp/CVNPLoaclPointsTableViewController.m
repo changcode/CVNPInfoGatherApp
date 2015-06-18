@@ -196,6 +196,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
     cell.textLabel.text = [[self.dataArray objectAtIndex:indexPath.row] Title];
     cell.detailTextLabel.text = [[self.dataArray objectAtIndex:indexPath.row] Description];
+
     return cell;
 }
 
