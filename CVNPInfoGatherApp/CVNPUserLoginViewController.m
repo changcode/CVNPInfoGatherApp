@@ -26,6 +26,7 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextfield;
 @property (weak, nonatomic) IBOutlet UIView *LoginButtonView;
 @property (weak, nonatomic) IBOutlet UIView *anotherButtonView;
+@property (weak, nonatomic) IBOutlet UIView *uploadButtonView;
 
 @property (strong, nonatomic) MBProgressHUD *HUD;
 
@@ -49,10 +50,22 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
     [ViewLocalPoints setBackgroundColor:[UIColor paperColorOrange]];
     ViewLocalPoints.titleLabel.numberOfLines = 0;
     ViewLocalPoints.titleLabel.font = [UIFont systemFontOfSize:10.f];
-    [ViewLocalPoints setTitle:@"Points In Local" forState:UIControlStateNormal];
+    [ViewLocalPoints setTitle:@"Points List" forState:UIControlStateNormal];
     [ViewLocalPoints setTitleFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.f]];
     [ViewLocalPoints addTarget:self action:@selector(PointsListbuttonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.anotherButtonView addSubview:ViewLocalPoints];
+    
+    BFPaperButton *uploadButton = [[BFPaperButton alloc] initWithFrame:CGRectMake(0, 0, 86, 86) raised:NO];
+    [uploadButton setTitle:@"Upload" forState:UIControlStateNormal];
+    [uploadButton setTitleFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.f]];
+    [uploadButton setTitleColor:[UIColor paperColorGray900] forState:UIControlStateNormal];
+    [uploadButton setTitleColor:[UIColor paperColorGray900] forState:UIControlStateHighlighted];
+    [uploadButton addTarget:self action:@selector(UploadButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+    uploadButton.cornerRadius = uploadButton.frame.size.width / 2;
+    uploadButton.tapCircleDiameter = 53;
+    uploadButton.tapCircleColor = [UIColor colorWithRed:0.3 green:0 blue:1 alpha:0.6];  // Setting this color overrides "Smart Color".
+    uploadButton.backgroundFadeColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.3f]; // Setting this color overrides "Smart Color".
+    [self.uploadButtonView addSubview:uploadButton];
     
     NSArray *accountAndPassword = [Config getOwnAccountAndPassword];
     _usernameTextfield.text = accountAndPassword? accountAndPassword[0] : @"";
@@ -101,6 +114,10 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
     [self performSegueWithIdentifier:@"GoCVNPPointsTableViewContrller" sender:nil];
 }
 
+- (void)UploadButtonWasPressed:(id)sender
+{
+    [self performSegueWithIdentifier:@"GoCVNPUploadTableViewController" sender:nil];
+}
 
 - (IBAction)startNetWork:(id)sender {
     UIApplication *app = [UIApplication sharedApplication];

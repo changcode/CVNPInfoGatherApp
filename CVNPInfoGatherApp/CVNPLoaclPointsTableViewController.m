@@ -152,6 +152,7 @@
             }
             else {
                 [self.dataArray removeAllObjects];
+#warning need DAO implements
 //                [self.DAO DeleteLocalById:];
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
             }

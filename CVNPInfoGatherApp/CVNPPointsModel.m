@@ -13,7 +13,7 @@
 @end
 
 @implementation CVNPPointsModel
-@synthesize Longitude, Latitude, Title, Description, User_ID, Server_ID, CreateDate, isCenter;
+@synthesize Longitude, Latitude, Title, Description, User_ID, Server_ID, CreateDate, isUpdated, isCenter;
 
 - (id)initWithLongitude:(NSString *)longitude Latitdue:(NSString *)latitude Title:(NSString *)title Description:(NSString *)description User_ID:(NSString *)user_ID Server_ID:(NSString *)server_ID CreateDate:(NSString *)createDate
 {
@@ -71,7 +71,6 @@
     CVNPAPIClient *api = [CVNPAPIClient sharedClient];
     api.responseSerializer.acceptableContentTypes = [api.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     NSString *uploadStr = [NSString stringWithFormat:@"add_location.php?title=%@&longitude=%@&latitude=%@&description=%@&userid=%@", Points.Title, Points.Longitude, Points.Latitude, Points.Description, user_id];
-    NSLog(@"%@", uploadStr);
     return [api GET:uploadStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSString *pointsFromResponse = [responseObject valueForKey:@"id"];
         if (block) {

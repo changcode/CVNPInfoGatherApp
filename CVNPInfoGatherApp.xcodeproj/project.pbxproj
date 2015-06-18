@@ -28,6 +28,7 @@
 		A09D01D81B28AF2500678032 /* CVNPUserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */; };
 		A09D01DB1B28B08800678032 /* CVNPUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DA1B28B08800678032 /* CVNPUserModel.m */; };
 		A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DD1B28B33300678032 /* CVNPUserManager.m */; };
+		A0A798FA1B3358B300903270 /* CVNPUploadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		A09D01DA1B28B08800678032 /* CVNPUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserModel.m; sourceTree = "<group>"; };
 		A09D01DC1B28B33300678032 /* CVNPUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserManager.h; sourceTree = "<group>"; };
 		A09D01DD1B28B33300678032 /* CVNPUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserManager.m; sourceTree = "<group>"; };
+		A0A798F81B3358B300903270 /* CVNPUploadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUploadTableViewController.h; sourceTree = "<group>"; };
+		A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUploadTableViewController.m; sourceTree = "<group>"; };
 		C3181F7B247E1410C6C0F8C4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +150,8 @@
 				A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */,
 				A025AF751B309BC90048A1BF /* CVNPRemotePointsTableViewController.h */,
 				A025AF761B309BC90048A1BF /* CVNPRemotePointsTableViewController.m */,
+				A0A798F81B3358B300903270 /* CVNPUploadTableViewController.h */,
+				A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */,
 				A09D01D61B28AF2500678032 /* CVNPUserLoginViewController.h */,
 				A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */,
 			);
@@ -368,6 +373,7 @@
 				A025AF741B2F636B0048A1BF /* Config.m in Sources */,
 				A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */,
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
+				A0A798FA1B3358B300903270 /* CVNPUploadTableViewController.m in Sources */,
 				A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */,
 				A025AF771B309BC90048A1BF /* CVNPRemotePointsTableViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,

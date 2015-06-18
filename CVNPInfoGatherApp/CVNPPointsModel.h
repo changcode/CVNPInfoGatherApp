@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSString *Server_ID;
 @property (strong, nonatomic) NSString *Local_ID;
 
+@property (assign, nonatomic) BOOL isUpdated;
 @property (assign, nonatomic) BOOL isCenter;
 
 - (id)initWithLongitude:(NSString *)longitude Latitdue:(NSString *)latitude Title:(NSString *)title Description:(NSString *)description User_ID:(NSString *)user_ID Server_ID:(NSString *)server_ID CreateDate:(NSString *)createDate;

@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *latiudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *localIDLabel;
+@property (weak, nonatomic) IBOutlet UILabel *onServerLabel;
+
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 
@@ -51,11 +53,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     _titleTextField.text = currPoint.Title;
-    _descriptionTextView.text = currPoint.Title;
+    _descriptionTextView.text = currPoint.Description;
     _longitudeLabel.text = currPoint.Longitude;
     _latiudeLabel.text = currPoint.Latitude;
     _createTimeLabel.text = currPoint.CreateDate;
-    _localIDLabel.text = currPoint.Local_ID;
+    _onServerLabel.text = currPoint.isUpdated ? @"YES" : @"NO";
+    _localIDLabel.text = currPoint.isCenter ? @"NEW" : currPoint.Local_ID;
     [self updateButtonsToMatchTableState];
 }
 
@@ -118,7 +121,6 @@
 - (IBAction)addItemButtonPressed:(id)sender {
     [currPoint setTitle:_titleTextField.text];
     [currPoint setDescription:_titleTextField.text];
-    [currPoint setUser_ID:@"-1"];
     
     [_DAO InsertLocal:currPoint];
     [self dismissViewControllerAnimated:YES completion:nil];

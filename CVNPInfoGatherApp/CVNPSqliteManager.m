@@ -42,7 +42,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         // create it
         FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
         if ([db open]) {
-            NSString * Localsql  = @"CREATE TABLE 'Location' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'Title' VARCHAR(100), 'Longitude' VARCHAR(30), 'Latitude' VARCHAR(30), 'Description' VARCHAR(255), 'Createdate' VARCHAR(50), 'User_ID' VARCHAR(30))";
+            NSString * Localsql  = @"CREATE TABLE 'Location' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'Title' VARCHAR(100), 'Longitude' VARCHAR(30), 'Latitude' VARCHAR(30), 'Description' VARCHAR(255), 'Createdate' VARCHAR(50), 'User_ID' VARCHAR(30), 'isUploaded' INTEGER, 'Server_ID' VARCHAR(30))";
 //            NSString * Remotesql = @"";
             BOOL res = [db executeUpdate:Localsql];
             if (!res) {
@@ -62,15 +62,17 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 {
     FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
     if ([db open]) {
-        NSString * sql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID) VALUES(?, ?, ?, ?, ?, ?) ";
+        NSString * sql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID, isUploaded, Server_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?) ";
         NSString * title = Point.Title;
         NSString * Longitude = Point.Longitude;
         NSString * Latitude = Point.Latitude;
         NSString * Description = Point.Description;
         NSString * Createdate = Point.CreateDate;
         NSString * User_ID = Point.User_ID;
+        NSNumber * isUploaded = [NSNumber numberWithInteger:(Point.isUpdated ? (NSInteger)1 :(NSInteger)0)];
+        NSString * Server_ID = Point.Server_ID ? Point.Server_ID : @"-1";
         
-        BOOL res = [db executeUpdate:sql, title, Longitude, Latitude, Description, Createdate, User_ID];
+        BOOL res = [db executeUpdate:sql, title, Longitude, Latitude, Description, Createdate, User_ID, isUploaded, Server_ID];
         [db close];
         if (!res) {
             NSLog(@"error to insert data");
@@ -116,9 +118,10 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 {
     FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
     if ([db open]) {
-        NSString * sql = @"UPDATE Location SET Title = ?, Description = ? WHERE ID = ?";
+        NSString * sql = @"UPDATE Location SET Title = ?, Description = ?, isUploaded = ?, Server_ID = ? WHERE ID = ?";
         NSNumber *updateid = [[NSNumber alloc] initWithInt:ID];
-        BOOL res = [db executeUpdate:sql, Point.Title, Point.Description, updateid];
+        NSNumber *isUpdated = [NSNumber numberWithInteger:Point.isUpdated ? (NSInteger)1 : (NSInteger)0];
+        BOOL res = [db executeUpdate:sql, Point.Title, Point.Description, isUpdated, Point.Server_ID, updateid];
         [db close];
         if (!res) {
             NSLog(@"error to update data");
@@ -146,7 +149,9 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
             NSString *Date = [rs stringForColumn:@"CreateDate"];
             NSString *User_ID = [rs stringForColumn:@"User_ID"];
             NSString *Local_ID = [rs stringForColumn:@"ID"];
+            BOOL isUploaded = [[rs stringForColumn:@"isUploaded"] isEqualToString:@"1"] ? YES : NO;
             CVNPPointsModel *point = [[CVNPPointsModel alloc] initWithLongitude:Longtitude Latitdue:Latitude Title:Title Description:Description User_ID:User_ID Server_ID:nil CreateDate:Date];
+            [point setIsUpdated:isUploaded];
             [point setLocal_ID:Local_ID];
             [allLocalPoints addObject:point];
 //            NSLog(@"ID = %d, Title = %@, Longitude = %@, Latitude = %@, Description = %@, Date = %@, User_ID = %@", ID, Title, Longtitude, Latitude, Description, Date, User_ID);

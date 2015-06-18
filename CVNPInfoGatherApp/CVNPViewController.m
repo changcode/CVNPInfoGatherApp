@@ -5,6 +5,7 @@
 //  Created by Chang on 6/8/15.
 //  Copyright (c) 2015 Kent State University. All rights reserved.
 //
+#import "Config.h"
 
 #import "CVNPViewController.h"
 #import "CVNPPointDetailViewController.h"
@@ -60,7 +61,7 @@
 //    self.navigationItem.leftBarButtonItem.tintColor = self.navigationController.navigationBar.tintColor;
     
     _centerPoint = [[CVNPPointsModel alloc] init];
-    _centerPoint.isCenter = TRUE;
+
     _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
 
     BFPaperButton *recordButton = [[BFPaperButton alloc] initWithFrame:CGRectMake(0, 0, 86, 86) raised:YES];
@@ -108,7 +109,7 @@
         [pdvc setCurrPoint:sender];
     }
 }
-
+        
 #pragma mark - MapBox Methods
 
 - (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation
@@ -169,9 +170,12 @@
 {
     [_centerPoint setTitle:@""];
     [_centerPoint setDescription:@""];
+    [_centerPoint setIsUpdated:NO];
     [_centerPoint setLongitude:[NSString stringWithFormat:@"%f", [_mapView centerCoordinate].longitude]];
     [_centerPoint setLatitude:[NSString stringWithFormat:@"%f", [_mapView centerCoordinate].latitude]];
     [_centerPoint setCreateDate:[self getCurrtimString]];
+    [_centerPoint setIsCenter:YES];
+    [_centerPoint setUser_ID:[Config getOwnID]];
 }
 
 - (NSString *)getCurrtimString
