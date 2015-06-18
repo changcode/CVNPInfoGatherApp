@@ -51,28 +51,30 @@
 }
 
 - (IBAction)uploadItemButtonPressed:(id)sender {
-    for (CVNPPointsModel *Point in _uploadingData) {
-        
+    for (__block CVNPPointsModel *Point in _uploadingData) {
         Point.User_ID = [Config getOwnID];
-        [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
         
         if (!Point.isUpdated) {
-            __block NSString *serverID;
             [CVNPPointsModel UserUpload:[Config getOwnID] Points:Point withRemotePointsWithBlock:^(NSString *pointID, NSError *error) {
                 if (!error) {
-                    serverID = pointID;
+                    NSString *serverID = pointID;
+                    if ([serverID isEqualToString:@"-1"]) {
+                        [Point setServer_ID:@"-1"];
+                        [Point setIsUpdated:NO];
+                    }
+                    else {
+                        [Point setServer_ID:serverID];
+                        [Point setIsUpdated:YES];
+                    }
+                    NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:[_uploadingData indexOfObject:Point] inSection:0];
+                    NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+                    [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
+                    
+                    [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
+
                 }
             }];
-            if ([serverID isEqualToString:@"-1"])
-                [Point setIsUpdated:NO];
-            else
-                [Point setServer_ID:serverID];
         }
-        
-        NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:[_uploadingData indexOfObject:Point] inSection:0];
-        NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
-        [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
-        
     }
 }
 

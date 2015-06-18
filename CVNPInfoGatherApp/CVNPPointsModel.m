@@ -72,10 +72,10 @@
     api.responseSerializer.acceptableContentTypes = [api.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     NSString *uploadStr = [NSString stringWithFormat:@"add_location.php?title=%@&longitude=%@&latitude=%@&description=%@&userid=%@", Points.Title, Points.Longitude, Points.Latitude, Points.Description, user_id];
     return [api GET:uploadStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSString *pointsFromResponse = [responseObject valueForKey:@"id"];
+        NSNumber *returnServer_ID = [responseObject valueForKey:@"id"];
         if (block) {
-            NSLog(@"%@",pointsFromResponse);
-            block(pointsFromResponse, nil);
+            NSLog(@"%@",returnServer_ID);
+            block([returnServer_ID stringValue], nil);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (block) {
