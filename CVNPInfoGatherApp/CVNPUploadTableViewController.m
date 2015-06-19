@@ -9,7 +9,11 @@
 #import "CVNPSqliteManager.h"
 #import "CVNPUploadTableViewController.h"
 
+#import "MBProGressHUD.h"
+
 @interface CVNPUploadTableViewController ()
+@property (strong, nonatomic) MBProgressHUD * HUD;
+
 @property (strong, nonatomic) CVNPSqliteManager * DAO;
 @property (strong, nonatomic) NSArray * uploadingData;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *uploadItemButton;
@@ -51,6 +55,13 @@
 }
 
 - (IBAction)uploadItemButtonPressed:(id)sender {
+    _HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_HUD];
+    _HUD.labelText = @"Uploading...";
+    _HUD.dimBackground = YES;
+    _HUD.userInteractionEnabled = NO;
+    [_HUD show:YES];
+
     for (CVNPPointsModel *Point in _uploadingData) {
         Point.User_ID = [Config getOwnID];
         
@@ -70,6 +81,7 @@
                     NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
                     [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
                     [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
+                    [_HUD hide:YES];
                 }
             }];
         }

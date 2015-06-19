@@ -15,6 +15,8 @@
 #import "UIAlertView+AFNetworking.h"
 #import "UIRefreshControl+AFNetworking.h"
 
+#import "MBProGressHUD.h"
+
 @interface CVNPLoaclPointsTableViewController () <UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
@@ -22,6 +24,8 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *syncButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *dataSourceSegmentedControl;
+
+@property (strong, nonatomic) MBProgressHUD * HUD;
 
 @property (strong, nonatomic) NSMutableArray *dataArray;
 @property (strong, nonatomic) NSMutableArray *tempDataArray;
@@ -32,6 +36,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_HUD];
+    [_HUD hide:YES];
     
     self.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
     [self.refreshControl addTarget:self action:@selector(reload:) forControlEvents:UIControlEventValueChanged];
@@ -50,9 +58,12 @@
 #pragma mark - Action methods
 - (void)reload:(__unused id)sender {
     if (_dataSourceSegmentedControl.selectedSegmentIndex == 0) {
+        [_HUD show:YES];
+        _HUD.labelText = @"Finishing...";
         self.dataArray = [[NSMutableArray alloc] initWithArray:[self.DAO QueryAllLocal]];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
+        [_HUD hide:YES];
     }
     if (_dataSourceSegmentedControl.selectedSegmentIndex == 1) {
         NSURLSessionTask *task = [CVNPPointsModel User: [Config getOwnID] withRemotePointsWithBlock:^(NSArray *points, NSError *error) {
@@ -114,13 +125,20 @@
 }
 
 - (IBAction)syncAction:(id)sender {
+    _HUD.labelText = @"Sync...";
+    _HUD.dimBackground = YES;
+    _HUD.userInteractionEnabled = NO;
+    [_HUD show:YES];
+
+    _HUD.labelText = @"Pulling...";
     [CVNPPointsModel User: [Config getOwnID] withRemotePointsWithBlock:^(NSArray *points, NSError *error) {
         if (!error) {
+            _HUD.labelText = @"Writing...";
             _tempDataArray = [[NSMutableArray alloc] initWithArray:points];
             for (CVNPPointsModel * sycnPoint in _tempDataArray) {
                 [_DAO SyncFromRemote:sycnPoint];
             }
-            [self.tableView reloadData];
+            [self reload:nil];
         }
     }];
 }
