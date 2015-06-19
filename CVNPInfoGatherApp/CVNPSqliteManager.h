@@ -19,5 +19,6 @@
 - (BOOL)DeleteLocalById: (int)ID;
 - (BOOL)DeleteLocalByIds:(NSArray *)IDs;
 - (BOOL)UpdateLocalById: (int)ID newPoint:(CVNPPointsModel *)Point;
+- (BOOL)SyncFromRemote:(CVNPPointsModel *)Point;
 
 @end

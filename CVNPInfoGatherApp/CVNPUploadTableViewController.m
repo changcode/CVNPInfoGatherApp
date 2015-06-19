@@ -51,7 +51,7 @@
 }
 
 - (IBAction)uploadItemButtonPressed:(id)sender {
-    for (__block CVNPPointsModel *Point in _uploadingData) {
+    for (CVNPPointsModel *Point in _uploadingData) {
         Point.User_ID = [Config getOwnID];
         
         if (!Point.isUpdated) {
@@ -69,9 +69,7 @@
                     NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:[_uploadingData indexOfObject:Point] inSection:0];
                     NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
                     [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
-                    
                     [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
-
                 }
             }];
         }

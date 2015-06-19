@@ -154,10 +154,49 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
             [point setIsUpdated:isUploaded];
             [point setLocal_ID:Local_ID];
             [allLocalPoints addObject:point];
-//            NSLog(@"ID = %d, Title = %@, Longitude = %@, Latitude = %@, Description = %@, Date = %@, User_ID = %@", ID, Title, Longtitude, Latitude, Description, Date, User_ID);
         }
         [db close];
     }
     return allLocalPoints;
+}
+
+- (BOOL)SyncFromRemote:(CVNPPointsModel *)Point
+{
+    NSString * title = Point.Title;
+    NSString * Longitude = Point.Longitude;
+    NSString * Latitude = Point.Latitude;
+    NSString * Description = Point.Description;
+    NSString * Createdate = Point.CreateDate;
+    NSString * User_ID = Point.User_ID;
+    NSNumber * isUploaded = [NSNumber numberWithInt:1];
+    NSString * Server_ID = Point.Server_ID ? Point.Server_ID : @"0";
+    
+    BOOL exists;
+    
+    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    if ([db open]) {
+        NSString * selectsql = @"SELECT * FROM Location WHERE Server_ID = ?";
+        NSString * insertsql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID, isUploaded, Server_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?) ";
+        
+        FMResultSet * qryres = [db executeQuery:selectsql, Server_ID];
+        if ([qryres next]) {
+            NSLog(@"rej insert already existed");
+            exists = FALSE;
+            [db close];
+            return FALSE;
+        }
+        else
+        {
+            BOOL insres = [db executeUpdate:insertsql, title, Longitude, Latitude, Description, Createdate, User_ID, isUploaded, Server_ID];
+            if (!insres) {
+                NSLog(@"error to sync data");
+                return false;
+            } else {
+                NSLog(@"succe to sync data");
+                return true;
+            }
+        }
+    }
+    return TRUE;
 }
 @end

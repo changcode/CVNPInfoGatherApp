@@ -42,6 +42,7 @@
     Description = attributes[@"Description"];
     User_ID = attributes[@"User_ID"];
     Server_ID = attributes[@"ID"];
+    isUpdated = 1;
     CreateDate = attributes[@"Createdate"];
     return self;
 }

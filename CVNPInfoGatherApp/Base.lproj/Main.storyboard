@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cellID" textLabel="HMQ-Dc-ax4" detailTextLabel="qlS-uU-s5g" style="IBUITableViewCellStyleSubtitle" id="p6R-7G-dJh">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellID" textLabel="HMQ-Dc-ax4" detailTextLabel="qlS-uU-s5g" style="IBUITableViewCellStyleSubtitle" id="p6R-7G-dJh">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p6R-7G-dJh" id="TMm-df-GGf">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -61,6 +61,7 @@
                         <outlet property="dataSourceSegmentedControl" destination="Edh-a7-kfX" id="hcZ-s5-bgE"/>
                         <outlet property="deleteButton" destination="6HQ-z7-ZXq" id="3Jd-Al-Obs"/>
                         <outlet property="editButton" destination="I99-wo-BGl" id="oq8-vE-Edh"/>
+                        <outlet property="syncButton" destination="GWE-2Y-gY6" id="Yd9-cJ-000"/>
                         <segue destination="1lg-hA-tv1" kind="show" identifier="GoCVNPPointDetailViewController" id="Gsq-Pi-JdV"/>
                     </connections>
                 </tableViewController>
@@ -79,6 +80,11 @@
                     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="deleteAction:" destination="Ykb-IX-o1S" id="njy-3M-1N2"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Sync" id="GWE-2Y-gY6">
+                    <connections>
+                        <action selector="syncAction:" destination="Ykb-IX-o1S" id="y4d-Yb-8Du"/>
                     </connections>
                 </barButtonItem>
             </objects>

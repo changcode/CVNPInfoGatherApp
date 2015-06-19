@@ -20,9 +20,11 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *syncButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *dataSourceSegmentedControl;
 
 @property (strong, nonatomic) NSMutableArray *dataArray;
+@property (strong, nonatomic) NSMutableArray *tempDataArray;
 @property (strong, nonatomic) CVNPSqliteManager *DAO;
 @end
 
@@ -111,6 +113,18 @@
     [actionSheet showInView:self.view];
 }
 
+- (IBAction)syncAction:(id)sender {
+    [CVNPPointsModel User: [Config getOwnID] withRemotePointsWithBlock:^(NSArray *points, NSError *error) {
+        if (!error) {
+            _tempDataArray = [[NSMutableArray alloc] initWithArray:points];
+            for (CVNPPointsModel * sycnPoint in _tempDataArray) {
+                [_DAO SyncFromRemote:sycnPoint];
+            }
+            [self.tableView reloadData];
+        }
+    }];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"GoCVNPPointDetailViewController"]) {
@@ -197,7 +211,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
     cell.textLabel.text = [[self.dataArray objectAtIndex:indexPath.row] Title];
     cell.detailTextLabel.text = [[self.dataArray objectAtIndex:indexPath.row] Description];
-
+    if ([[self.dataArray objectAtIndex:indexPath.row] isUpdated]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     return cell;
 }
 
@@ -208,12 +224,11 @@
     if (_dataSourceSegmentedControl.selectedSegmentIndex == 0) {
         if (self.tableView.editing)
         {
-            // Show the option to cancel the edit.
+            self.navigationItem.rightBarButtonItems = nil;
             self.navigationItem.rightBarButtonItem = self.cancelButton;
             
             [self updateDeleteButtonTitle];
             
-            // Show the delete button.
             self.navigationItem.leftBarButtonItem = self.deleteButton;
         }
         else
@@ -230,11 +245,13 @@
             {
                 self.editButton.enabled = NO;
             }
-            
-            self.navigationItem.rightBarButtonItem = self.editButton;
+
+            self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: _syncButton, _editButton, nil];
         }
     }
     if (_dataSourceSegmentedControl.selectedSegmentIndex == 1) {
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = _editButton;
         self.editButton.enabled = NO;
     }
 }
