@@ -111,6 +111,15 @@
 }
         
 #pragma mark - MapBox Methods
+- (void)mapViewRegionDidChange:(RMMapView *)mapView
+{
+    [self.navigationItem setPrompt:[NSString stringWithFormat:@"%lf, %lf", _mapView.centerCoordinate.latitude,_mapView.centerCoordinate.longitude]];
+}
+
+- (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction
+{
+    [self.navigationItem setPrompt:nil];
+}
 
 - (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation
 {
