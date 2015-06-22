@@ -88,7 +88,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="1302" y="1272"/>
+            <point key="canvasLocation" x="1610" y="1261"/>
         </scene>
         <!--Point Detail-->
         <scene sceneID="wms-OP-uLf">
@@ -327,7 +327,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="859" y="1261"/>
+            <point key="canvasLocation" x="1232" y="1261"/>
         </scene>
         <!--CVNP Info Gather-->
         <scene sceneID="tne-QT-ifu">
@@ -394,7 +394,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1225" y="572"/>
+            <point key="canvasLocation" x="841" y="572"/>
         </scene>
         <!--Tutorial View Controller-->
         <scene sceneID="7sd-DV-rf9">
@@ -412,32 +412,13 @@
                     <navigationItem key="navigationItem" id="vV1-iy-5uL"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <segue destination="9TH-5A-Ziy" kind="showDetail" identifier="GoCVNPViewController" id="gqv-Ac-8cV"/>
                         <segue destination="Vu2-KA-wyB" kind="show" identifier="GoCVNPLoginRegistrationFormViewController" id="Ai2-HD-sUl"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="GoCVNPViewController" id="RpF-5O-LR3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nfd-eE-NLZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="268" y="246"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ioF-cu-nGe">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9TH-5A-Ziy" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="M90-k9-cbS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.2901960784" green="0.6705882353" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="AGd-PP-8LM"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bE9-nj-Lpj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="841" y="572"/>
         </scene>
         <!--Login Registration Form View Controller-->
         <scene sceneID="fH9-UM-CBZ">
@@ -454,7 +435,7 @@
                         <gestureRecognizers/>
                     </view>
                     <connections>
-                        <segue destination="9TH-5A-Ziy" kind="show" identifier="GoCVNPViewController" id="IWj-in-T8t"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="GoCVNPViewController" id="xgT-is-BMp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qH0-wb-ppL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -478,7 +459,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qg6-Ki-giB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="413" y="1261"/>
+            <point key="canvasLocation" x="841" y="1261"/>
         </scene>
         <!--Login-->
         <scene sceneID="hfX-WH-yqC">
@@ -562,7 +543,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2O-Se-8Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2009" y="572"/>
+            <point key="canvasLocation" x="1618" y="572"/>
         </scene>
         <!--Upload Table View Controller-->
         <scene sceneID="POP-dx-iUV">
@@ -596,7 +577,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="2383" y="572"/>
+            <point key="canvasLocation" x="1983" y="572"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2be-XW-hlc">
@@ -621,7 +602,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrJ-lo-8gw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1613" y="572"/>
+            <point key="canvasLocation" x="1232" y="572"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="R3b-8Y-vap">
@@ -648,6 +629,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Gsq-Pi-JdV"/>
-        <segue reference="IWj-in-T8t"/>
+        <segue reference="xgT-is-BMp"/>
     </inferredMetricsTieBreakers>
 </document>

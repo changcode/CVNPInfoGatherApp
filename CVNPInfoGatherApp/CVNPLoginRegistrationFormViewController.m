@@ -38,6 +38,10 @@ static NSString * const BaseURLString = @"http://parkapps.kent.edu/demo/";
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+}
+
 
 - (void)submitLoginForm:(UITableViewCell<FXFormFieldCell> *)cell
 {
