@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		7404F0338E929D32430B4649 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DC6E751E2DB010D862BBF0 /* libPods.a */; };
 		A019D2571B374D7600116B92 /* CVNPTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D2561B374D7600116B92 /* CVNPTutorialViewController.m */; };
+		A019D25A1B387AD400116B92 /* CVNPLoginRegstrationForm.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D2591B387AD400116B92 /* CVNPLoginRegstrationForm.m */; };
+		A019D25D1B387B9A00116B92 /* CVNPLoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D25C1B387B9A00116B92 /* CVNPLoginForm.m */; };
+		A019D2601B387BA900116B92 /* CVNPRegistrationForm.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D25F1B387BA900116B92 /* CVNPRegistrationForm.m */; };
+		A019D2631B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D2621B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m */; };
 		A025AF741B2F636B0048A1BF /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF731B2F636B0048A1BF /* Config.m */; };
 		A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF791B30A44A0048A1BF /* CVNPAPIClient.m */; };
 		A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */; };
@@ -46,6 +50,14 @@
 		83DC6E751E2DB010D862BBF0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A019D2551B374D7600116B92 /* CVNPTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPTutorialViewController.h; sourceTree = "<group>"; };
 		A019D2561B374D7600116B92 /* CVNPTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPTutorialViewController.m; sourceTree = "<group>"; };
+		A019D2581B387AD400116B92 /* CVNPLoginRegstrationForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPLoginRegstrationForm.h; sourceTree = "<group>"; };
+		A019D2591B387AD400116B92 /* CVNPLoginRegstrationForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPLoginRegstrationForm.m; sourceTree = "<group>"; };
+		A019D25B1B387B9A00116B92 /* CVNPLoginForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPLoginForm.h; sourceTree = "<group>"; };
+		A019D25C1B387B9A00116B92 /* CVNPLoginForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPLoginForm.m; sourceTree = "<group>"; };
+		A019D25E1B387BA900116B92 /* CVNPRegistrationForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPRegistrationForm.h; sourceTree = "<group>"; };
+		A019D25F1B387BA900116B92 /* CVNPRegistrationForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPRegistrationForm.m; sourceTree = "<group>"; };
+		A019D2611B387D2400116B92 /* CVNPLoginRegistrationFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPLoginRegistrationFormViewController.h; sourceTree = "<group>"; };
+		A019D2621B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPLoginRegistrationFormViewController.m; sourceTree = "<group>"; };
 		A025AF721B2F636B0048A1BF /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		A025AF731B2F636B0048A1BF /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		A025AF781B30A44A0048A1BF /* CVNPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPAPIClient.h; sourceTree = "<group>"; };
@@ -135,6 +147,12 @@
 				A09D01DA1B28B08800678032 /* CVNPUserModel.m */,
 				A09D01DC1B28B33300678032 /* CVNPUserManager.h */,
 				A09D01DD1B28B33300678032 /* CVNPUserManager.m */,
+				A019D2581B387AD400116B92 /* CVNPLoginRegstrationForm.h */,
+				A019D2591B387AD400116B92 /* CVNPLoginRegstrationForm.m */,
+				A019D25B1B387B9A00116B92 /* CVNPLoginForm.h */,
+				A019D25C1B387B9A00116B92 /* CVNPLoginForm.m */,
+				A019D25E1B387BA900116B92 /* CVNPRegistrationForm.h */,
+				A019D25F1B387BA900116B92 /* CVNPRegistrationForm.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -154,6 +172,8 @@
 				A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */,
 				A09D01D61B28AF2500678032 /* CVNPUserLoginViewController.h */,
 				A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */,
+				A019D2611B387D2400116B92 /* CVNPLoginRegistrationFormViewController.h */,
+				A019D2621B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -374,15 +394,19 @@
 				A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */,
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
 				A0A798FA1B3358B300903270 /* CVNPUploadTableViewController.m in Sources */,
+				A019D2601B387BA900116B92 /* CVNPRegistrationForm.m in Sources */,
 				A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */,
 				A019D2571B374D7600116B92 /* CVNPTutorialViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
 				A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */,
 				A09D01D51B27C42600678032 /* CVNPLoaclPointsTableViewController.m in Sources */,
+				A019D2631B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m in Sources */,
 				A08603321B254F890076D9B7 /* AppDelegate.m in Sources */,
+				A019D25A1B387AD400116B92 /* CVNPLoginRegstrationForm.m in Sources */,
 				A09D01DB1B28B08800678032 /* CVNPUserModel.m in Sources */,
 				A04468651B25F9E60037C9C6 /* CVNPPointDetailViewController.m in Sources */,
 				A09D01D81B28AF2500678032 /* CVNPUserLoginViewController.m in Sources */,
+				A019D25D1B387B9A00116B92 /* CVNPLoginForm.m in Sources */,
 				A086032F1B254F890076D9B7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

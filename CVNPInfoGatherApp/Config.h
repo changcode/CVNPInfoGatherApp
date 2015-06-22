@@ -19,5 +19,5 @@
 + (NSString *)getOwnUserName;
 + (NSArray *)getActivitySignUpInfomation;
 + (NSArray *)getUsersInformation;
-
++ (void)removeOwnId;
 @end

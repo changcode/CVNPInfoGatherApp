@@ -112,4 +112,10 @@ NSString * const kPosition = @"position";
     return @[@"点击头像登录", @(0), @(0), @(0), @(0), @(0)];
 }
 
++ (void)removeOwnId
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:kUserID];
+}
+
 @end

@@ -27,6 +27,7 @@ PODS:
   - FMDB/common (2.3)
   - FMDB/standard (2.3):
     - FMDB/common
+  - FXForms (1.2.13)
   - GRMustache (7.3.0):
     - JRSwizzle (~> 1.0)
   - ICETutorial (1.1.1)
@@ -42,6 +43,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - BFPaperButton
+  - FXForms
   - ICETutorial
   - Mapbox-iOS-SDK (= 1.6.0)
   - MBProgressHUD
@@ -50,6 +52,7 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   BFPaperButton: 16b3ec9c2964d24f89f623a4113321d3f003ed60
   FMDB: 773d79bb74226959b7e2286b1d6e0bd857c88915
+  FXForms: 22d5ceafd8ca44d2f2be4827afcf00aaf80184a5
   GRMustache: 6baee020c5644416c034f5afb1607f6219e7f753
   ICETutorial: 6cb15e46066afc359357f048d1b5fca444d69c83
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3

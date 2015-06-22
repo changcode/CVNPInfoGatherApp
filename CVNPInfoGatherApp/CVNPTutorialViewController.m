@@ -57,6 +57,16 @@
     [super viewDidLoad];
     // Run it.
     [self startScrolling];
+    [self validateLogined];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
 }
 
 - (void)tutorialController:(ICETutorialController *)tutorialController scrollingFromPageIndex:(NSUInteger)fromIndex toPageIndex:(NSUInteger)toIndex {
@@ -68,11 +78,22 @@
 }
 
 - (void)tutorialController:(ICETutorialController *)tutorialController didClickOnLeftButton:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"GoCVNPViewController" sender:nil];
+    [self performSegueWithIdentifier:@"GoCVNPLoginRegistrationFormViewController" sender:nil];
 }
 
 - (void)tutorialController:(ICETutorialController *)tutorialController didClickOnRightButton:(UIButton *)sender {
-    
+    [self performSegueWithIdentifier:@"GoCVNPViewController" sender:nil];
+}
+
+- (BOOL)validateLogined
+{
+    if (![[Config getOwnID] isEqualToString:@""]) {
+        NSLog(@"already login");
+        return YES;
+    } else {
+        NSLog(@"NOOO");
+        return NO;
+    }
 }
 
 @end
