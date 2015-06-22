@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9TH-5A-Ziy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3xM-i4-plB">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -396,6 +396,27 @@
             </objects>
             <point key="canvasLocation" x="1013" y="572"/>
         </scene>
+        <!--Tutorial View Controller-->
+        <scene sceneID="7sd-DV-rf9">
+            <objects>
+                <viewController id="3xM-i4-plB" customClass="CVNPTutorialViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y9r-D8-ddW"/>
+                        <viewControllerLayoutGuide type="bottom" id="gl0-Zo-3i1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="seV-Ug-ak8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="9TH-5A-Ziy" kind="showDetail" identifier="GoCVNPViewController" id="gqv-Ac-8cV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nfd-eE-NLZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-359" y="572"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ioF-cu-nGe">
             <objects>
@@ -521,7 +542,6 @@
         <!--Upload Table View Controller-->
         <scene sceneID="POP-dx-iUV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wfh-W3-PAE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="f0T-AU-pXb" customClass="CVNPUploadTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iP6-RI-gL3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -544,6 +564,7 @@
                         <outlet property="uploadItemButton" destination="dDI-oT-E1U" id="4kk-hg-Dgk"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wfh-W3-PAE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <barButtonItem title="Upload" id="dDI-oT-E1U">
                     <connections>
                         <action selector="uploadItemButtonPressed:" destination="f0T-AU-pXb" id="0zd-AG-qxe"/>

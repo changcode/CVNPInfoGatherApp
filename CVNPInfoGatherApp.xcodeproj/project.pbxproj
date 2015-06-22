@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7404F0338E929D32430B4649 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DC6E751E2DB010D862BBF0 /* libPods.a */; };
+		A019D2571B374D7600116B92 /* CVNPTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D2561B374D7600116B92 /* CVNPTutorialViewController.m */; };
 		A025AF741B2F636B0048A1BF /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF731B2F636B0048A1BF /* Config.m */; };
 		A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF791B30A44A0048A1BF /* CVNPAPIClient.m */; };
 		A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */; };
@@ -43,6 +44,8 @@
 /* Begin PBXFileReference section */
 		7B6732F6B7ABD46D574536EA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		83DC6E751E2DB010D862BBF0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A019D2551B374D7600116B92 /* CVNPTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPTutorialViewController.h; sourceTree = "<group>"; };
+		A019D2561B374D7600116B92 /* CVNPTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPTutorialViewController.m; sourceTree = "<group>"; };
 		A025AF721B2F636B0048A1BF /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		A025AF731B2F636B0048A1BF /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		A025AF781B30A44A0048A1BF /* CVNPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPAPIClient.h; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 		A04468661B25F9F20037C9C6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A019D2551B374D7600116B92 /* CVNPTutorialViewController.h */,
+				A019D2561B374D7600116B92 /* CVNPTutorialViewController.m */,
 				A08603331B254F890076D9B7 /* CVNPViewController.h */,
 				A08603341B254F890076D9B7 /* CVNPViewController.m */,
 				A04468631B25F9E60037C9C6 /* CVNPPointDetailViewController.h */,
@@ -370,6 +375,7 @@
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,
 				A0A798FA1B3358B300903270 /* CVNPUploadTableViewController.m in Sources */,
 				A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */,
+				A019D2571B374D7600116B92 /* CVNPTutorialViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
 				A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */,
 				A09D01D51B27C42600678032 /* CVNPLoaclPointsTableViewController.m in Sources */,
