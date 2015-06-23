@@ -133,6 +133,31 @@
     _HUD.dimBackground = YES;
     _HUD.userInteractionEnabled = NO;
     [_HUD show:YES];
+    
+    _HUD.labelText = @"Uploading...";
+    for (CVNPPointsModel *Point in _dataArray) {
+        Point.User_ID = [Config getOwnID];
+        
+        if (!Point.isUpdated) {
+            [CVNPPointsModel UserUpload:[Config getOwnID] Points:Point withRemotePointsWithBlock:^(NSString *pointID, NSError *error) {
+                if (!error) {
+                    NSString *serverID = pointID;
+                    if ([serverID isEqualToString:@"-1"]) {
+                        [Point setServer_ID:@"-1"];
+                        [Point setIsUpdated:NO];
+                    }
+                    else {
+                        [Point setServer_ID:serverID];
+                        [Point setIsUpdated:YES];
+                    }
+                    NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:[_dataArray indexOfObject:Point] inSection:0];
+                    NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+                    [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
+                    [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
+                }
+            }];
+        }
+    }
 
     _HUD.labelText = @"Pulling...";
     [CVNPPointsModel User: [Config getOwnID] withRemotePointsWithBlock:^(NSArray *points, NSError *error) {
@@ -234,7 +259,12 @@
     cell.textLabel.text = [[self.dataArray objectAtIndex:indexPath.row] Title];
     cell.detailTextLabel.text = [[self.dataArray objectAtIndex:indexPath.row] Description];
     if ([[self.dataArray objectAtIndex:indexPath.row] isUpdated]) {
+        cell.accessoryView = nil;
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [activityView startAnimating];
+        [cell setAccessoryView:activityView];
     }
     return cell;
 }

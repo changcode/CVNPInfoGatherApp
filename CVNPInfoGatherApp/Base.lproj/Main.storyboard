@@ -375,7 +375,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="CVNP Info Gather" id="NXC-Xr-V4u">
-                        <barButtonItem key="rightBarButtonItem" title="Login" id="0TI-tv-LZD">
+                        <barButtonItem key="rightBarButtonItem" title="Manage" id="0TI-tv-LZD">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="Z9y-T9-ba6" kind="presentation" id="LBT-QS-wCb"/>
