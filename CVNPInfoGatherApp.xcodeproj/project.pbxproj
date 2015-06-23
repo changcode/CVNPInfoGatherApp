@@ -13,6 +13,13 @@
 		A019D25D1B387B9A00116B92 /* CVNPLoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D25C1B387B9A00116B92 /* CVNPLoginForm.m */; };
 		A019D2601B387BA900116B92 /* CVNPRegistrationForm.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D25F1B387BA900116B92 /* CVNPRegistrationForm.m */; };
 		A019D2631B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D2621B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m */; };
+		A019D26B1B38B98E00116B92 /* tabbar-discover.png in Resources */ = {isa = PBXBuildFile; fileRef = A019D2651B38B98E00116B92 /* tabbar-discover.png */; };
+		A019D26C1B38B98E00116B92 /* tabbar-discover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A019D2661B38B98E00116B92 /* tabbar-discover@2x.png */; };
+		A019D26D1B38B98E00116B92 /* tabbar-discover@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A019D2671B38B98E00116B92 /* tabbar-discover@3x.png */; };
+		A019D26E1B38B98E00116B92 /* tabbar-me.png in Resources */ = {isa = PBXBuildFile; fileRef = A019D2681B38B98E00116B92 /* tabbar-me.png */; };
+		A019D26F1B38B98E00116B92 /* tabbar-me@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A019D2691B38B98E00116B92 /* tabbar-me@2x.png */; };
+		A019D2701B38B98E00116B92 /* tabbar-me@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A019D26A1B38B98E00116B92 /* tabbar-me@3x.png */; };
+		A019D2741B38EFBF00116B92 /* CVNPUserInfoForm.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D2731B38EFBF00116B92 /* CVNPUserInfoForm.m */; };
 		A025AF741B2F636B0048A1BF /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF731B2F636B0048A1BF /* Config.m */; };
 		A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF791B30A44A0048A1BF /* CVNPAPIClient.m */; };
 		A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */; };
@@ -58,6 +65,14 @@
 		A019D25F1B387BA900116B92 /* CVNPRegistrationForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPRegistrationForm.m; sourceTree = "<group>"; };
 		A019D2611B387D2400116B92 /* CVNPLoginRegistrationFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPLoginRegistrationFormViewController.h; sourceTree = "<group>"; };
 		A019D2621B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPLoginRegistrationFormViewController.m; sourceTree = "<group>"; };
+		A019D2651B38B98E00116B92 /* tabbar-discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-discover.png"; sourceTree = "<group>"; };
+		A019D2661B38B98E00116B92 /* tabbar-discover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-discover@2x.png"; sourceTree = "<group>"; };
+		A019D2671B38B98E00116B92 /* tabbar-discover@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-discover@3x.png"; sourceTree = "<group>"; };
+		A019D2681B38B98E00116B92 /* tabbar-me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-me.png"; sourceTree = "<group>"; };
+		A019D2691B38B98E00116B92 /* tabbar-me@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-me@2x.png"; sourceTree = "<group>"; };
+		A019D26A1B38B98E00116B92 /* tabbar-me@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-me@3x.png"; sourceTree = "<group>"; };
+		A019D2721B38EFBF00116B92 /* CVNPUserInfoForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserInfoForm.h; sourceTree = "<group>"; };
+		A019D2731B38EFBF00116B92 /* CVNPUserInfoForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserInfoForm.m; sourceTree = "<group>"; };
 		A025AF721B2F636B0048A1BF /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		A025AF731B2F636B0048A1BF /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		A025AF781B30A44A0048A1BF /* CVNPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPAPIClient.h; sourceTree = "<group>"; };
@@ -125,6 +140,27 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A019D2641B38B97000116B92 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A019D2711B38B99600116B92 /* tabbar */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A019D2711B38B99600116B92 /* tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				A019D2651B38B98E00116B92 /* tabbar-discover.png */,
+				A019D2661B38B98E00116B92 /* tabbar-discover@2x.png */,
+				A019D2671B38B98E00116B92 /* tabbar-discover@3x.png */,
+				A019D2681B38B98E00116B92 /* tabbar-me.png */,
+				A019D2691B38B98E00116B92 /* tabbar-me@2x.png */,
+				A019D26A1B38B98E00116B92 /* tabbar-me@3x.png */,
+			);
+			name = tabbar;
+			sourceTree = "<group>";
+		};
 		A04468551B255B2B0037C9C6 /* GeoFIles */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +189,8 @@
 				A019D25C1B387B9A00116B92 /* CVNPLoginForm.m */,
 				A019D25E1B387BA900116B92 /* CVNPRegistrationForm.h */,
 				A019D25F1B387BA900116B92 /* CVNPRegistrationForm.m */,
+				A019D2721B38EFBF00116B92 /* CVNPUserInfoForm.h */,
+				A019D2731B38EFBF00116B92 /* CVNPUserInfoForm.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -212,6 +250,7 @@
 				A08603361B254F890076D9B7 /* Main.storyboard */,
 				A08603391B254F890076D9B7 /* Images.xcassets */,
 				A086033B1B254F890076D9B7 /* LaunchScreen.xib */,
+				A019D2641B38B97000116B92 /* Resources */,
 				A04468551B255B2B0037C9C6 /* GeoFIles */,
 				A086032C1B254F890076D9B7 /* Supporting Files */,
 			);
@@ -337,9 +376,15 @@
 				A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */,
 				A08603381B254F890076D9B7 /* Main.storyboard in Resources */,
 				A086033D1B254F890076D9B7 /* LaunchScreen.xib in Resources */,
+				A019D26C1B38B98E00116B92 /* tabbar-discover@2x.png in Resources */,
 				A044685A1B255BD20037C9C6 /* 1-16_jpg_tiles.mbtiles in Resources */,
+				A019D2701B38B98E00116B92 /* tabbar-me@3x.png in Resources */,
 				A086033A1B254F890076D9B7 /* Images.xcassets in Resources */,
 				A044685B1B255BD20037C9C6 /* CVNPpos.GPX in Resources */,
+				A019D26D1B38B98E00116B92 /* tabbar-discover@3x.png in Resources */,
+				A019D26B1B38B98E00116B92 /* tabbar-discover.png in Resources */,
+				A019D26E1B38B98E00116B92 /* tabbar-me.png in Resources */,
+				A019D26F1B38B98E00116B92 /* tabbar-me@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +443,7 @@
 				A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */,
 				A019D2571B374D7600116B92 /* CVNPTutorialViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
+				A019D2741B38EFBF00116B92 /* CVNPUserInfoForm.m in Sources */,
 				A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */,
 				A09D01D51B27C42600678032 /* CVNPLoaclPointsTableViewController.m in Sources */,
 				A019D2631B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m in Sources */,

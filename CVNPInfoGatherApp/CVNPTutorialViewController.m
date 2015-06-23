@@ -57,8 +57,14 @@
     [super viewDidLoad];
     // Run it.
     [self startScrolling];
-    [self validateLogined];
 }
+-(void)awakeFromNib
+{
+    if ([self validateLogined]) {
+        [self performSegueWithIdentifier:@"GoCVNPViewController" sender:nil];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
