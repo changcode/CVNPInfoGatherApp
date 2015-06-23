@@ -169,6 +169,13 @@
         self.navigationItem.rightBarButtonItem = _modifyButton;
 
     }
+    if ([currPoint isUpdated]) {
+        self.modifyButton.enabled = NO;
+        self.delButtonView.hidden = YES;
+    } else {
+        self.modifyButton.enabled = YES;
+        self.delButtonView.hidden = NO;
+    }
 }
 
 @end

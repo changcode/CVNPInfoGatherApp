@@ -17,7 +17,7 @@
 
 #import "MBProGressHUD.h"
 
-@interface CVNPLoaclPointsTableViewController () <UIActionSheetDelegate>
+@interface CVNPLoaclPointsTableViewController () <UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *mapButtton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
@@ -129,48 +129,63 @@
 }
 
 - (IBAction)syncAction:(id)sender {
-    _HUD.labelText = @"Sync...";
-    _HUD.dimBackground = YES;
-    _HUD.userInteractionEnabled = NO;
-    [_HUD show:YES];
-    
-    _HUD.labelText = @"Uploading...";
-    for (CVNPPointsModel *Point in _dataArray) {
-        Point.User_ID = [Config getOwnID];
-        
-        if (!Point.isUpdated) {
-            [CVNPPointsModel UserUpload:[Config getOwnID] Points:Point withRemotePointsWithBlock:^(NSString *pointID, NSError *error) {
-                if (!error) {
-                    NSString *serverID = pointID;
-                    if ([serverID isEqualToString:@"-1"]) {
-                        [Point setServer_ID:@"-1"];
-                        [Point setIsUpdated:NO];
-                    }
-                    else {
-                        [Point setServer_ID:serverID];
-                        [Point setIsUpdated:YES];
-                    }
-                    NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:[_dataArray indexOfObject:Point] inSection:0];
-                    NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
-                    [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
-                    [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
-                }
-            }];
-        }
-    }
-
-    _HUD.labelText = @"Pulling...";
-    [CVNPPointsModel User: [Config getOwnID] withRemotePointsWithBlock:^(NSArray *points, NSError *error) {
-        if (!error) {
-            _HUD.labelText = @"Writing...";
-            _tempDataArray = [[NSMutableArray alloc] initWithArray:points];
-            for (CVNPPointsModel * sycnPoint in _tempDataArray) {
-                [_DAO SyncFromRemote:sycnPoint];
-            }
-            [self reload:nil];
-        }
-    }];
+    UIAlertView *confirmSync = [[UIAlertView alloc] initWithTitle:@"Synchronize will start" message:@"This action will download all points on server and upload all new points in local" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Synchronize", nil];
+    [confirmSync show];
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        _HUD.labelText = @"Sync...";
+        _HUD.dimBackground = YES;
+        _HUD.userInteractionEnabled = NO;
+        [_HUD show:YES];
+        
+        _HUD.labelText = @"Uploading...";
+        for (CVNPPointsModel *Point in _dataArray) {
+            Point.User_ID = [Config getOwnID];
+            
+            if (!Point.isUpdated) {
+                [CVNPPointsModel UserUpload:[Config getOwnID] Points:Point withRemotePointsWithBlock:^(NSString *pointID, NSError *error) {
+                    if (!error) {
+                        NSString *serverID = pointID;
+                        if ([serverID isEqualToString:@"-1"]) {
+                            [Point setServer_ID:@"-1"];
+                            [Point setIsUpdated:NO];
+                        }
+                        else {
+                            [Point setServer_ID:serverID];
+                            [Point setIsUpdated:YES];
+                        }
+                        NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:[_dataArray indexOfObject:Point] inSection:0];
+                        NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+                        [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
+                        [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
+                        [self reload:nil];
+                    }
+                }];
+            }
+        }
+        
+        _HUD.labelText = @"Pulling...";
+        [CVNPPointsModel User: [Config getOwnID] withRemotePointsWithBlock:^(NSArray *points, NSError *error) {
+            if (!error) {
+                _HUD.labelText = @"Writing...";
+                _tempDataArray = [[NSMutableArray alloc] initWithArray:points];
+                for (CVNPPointsModel * sycnPoint in _tempDataArray) {
+                    [_DAO SyncFromRemote:sycnPoint];
+                }
+                [self reload:nil];
+            }
+        }];
+    }
+    else
+    {
+        //        NSLog(@"cancel");
+    }
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -258,6 +273,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
     cell.textLabel.text = [[self.dataArray objectAtIndex:indexPath.row] Title];
     cell.detailTextLabel.text = [[self.dataArray objectAtIndex:indexPath.row] Description];
+    cell.userInteractionEnabled = ![[self.dataArray objectAtIndex:indexPath.row] isUpdated];
     if ([[self.dataArray objectAtIndex:indexPath.row] isUpdated]) {
         cell.accessoryView = nil;
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
