@@ -61,11 +61,17 @@
                         <outlet property="dataSourceSegmentedControl" destination="Edh-a7-kfX" id="hcZ-s5-bgE"/>
                         <outlet property="deleteButton" destination="6HQ-z7-ZXq" id="3Jd-Al-Obs"/>
                         <outlet property="editButton" destination="I99-wo-BGl" id="oq8-vE-Edh"/>
+                        <outlet property="mapButtton" destination="Rwe-3y-ZU0" id="SMA-Uw-IfJ"/>
                         <outlet property="syncButton" destination="GWE-2Y-gY6" id="Yd9-cJ-000"/>
                         <segue destination="1lg-hA-tv1" kind="show" identifier="GoCVNPPointDetailViewController" id="Gsq-Pi-JdV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4H-4K-6TP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Map" id="Rwe-3y-ZU0">
+                    <connections>
+                        <action selector="mapAction:" destination="Ykb-IX-o1S" id="Ta2-Ke-Jw5"/>
+                    </connections>
+                </barButtonItem>
                 <barButtonItem title="Edit" id="I99-wo-BGl" userLabel="EditButton">
                     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
@@ -549,8 +555,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="uBf-S7-WG3" kind="relationship" relationship="viewControllers" id="Pxq-LJ-gOp"/>
                         <segue destination="mgS-pc-pbK" kind="relationship" relationship="viewControllers" id="9we-7r-eC3"/>
+                        <segue destination="uBf-S7-WG3" kind="relationship" relationship="viewControllers" id="Pxq-LJ-gOp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EYa-N2-z4n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -651,7 +657,7 @@
         <!--User Info-->
         <scene sceneID="ssb-CV-HEe">
             <objects>
-                <viewController id="AZq-Pg-NY3" sceneMemberID="viewController">
+                <viewController id="AZq-Pg-NY3" customClass="CVNPUserInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SAo-FM-O1U"/>
                         <viewControllerLayoutGuide type="bottom" id="tCB-Th-k31"/>
@@ -661,7 +667,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="User Info" id="IRA-MA-utd"/>
+                    <navigationItem key="navigationItem" title="User Info" id="IRA-MA-utd">
+                        <barButtonItem key="leftBarButtonItem" title="Map" id="lhs-jJ-lbZ">
+                            <connections>
+                                <action selector="mapAction:" destination="AZq-Pg-NY3" id="jyT-PW-SLJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="pl0-MX-8YM" kind="presentation" identifier="GoCVNPTutorialViewController" id="5sG-s6-ONS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZgV-Gl-1Mp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

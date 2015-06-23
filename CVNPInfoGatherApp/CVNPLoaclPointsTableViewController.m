@@ -19,6 +19,7 @@
 
 @interface CVNPLoaclPointsTableViewController () <UIActionSheetDelegate>
 
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *mapButtton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
@@ -86,6 +87,9 @@
         [self reload:sender];
         [self updateButtonsToMatchTableState];
     }
+}
+- (IBAction)mapAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)editAction:(id)sender {
@@ -252,7 +256,7 @@
         else
         {
             // Not in editing mode.
-            self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
+            self.navigationItem.leftBarButtonItem = _mapButtton;
             // Show the edit button, but disable the edit button if there's nothing to edit.
             
             if (self.dataArray.count > 0)
@@ -268,6 +272,7 @@
         }
     }
     if (_dataSourceSegmentedControl.selectedSegmentIndex == 1) {
+        self.navigationItem.leftBarButtonItem = _mapButtton;
         self.navigationItem.rightBarButtonItems = nil;
         self.navigationItem.rightBarButtonItem = _editButton;
         self.editButton.enabled = NO;

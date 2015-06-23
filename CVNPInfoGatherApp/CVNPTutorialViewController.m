@@ -21,23 +21,23 @@
     ICETutorialPage *layer1 = [[ICETutorialPage alloc] initWithTitle:@"Discovery"
                                                             subTitle:@"CVNP Info Gather App"
                                                          pictureName:@"tutorial1"
-                                                            duration:3.0];
+                                                            duration:2.0];
     ICETutorialPage *layer2 = [[ICETutorialPage alloc] initWithTitle:@"CVNP"
                                                             subTitle:@"Some CVNP Image From Flickr"
                                                          pictureName:@"tutorial2"
-                                                            duration:3.0];
+                                                            duration:2.0];
     ICETutorialPage *layer3 = [[ICETutorialPage alloc] initWithTitle:@"View"
                                                             subTitle:@"Some CVNP Image From Flickr"
                                                          pictureName:@"tutorial3"
-                                                            duration:3.0];
+                                                            duration:2.0];
     ICETutorialPage *layer4 = [[ICETutorialPage alloc] initWithTitle:@"View"
                                                             subTitle:@"Some CVNP Image From Flickr"
                                                          pictureName:@"tutorial4"
-                                                            duration:3.0];
+                                                            duration:2.0];
     ICETutorialPage *layer5 = [[ICETutorialPage alloc] initWithTitle:@"View"
                                                             subTitle:@"Some CVNP Image From Flickr"
                                                          pictureName:@"tutorial5"
-                                                            duration:3.0];
+                                                            duration:2.0];
     NSArray *tutorialLayers = @[layer1,layer2,layer3,layer4,layer5];
     
     // Set the common style for the title.
@@ -55,9 +55,13 @@
     // Init tutorial.
     [super initWithPages:tutorialLayers delegate:self];
     [super viewDidLoad];
-    // Run it.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [self startScrolling];
 }
+
 -(void)awakeFromNib
 {
     if ([self validateLogined]) {

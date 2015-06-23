@@ -20,6 +20,7 @@
 		A019D26F1B38B98E00116B92 /* tabbar-me@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A019D2691B38B98E00116B92 /* tabbar-me@2x.png */; };
 		A019D2701B38B98E00116B92 /* tabbar-me@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A019D26A1B38B98E00116B92 /* tabbar-me@3x.png */; };
 		A019D2741B38EFBF00116B92 /* CVNPUserInfoForm.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D2731B38EFBF00116B92 /* CVNPUserInfoForm.m */; };
+		A019D2771B38F5F800116B92 /* CVNPUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A019D2761B38F5F800116B92 /* CVNPUserInfoViewController.m */; };
 		A025AF741B2F636B0048A1BF /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF731B2F636B0048A1BF /* Config.m */; };
 		A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A025AF791B30A44A0048A1BF /* CVNPAPIClient.m */; };
 		A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = A04468561B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles */; };
@@ -73,6 +74,8 @@
 		A019D26A1B38B98E00116B92 /* tabbar-me@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-me@3x.png"; sourceTree = "<group>"; };
 		A019D2721B38EFBF00116B92 /* CVNPUserInfoForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserInfoForm.h; sourceTree = "<group>"; };
 		A019D2731B38EFBF00116B92 /* CVNPUserInfoForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserInfoForm.m; sourceTree = "<group>"; };
+		A019D2751B38F5F800116B92 /* CVNPUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserInfoViewController.h; sourceTree = "<group>"; };
+		A019D2761B38F5F800116B92 /* CVNPUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserInfoViewController.m; sourceTree = "<group>"; };
 		A025AF721B2F636B0048A1BF /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		A025AF731B2F636B0048A1BF /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		A025AF781B30A44A0048A1BF /* CVNPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPAPIClient.h; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 				A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */,
 				A019D2611B387D2400116B92 /* CVNPLoginRegistrationFormViewController.h */,
 				A019D2621B387D2400116B92 /* CVNPLoginRegistrationFormViewController.m */,
+				A019D2751B38F5F800116B92 /* CVNPUserInfoViewController.h */,
+				A019D2761B38F5F800116B92 /* CVNPUserInfoViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A019D2771B38F5F800116B92 /* CVNPUserInfoViewController.m in Sources */,
 				A025AF741B2F636B0048A1BF /* Config.m in Sources */,
 				A04468621B2566860037C9C6 /* CVNPSqliteManager.m in Sources */,
 				A08603351B254F890076D9B7 /* CVNPViewController.m in Sources */,

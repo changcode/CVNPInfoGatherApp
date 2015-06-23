@@ -20,4 +20,5 @@
 + (NSArray *)getActivitySignUpInfomation;
 + (NSArray *)getUsersInformation;
 + (void)removeOwnId;
++ (BOOL)isLogined;
 @end

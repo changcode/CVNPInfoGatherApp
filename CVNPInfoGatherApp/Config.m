@@ -116,6 +116,18 @@ NSString * const kPosition = @"position";
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults removeObjectForKey:kUserID];
+    [userDefaults removeObjectForKey:kUserName];
+}
+
++ (BOOL)isLogined
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults objectForKey:kUserID] == nil) {
+        return NO;
+    }
+    else{
+        return YES;
+    }
 }
 
 @end

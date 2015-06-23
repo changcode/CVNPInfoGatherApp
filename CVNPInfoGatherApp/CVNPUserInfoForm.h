@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FXForms.h"
 
-@interface CVNPUserInfoForm : NSObject
+@interface CVNPUserInfoForm : NSObject <FXForm>
+
+@property (copy, nonatomic) NSString *username;
+@property (copy, nonatomic) NSString *User_ID;
+@property (assign, nonatomic) BOOL alreayLogin;
 
 @end
