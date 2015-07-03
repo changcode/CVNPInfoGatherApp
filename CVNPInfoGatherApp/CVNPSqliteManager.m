@@ -43,12 +43,13 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
         if ([db open]) {
             NSString * Localsql  = @"CREATE TABLE 'Location' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'Title' VARCHAR(100), 'Longitude' VARCHAR(30), 'Latitude' VARCHAR(30), 'Description' VARCHAR(255), 'Createdate' VARCHAR(50), 'User_ID' VARCHAR(30), 'isUploaded' INTEGER, 'Server_ID' VARCHAR(30))";
-//            NSString * Remotesql = @"";
+            NSString * CategorySQL = @"CREATE TABLE 'Category' ('ID' INTEGER PRIMARY KEY, 'Name' VARCHAR(100), 'Description' VARCHAR(255), 'ParentID' INTEGER, 'User_ID' VARCHAR(30) )";
             BOOL res = [db executeUpdate:Localsql];
-            if (!res) {
-                NSLog(@"error when creating db table");
-            } else {
+            BOOL cate_res = [db executeUpdate:CategorySQL];
+            if (res && cate_res) {
                 NSLog(@"succ to creating db table");
+            } else {
+                NSLog(@"error when creating db table");
             }
             [db close];
         } else {
@@ -199,4 +200,77 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     }
     return TRUE;
 }
+
+- (BOOL)InsterALLCategoriesFrom:(NSArray *)Categories
+{
+    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    if ([db open]) {
+        NSString * sql = @"INSERT INTO Category (ID, Name, Description, ParentID) VALUES(?, ?, ?, ?) ";
+        for (CVNPCategoryModel *cate in Categories) {
+            NSNumber * ID = [NSNumber numberWithInt:[cate.Cat_ID intValue]];
+            NSString * Name = cate.Cat_Name ? cate.Cat_Name : @"";
+            NSString * Description = cate.Cat_Description ? cate.Cat_Description : @"";
+            NSNumber * parent_ID = [NSNumber numberWithInt:[cate.Cat_Parent_ID intValue]];
+            
+            BOOL res = [db executeUpdate:sql, ID, Name, Description, parent_ID];
+            if (!res) {
+                NSLog(@"error when insert to category db table");
+            } else {
+                NSLog(@"succ to insert to category db table");
+            }
+        }
+        [db close];
+        return TRUE;
+    } else {
+        NSLog(@"error when open db");
+        return FALSE;
+    }
+}
+
+- (BOOL)DeleteALLCategories
+{
+    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    if ([db open]) {
+        NSString * sql = @"DELETE FROM Category";
+        BOOL res = [db executeUpdate:sql];
+        if (res) {
+            NSLog(@"succ delete all category");
+        } else {
+            NSLog(@"error delete all category");
+        }
+        [db close];
+        return TRUE;
+    } else {
+        NSLog(@"error when open db");
+        return FALSE;
+    }
+}
+
+- (NSArray *)QueryChildCategoriesByCate:(CVNPCategoryModel *)cate
+{
+    NSMutableArray *result = [NSMutableArray new];
+    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    if ([db open]) {
+        NSNumber * ID = [NSNumber numberWithInt:[cate.Cat_Parent_ID intValue]];
+        NSString *sql = @"SELECT * FROM Category WHERE ParentID = ?";
+        FMResultSet *rs = [db executeQuery:sql, ID];
+        while ([rs next]) {
+            NSDictionary *dict = @{
+                                   @"id" : [rs stringForColumn:@"ID"],
+                                   @"name" : [rs stringForColumn:@"Name"],
+                                   @"description" : [rs stringForColumn:@"Description"],
+                                   @"parentID" : [rs stringForColumn:@"ParentID"],
+                                   };
+            CVNPCategoryModel *cate = [[CVNPCategoryModel alloc] initWithAttributes:dict];
+            [result addObject:cate];
+        }
+        [db close];
+        return result;
+    }
+    else {
+        NSLog(@"error when open db");
+        return nil;
+    }
+}
+
 @end

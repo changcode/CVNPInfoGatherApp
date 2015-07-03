@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CVNPPointsModel.h"
+#import "CVNPCategoryModel.h"
 
 @interface CVNPSqliteManager : NSObject
 
@@ -20,5 +21,9 @@
 - (BOOL)DeleteLocalByIds:(NSArray *)IDs;
 - (BOOL)UpdateLocalById: (int)ID newPoint:(CVNPPointsModel *)Point;
 - (BOOL)SyncFromRemote:(CVNPPointsModel *)Point;
+
+- (BOOL)InsterALLCategoriesFrom:(NSArray *)Categories;
+- (BOOL)DeleteALLCategories;
+- (NSArray *)QueryChildCategoriesByCate:(CVNPCategoryModel *)cate;
 
 @end

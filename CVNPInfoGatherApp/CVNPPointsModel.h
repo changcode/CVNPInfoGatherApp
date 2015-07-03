@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSString *Title;
 @property (strong, nonatomic) NSString *Description;
 @property (strong, nonatomic) NSString *CreateDate;
+@property (strong, nonatomic) NSString *Category;
 
 @property (strong, nonatomic) NSString *User_ID;
 @property (strong, nonatomic) NSString *Server_ID;
