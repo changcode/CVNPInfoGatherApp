@@ -44,6 +44,7 @@
 		A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DD1B28B33300678032 /* CVNPUserManager.m */; };
 		A0A798FA1B3358B300903270 /* CVNPUploadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */; };
 		A0EA72D91B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EA72D81B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m */; };
+		A0EA72DC1B463126005C8B05 /* CVNPCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EA72DB1B463126005C8B05 /* CVNPCategoryTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,8 @@
 		A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUploadTableViewController.m; sourceTree = "<group>"; };
 		A0EA72D71B45D5A7005C8B05 /* CVNPPointPresentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPPointPresentTableViewController.h; sourceTree = "<group>"; };
 		A0EA72D81B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPPointPresentTableViewController.m; sourceTree = "<group>"; };
+		A0EA72DA1B463126005C8B05 /* CVNPCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPCategoryTableViewController.h; sourceTree = "<group>"; };
+		A0EA72DB1B463126005C8B05 /* CVNPCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPCategoryTableViewController.m; sourceTree = "<group>"; };
 		C3181F7B247E1410C6C0F8C4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,6 +235,8 @@
 				A04ABE861B44E01200B2BF59 /* TESTCategoryTableViewController.m */,
 				A0EA72D71B45D5A7005C8B05 /* CVNPPointPresentTableViewController.h */,
 				A0EA72D81B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m */,
+				A0EA72DA1B463126005C8B05 /* CVNPCategoryTableViewController.h */,
+				A0EA72DB1B463126005C8B05 /* CVNPCategoryTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -464,6 +469,7 @@
 				A0EA72D91B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m in Sources */,
 				A019D2601B387BA900116B92 /* CVNPRegistrationForm.m in Sources */,
 				A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */,
+				A0EA72DC1B463126005C8B05 /* CVNPCategoryTableViewController.m in Sources */,
 				A019D2571B374D7600116B92 /* CVNPTutorialViewController.m in Sources */,
 				A044685E1B2562A60037C9C6 /* CVNPPointsModel.m in Sources */,
 				A019D2741B38EFBF00116B92 /* CVNPUserInfoForm.m in Sources */,

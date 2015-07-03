@@ -9,6 +9,7 @@
 #import "CVNPPointPresentTableViewController.h"
 #import "CVNPCategoryModel.h"
 #import "CVNPSqliteManager.h"
+#import "CVNPCategoryTableViewController.h"
 
 @interface CVNPPointPresentTableViewController ()
 
@@ -24,7 +25,8 @@
 
 @property (strong, readwrite, nonatomic) RETextItem *titleItem;
 @property (strong, readwrite, nonatomic) RELongTextItem *descriptionItem;
-@property (strong, readwrite, nonatomic) REPickerItem *CategoryPickerItem;
+@property (strong, readwrite, nonatomic) REPickerItem *categoryPickerItem;
+@property (strong, readwrite, nonatomic) RETableViewItem *categoryDetailItem;
 
 @property (strong, nonatomic) CVNPSqliteManager *DAO;
 
@@ -52,6 +54,8 @@
 
 - (RETableViewSection *)addUsernfoControls
 {
+    __typeof (&*self) __weak weakSelf = self;
+    
     RETableViewSection *section = [RETableViewSection sectionWithHeaderTitle:@"User Input Informations"];
     [self.manager addSection:section];
     
@@ -59,17 +63,25 @@
     
     self.descriptionItem = [RELongTextItem itemWithValue:nil placeholder:@"Description"];
     self.descriptionItem.cellHeight = 100;
-    self.CategoryPickerItem = [REPickerItem itemWithTitle:@"Category Picker" value:@[@"Category"] placeholder:nil options:@[@[@"Category", @"Ecosystem", @"Geology", @"Hydrology", @"Structures", @"Flora(Plants)", @"Hazards & Warnings", @"Others"]]];
-    self.CategoryPickerItem.onChange = ^(REPickerItem *item) {
+    
+    self.categoryPickerItem = [REPickerItem itemWithTitle:@"Category Picker" value:@[@"Category"] placeholder:nil options:@[@[@"Category", @"Ecosystem", @"Geology", @"Hydrology", @"Structures", @"Flora(Plants)", @"Hazards & Warnings", @"Others"]]];
+    self.categoryPickerItem.onChange = ^(REPickerItem *item) {
         NSLog(@"Value: %@", item.value.description);
     };
-    self.CategoryPickerItem.inlinePicker = YES;
-
+    self.categoryPickerItem.inlinePicker = YES;
+    
+    self.categoryDetailItem = [RETableViewItem itemWithTitle:@"Category Detail" accessoryType:UITableViewCellAccessoryDisclosureIndicator selectionHandler:^(RETableViewItem *item) {
+        [item deselectRowAnimated:YES];
+        CVNPCategoryTableViewController *controller = [[CVNPCategoryTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        controller.level = 0;
+        [controller.parentCategory setCat_ID:@"0"];
+        [weakSelf.navigationController pushViewController:controller animated:YES];
+    }];
     
     [section addItem:self.titleItem];
     [section addItem:self.descriptionItem];
-    [section addItem:self.CategoryPickerItem];
-    
+    [section addItem:self.categoryPickerItem];
+    [section addItem:self.categoryDetailItem];
     return section;
 }
 

@@ -25,5 +25,5 @@
 - (BOOL)InsterALLCategoriesFrom:(NSArray *)Categories;
 - (BOOL)DeleteALLCategories;
 - (NSArray *)QueryChildCategoriesByCate:(CVNPCategoryModel *)cate;
-
+- (BOOL)JudgeCategriesHasChildren:(CVNPCategoryModel *)cate;
 @end

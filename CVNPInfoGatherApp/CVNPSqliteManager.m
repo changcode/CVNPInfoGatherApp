@@ -251,7 +251,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     NSMutableArray *result = [NSMutableArray new];
     FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
     if ([db open]) {
-        NSNumber * ID = [NSNumber numberWithInt:[cate.Cat_Parent_ID intValue]];
+        NSNumber * ID = [NSNumber numberWithInt:[cate.Cat_ID intValue]];
         NSString *sql = @"SELECT * FROM Category WHERE ParentID = ?";
         FMResultSet *rs = [db executeQuery:sql, ID];
         while ([rs next]) {
@@ -271,6 +271,29 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         NSLog(@"error when open db");
         return nil;
     }
+}
+
+- (BOOL)JudgeCategriesHasChildren:(CVNPCategoryModel *)cate
+{
+    int result = 0;
+    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    if ([db open]) {
+        NSNumber * ID = [NSNumber numberWithInt:[cate.Cat_ID intValue]];
+        NSString *sql = @"SELECT COUNT(ID) FROM Category WHERE ParentID = ?";
+        FMResultSet *rs = [db executeQuery:sql, ID];
+        while ([rs next]) {
+            result = [rs intForColumnIndex:0];
+        }
+        if (result > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    else {
+        NSLog(@"error when open db");
+    }
+    return FALSE;
 }
 
 @end
