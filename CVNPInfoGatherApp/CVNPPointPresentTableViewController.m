@@ -11,13 +11,12 @@
 #import "CVNPSqliteManager.h"
 #import "CVNPCategoryTableViewController.h"
 
-@interface CVNPPointPresentTableViewController ()
+@interface CVNPPointPresentTableViewController () <CVNPCategoryTableViewControllerDelegate>
 
 @property (strong, readwrite, nonatomic) RETableViewManager *manager;
 @property (strong, readwrite, nonatomic) RETableViewSection *gisInfoSection;
 @property (strong, readwrite, nonatomic) RETableViewSection *userInfoSection;
 @property (strong, readwrite, nonatomic) RETableViewSection *retainSection;
-
 
 @property (strong, readwrite, nonatomic) RETextItem *longitudeItem;
 @property (strong, readwrite, nonatomic) RETextItem *latitudeItem;
@@ -29,7 +28,7 @@
 @property (strong, readwrite, nonatomic) RETableViewItem *categoryDetailItem;
 
 @property (strong, nonatomic) CVNPSqliteManager *DAO;
-
+@property (strong, nonatomic) CVNPCategoryModel *selectedCategory;
 @end
 
 @implementation CVNPPointPresentTableViewController
@@ -41,10 +40,10 @@
     
     self.manager = [[RETableViewManager alloc] initWithTableView:self.tableView delegate:self];
     
+    [self updateLocalCategory];
+    
     self.userInfoSection = [self addUsernfoControls];
     self.gisInfoSection = [self addGISControls];
-    
-    [self updateLocalCategory];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,17 +63,32 @@
     self.descriptionItem = [RELongTextItem itemWithValue:nil placeholder:@"Description"];
     self.descriptionItem.cellHeight = 100;
     
-    self.categoryPickerItem = [REPickerItem itemWithTitle:@"Category Picker" value:@[@"Category"] placeholder:nil options:@[@[@"Category", @"Ecosystem", @"Geology", @"Hydrology", @"Structures", @"Flora(Plants)", @"Hazards & Warnings", @"Others"]]];
+    _selectedCategory = [[CVNPCategoryModel alloc] init];
+    [_selectedCategory setCat_ID:@"0"];
+    
+    NSArray *categoriesObjectInPicker = [_DAO QueryChildCategoriesByCate:_selectedCategory];
+    NSMutableArray * cateName = [[NSMutableArray alloc] init];
+    for (CVNPCategoryModel *cate in categoriesObjectInPicker) {
+        [cateName addObject:[cate Cat_Name]];
+    }
+
+    self.categoryPickerItem = [REPickerItem itemWithTitle:@"Category Picker" value:@[[cateName objectAtIndex:0]] placeholder:nil options:@[cateName]];
     self.categoryPickerItem.onChange = ^(REPickerItem *item) {
-        NSLog(@"Value: %@", item.value.description);
+        for (CVNPCategoryModel *cate in categoriesObjectInPicker) {
+            if ([item.value[0] isEqualToString:[cate Cat_Name]]) {
+                weakSelf.selectedCategory = cate;
+            }
+        }
     };
+    self.selectedCategory = categoriesObjectInPicker[0];
     self.categoryPickerItem.inlinePicker = YES;
     
     self.categoryDetailItem = [RETableViewItem itemWithTitle:@"Category Detail" accessoryType:UITableViewCellAccessoryDisclosureIndicator selectionHandler:^(RETableViewItem *item) {
         [item deselectRowAnimated:YES];
         CVNPCategoryTableViewController *controller = [[CVNPCategoryTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        controller.delegate = weakSelf;
         controller.level = 0;
-        [controller.parentCategory setCat_ID:@"0"];
+        controller.parentCategory = weakSelf.selectedCategory;
         [weakSelf.navigationController pushViewController:controller animated:YES];
     }];
     
@@ -82,6 +96,7 @@
     [section addItem:self.descriptionItem];
     [section addItem:self.categoryPickerItem];
     [section addItem:self.categoryDetailItem];
+
     return section;
 }
 
@@ -112,6 +127,14 @@
         [_DAO DeleteALLCategories];
         [_DAO InsterALLCategoriesFrom:AllCategories];
     }];
+}
+
+- (void)getSelectCategory:(NSString *)text
+{
+    self.categoryDetailItem.detailLabelText = text;
+    self.categoryDetailItem.style = UITableViewCellStyleValue1;
+    [self.categoryDetailItem reloadRowWithAnimation:UITableViewRowAnimationNone];
+    NSLog(@"!!!%@",text);
 }
 
 @end

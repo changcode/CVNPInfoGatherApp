@@ -502,33 +502,6 @@
             </objects>
             <point key="canvasLocation" x="841" y="1261"/>
         </scene>
-        <!--Categories-->
-        <scene sceneID="APt-Hf-gsa">
-            <objects>
-                <tableViewController storyboardIdentifier="table" title="Categories" id="bGP-Qv-CQo" customClass="TESTCategoryTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Khz-M2-S5J">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="odd-zz-5cT">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="odd-zz-5cT" id="YQt-gW-iNq">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="bGP-Qv-CQo" id="rTs-eI-4sY"/>
-                            <outlet property="delegate" destination="bGP-Qv-CQo" id="Jax-sn-sOL"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="gu5-XZ-gwl"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ldj-nu-DA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2395" y="1252"/>
-        </scene>
         <!--Login-->
         <scene sceneID="hfX-WH-yqC">
             <objects>
@@ -752,25 +725,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZgV-Gl-1Mp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2124" y="-304"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="c3n-hO-vuu">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0pw-74-HIJ" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OLp-XS-djl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="bGP-Qv-CQo" kind="relationship" relationship="rootViewController" id="v2z-u5-GLt"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="52s-Lj-len" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1998" y="1252"/>
         </scene>
     </scenes>
     <resources>

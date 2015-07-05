@@ -9,10 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "RETableViewManager.h"
 #import "CVNPSqliteManager.h"
+@protocol CVNPCategoryTableViewControllerDelegate <NSObject>
+@optional
+- (void)getSelectCategory:(NSString *)text;
+@end
+
 
 @interface CVNPCategoryTableViewController : UITableViewController <RETableViewManagerDelegate>
 
 @property (assign, nonatomic) int level;
 @property (strong, nonatomic) CVNPCategoryModel *parentCategory;
+@property (weak, nonatomic)id<CVNPCategoryTableViewControllerDelegate> delegate;
 
 @end

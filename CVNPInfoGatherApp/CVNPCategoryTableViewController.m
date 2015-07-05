@@ -51,10 +51,20 @@
                 [item deselectRowAnimated:YES];
                 controller.level = _level + 1;
                 controller.parentCategory = cate;
+                controller.delegate = weakSelf.navigationController.viewControllers[0];
                 [weakSelf.navigationController pushViewController:controller animated:YES];
             }]];
         } else {
-            [section addItem:[RETableViewItem itemWithTitle:cate.Cat_Name]];
+            
+            [section addItem:[RETableViewItem itemWithTitle:cate.Cat_Name accessoryType:UITableViewCellAccessoryNone selectionHandler:^(RETableViewItem *item) {
+                item.accessoryType = UITableViewCellAccessoryCheckmark;
+                [item reloadRowWithAnimation:UITableViewRowAnimationNone];
+                if ([weakSelf.delegate respondsToSelector:@selector(getSelectCategory:)]) {
+                    [weakSelf.delegate getSelectCategory:cate.Cat_Name];
+                }
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                NSLog(@"Selected:%@", cate.Cat_Name);
+            }]];
         }
     }
     [self.manager addSection:section];
