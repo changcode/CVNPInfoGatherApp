@@ -246,6 +246,32 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     }
 }
 
+- (NSArray *)QueryAllCategories
+{
+    NSMutableArray *result = [NSMutableArray new];
+    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    if ([db open]) {
+        NSString *sql = @"SELECT * FROM Category WHERE ParentID != 0";
+        FMResultSet *rs = [db executeQuery:sql];
+        while ([rs next]) {
+            NSDictionary *dict = @{
+                                   @"id" : [rs stringForColumn:@"ID"],
+                                   @"name" : [rs stringForColumn:@"Name"],
+                                   @"description" : [rs stringForColumn:@"Description"],
+                                   @"parentID" : [rs stringForColumn:@"ParentID"],
+                                   };
+            CVNPCategoryModel *cate = [[CVNPCategoryModel alloc] initWithAttributes:dict];
+            [result addObject:cate];
+        }
+        [db close];
+        return result;
+    }
+    else {
+        NSLog(@"error when open db");
+        return nil;
+    }
+}
+
 - (NSArray *)QueryChildCategoriesByCate:(CVNPCategoryModel *)cate
 {
     NSMutableArray *result = [NSMutableArray new];

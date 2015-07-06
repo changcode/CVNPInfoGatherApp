@@ -66,7 +66,7 @@
     _selectedCategory = [[CVNPCategoryModel alloc] init];
     [_selectedCategory setCat_ID:@"0"];
     
-    NSArray *categoriesObjectInPicker = [_DAO QueryChildCategoriesByCate:_selectedCategory];
+    NSArray *categoriesObjectInPicker = [NSArray arrayWithArray:[_DAO QueryChildCategoriesByCate:_selectedCategory]];
     NSMutableArray * cateName = [[NSMutableArray alloc] init];
     for (CVNPCategoryModel *cate in categoriesObjectInPicker) {
         [cateName addObject:[cate Cat_Name]];
