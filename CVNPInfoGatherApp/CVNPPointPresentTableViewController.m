@@ -45,8 +45,7 @@
     
     self.manager = [[RETableViewManager alloc] initWithTableView:self.tableView delegate:self];
     
-    [self updateLocalCategory];
-    
+    self.DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
     self.userInfoSection = [self addUsernfoControls];
     self.gisInfoSection = [self addGISControls];
 }
@@ -54,6 +53,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self updateBarButtonItem];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -140,38 +140,23 @@
     return section;
 }
 
-- (void)updateLocalCategory
+- (void)getSelectCategory:(CVNPCategoryModel *)choosen
 {
-    _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
-    [CVNPCategoryModel PullCategoriesFromRemote:^(NSArray *AllCategories, NSError *error) {
-        if (!error) {
-            [_DAO DeleteALLCategories];
-            [_DAO InsterALLCategoriesFrom:AllCategories];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        
-    }];
-}
-
-- (void)getSelectCategory:(NSString *)text
-{
-    self.categoryDetailItem.detailLabelText = text;
+    self.selectedCategory = choosen;
+    self.categoryDetailItem.detailLabelText = choosen.Cat_Name;
     self.categoryDetailItem.style = UITableViewCellStyleValue1;
     [self.categoryDetailItem reloadRowWithAnimation:UITableViewRowAnimationNone];
-    NSLog(@"!!!%@",text);
-}
-
-- (IBAction)cancelBarButtonItemClickAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)addBarButtonItemClickAction:(id)sender {
     [self.currentPoint setTitle:self.titleItem.value];
     [self.currentPoint setDescription:self.descriptionItem.value];
-    
-//    [self.DAO InsertLocal:self.currentPoint];
-    
+    [self.currentPoint setCategory:self.selectedCategory.Cat_ID];
+    [self.DAO InsertLocal:self.currentPoint];
+}
+
+- (IBAction)cancelBarButtonItemClickAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)modifyBarButtonItemClickAction:(id)sender {

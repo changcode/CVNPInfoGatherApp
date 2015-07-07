@@ -11,7 +11,7 @@
 #import "CVNPSqliteManager.h"
 @protocol CVNPCategoryTableViewControllerDelegate <NSObject>
 @optional
-- (void)getSelectCategory:(NSString *)text;
+- (void)getSelectCategory:(CVNPCategoryModel *)choosen;
 @end
 
 

@@ -54,8 +54,6 @@
 
     NSLog(@"Updaing result controller searchController:%@", searchController.active ? @"YES" : @"NO");
     [self test:searchController];
-
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,7 +85,7 @@
                     item.accessoryType = UITableViewCellAccessoryCheckmark;
                     [item reloadRowWithAnimation:UITableViewRowAnimationNone];
                     if ([weakSelf.delegate respondsToSelector:@selector(getSelectCategory:)]) {
-                        [weakSelf.delegate getSelectCategory:cate.Cat_Name];
+                        [weakSelf.delegate getSelectCategory:cate];
                     }
                     [weakSelf.navigationController popToRootViewControllerAnimated:YES];
                     NSLog(@"Selected:%@", cate.Cat_Name);
@@ -97,7 +95,7 @@
         [self.tableView reloadData];
     } else {
         NSArray * searchitems = [NSArray arrayWithArray:[_DAO QueryAllCategories]];
-        NSPredicate *nameContainsPredicate = [NSPredicate predicateWithFormat:@"Cat_Name CONTAINS %@", searchController.searchBar.text];
+        NSPredicate *nameContainsPredicate = [NSPredicate predicateWithFormat:@"Cat_Name CONTAINS[cd] %@", searchController.searchBar.text];
         NSArray * searchitemsResult = [NSArray arrayWithArray:[searchitems filteredArrayUsingPredicate:nameContainsPredicate]];
         [self.section removeAllItems];
         [self.tableView reloadData];
@@ -113,12 +111,11 @@
                     [weakSelf.navigationController pushViewController:controller animated:YES];
                 }]];
             } else {
-                
                 [self.section addItem:[RETableViewItem itemWithTitle:cate.Cat_Name accessoryType:UITableViewCellAccessoryNone selectionHandler:^(RETableViewItem *item) {
                     item.accessoryType = UITableViewCellAccessoryCheckmark;
                     [item reloadRowWithAnimation:UITableViewRowAnimationNone];
                     if ([weakSelf.delegate respondsToSelector:@selector(getSelectCategory:)]) {
-                        [weakSelf.delegate getSelectCategory:cate.Cat_Name];
+                        [weakSelf.delegate getSelectCategory:cate];
                     }
                     [weakSelf.navigationController popToRootViewControllerAnimated:YES];
                     NSLog(@"Selected:%@", cate.Cat_Name);

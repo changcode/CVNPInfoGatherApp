@@ -50,6 +50,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (block) {
             block([NSArray array], error);
+            NSLog(@"%@", error.localizedDescription);
         }
     }];
 }

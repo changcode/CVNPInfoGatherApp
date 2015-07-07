@@ -13,6 +13,7 @@
 
 #import "BFPaperButton.h"
 #import "UIColor+BFPaperColors.h"
+#import "MBProGressHUD.h"
 
 #define kRegularSourceID   @"changshu1991.kal6f5d3"
 #define kTerrainSourceID   @"changshu1991.l2e7f119"
@@ -33,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tileSourceSegmentSwith;
 @property (weak, nonatomic) IBOutlet UIView *recordButtonView;
 @property (weak, nonatomic) IBOutlet UIImageView *centerPinImg;
+
+@property (strong, nonatomic) MBProgressHUD * HUD;
 
 @end
 
@@ -77,6 +80,11 @@
     recordButton.tapCircleDiameter = MAX(recordButton.frame.size.width, recordButton.frame.size.height) * 1.3;
     [_recordButtonView addSubview:recordButton];
     
+    
+    _HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_HUD];
+    [_HUD hide:YES];
+    [self updateLocalCategory];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -205,4 +213,19 @@
     return Createdate;
 }
 
+- (void)updateLocalCategory
+{
+    [_HUD show:YES];
+    _HUD.labelText = @"Category...";
+    _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
+    [CVNPCategoryModel PullCategoriesFromRemote:^(NSArray *AllCategories, NSError *error) {
+        if (!error) {
+            [_DAO DeleteALLCategories];
+            [_DAO InsterALLCategoriesFrom:AllCategories];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        [_HUD hide:YES];
+    }];
+}
 @end
