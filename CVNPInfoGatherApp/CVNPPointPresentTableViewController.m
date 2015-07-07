@@ -29,6 +29,11 @@
 
 @property (strong, nonatomic) CVNPSqliteManager *DAO;
 @property (strong, nonatomic) CVNPCategoryModel *selectedCategory;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *modifyBarButtonItem;
+
 @end
 
 @implementation CVNPPointPresentTableViewController
@@ -46,9 +51,24 @@
     self.gisInfoSection = [self addGISControls];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self updateBarButtonItem];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+- (void)updateBarButtonItem
+{
+    self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem;
+    if (self.currentPoint.isCenter) {
+        self.navigationItem.rightBarButtonItem = self.addBarButtonItem;
+    } else {
+        self.navigationItem.rightBarButtonItem = self.modifyBarButtonItem;
+    }
 }
 
 - (RETableViewSection *)addUsernfoControls
@@ -105,9 +125,9 @@
     RETableViewSection *section = [RETableViewSection sectionWithHeaderTitle:@"GIS Informations"];
     [self.manager addSection:section];
     
-    self.longitudeItem =  [RETextItem itemWithTitle:@"Longitutd" value:@"12.345678"];
-    self.latitudeItem =  [RETextItem itemWithTitle:@"Latitude" value:@"12.345678"];
-    self.createTimeItem = [RETextItem itemWithTitle:@"Created Time" value:@"2000/10/10 22:12PM"];
+    self.longitudeItem =  [RETextItem itemWithTitle:@"Longitutd" value:self.currentPoint.Longitude];
+    self.latitudeItem =  [RETextItem itemWithTitle:@"Latitude" value:self.currentPoint.Latitude];
+    self.createTimeItem = [RETextItem itemWithTitle:@"Created Time" value:self.currentPoint.CreateDate];
     
     self.longitudeItem.enabled = NO;
     self.latitudeItem.enabled = NO;
@@ -124,8 +144,13 @@
 {
     _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
     [CVNPCategoryModel PullCategoriesFromRemote:^(NSArray *AllCategories, NSError *error) {
-        [_DAO DeleteALLCategories];
-        [_DAO InsterALLCategoriesFrom:AllCategories];
+        if (!error) {
+            [_DAO DeleteALLCategories];
+            [_DAO InsterALLCategoriesFrom:AllCategories];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        
     }];
 }
 
@@ -135,6 +160,22 @@
     self.categoryDetailItem.style = UITableViewCellStyleValue1;
     [self.categoryDetailItem reloadRowWithAnimation:UITableViewRowAnimationNone];
     NSLog(@"!!!%@",text);
+}
+
+- (IBAction)cancelBarButtonItemClickAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)addBarButtonItemClickAction:(id)sender {
+    [self.currentPoint setTitle:self.titleItem.value];
+    [self.currentPoint setDescription:self.descriptionItem.value];
+    
+//    [self.DAO InsertLocal:self.currentPoint];
+    
+}
+
+- (IBAction)modifyBarButtonItemClickAction:(id)sender {
+    
 }
 
 @end

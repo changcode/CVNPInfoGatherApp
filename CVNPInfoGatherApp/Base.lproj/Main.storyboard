@@ -106,7 +106,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ZPK-nj-tAq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0Qb-YF-xye">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -121,10 +121,30 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="cRu-pL-MbX"/>
+                    <connections>
+                        <outlet property="addBarButtonItem" destination="5dh-vd-S8l" id="Q6H-Be-REx"/>
+                        <outlet property="cancelBarButtonItem" destination="1Dg-dD-IFn" id="B3J-aT-sC7"/>
+                        <outlet property="modifyBarButtonItem" destination="QBT-a1-Hn9" id="d8K-yy-TkN"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jfo-Lg-dc0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Cancel" id="1Dg-dD-IFn">
+                    <connections>
+                        <action selector="cancelBarButtonItemClickAction:" destination="2Bb-X4-r2D" id="RCk-sz-K3D"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="add" id="5dh-vd-S8l">
+                    <connections>
+                        <action selector="addBarButtonItemClickAction:" destination="2Bb-X4-r2D" id="AbI-b0-vfM"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Modify" id="QBT-a1-Hn9">
+                    <connections>
+                        <action selector="modifyBarButtonItemClickAction:" destination="2Bb-X4-r2D" id="0Qo-kC-gJc"/>
+                    </connections>
+                </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="3171" y="404"/>
+            <point key="canvasLocation" x="410" y="1284"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JgT-Pf-y8X">
@@ -141,7 +161,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bOy-up-GN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2777" y="404"/>
+            <point key="canvasLocation" x="38" y="1284"/>
         </scene>
         <!--Point Detail-->
         <scene sceneID="wms-OP-uLf">
@@ -246,7 +266,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-Iw-yl0">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-Iw-yl0">
                                 <rect key="frame" x="20" y="443" width="280" height="43"/>
                                 <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -368,7 +388,7 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="1366" y="1277"/>
+            <point key="canvasLocation" x="1270" y="1261"/>
         </scene>
         <!--CVNP Info Gather-->
         <scene sceneID="tne-QT-ifu">
@@ -431,6 +451,7 @@
                         <outlet property="recordButtonView" destination="qRn-J5-WeG" id="ofK-he-WCN"/>
                         <outlet property="tileSourceSegmentSwith" destination="hs4-sP-UTf" id="Wz9-aC-mYM"/>
                         <segue destination="bl2-Wb-OPO" kind="presentation" identifier="GoCVNPPointDetailViewController" id="L11-d1-ivh"/>
+                        <segue destination="54I-G8-fjC" kind="presentation" identifier="GoCVNPPointPresentTableViewController" id="1uo-LS-NBA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -734,6 +755,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RpF-5O-LR3"/>
-        <segue reference="rnK-FQ-W1c"/>
+        <segue reference="Gsq-Pi-JdV"/>
     </inferredMetricsTieBreakers>
 </document>

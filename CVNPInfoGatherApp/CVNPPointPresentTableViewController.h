@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RETableViewManager.h"
+#import "CVNPPointsModel.h"
 
 @interface CVNPPointPresentTableViewController : UITableViewController <RETableViewManagerDelegate>
 
@@ -17,4 +18,5 @@
 @property (strong, readonly, nonatomic) RETableViewSection *userInfoSection;
 @property (strong, readonly, nonatomic) RETableViewSection *retainSection;
 
+@property (strong, nonatomic) CVNPPointsModel *currentPoint;
 @end

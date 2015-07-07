@@ -8,7 +8,7 @@
 #import "Config.h"
 
 #import "CVNPViewController.h"
-#import "CVNPPointDetailViewController.h"
+#import "CVNPPointPresentTableViewController.h"
 #import "CVNPSqliteManager.h"
 
 #import "BFPaperButton.h"
@@ -58,7 +58,6 @@
     [self.view addSubview:_mapView];
     
     self.navigationItem.leftBarButtonItem = [[RMUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
-//    self.navigationItem.leftBarButtonItem.tintColor = self.navigationController.navigationBar.tintColor;
     
     _centerPoint = [[CVNPPointsModel alloc] init];
 
@@ -77,24 +76,20 @@
     recordButton.rippleBeyondBounds = YES;
     recordButton.tapCircleDiameter = MAX(recordButton.frame.size.width, recordButton.frame.size.height) * 1.3;
     [_recordButtonView addSubview:recordButton];
-//    NSLog(@"viewDidLoad");
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-
     [self.view bringSubviewToFront:_tileSourceSegmentSwith];
     [self.view bringSubviewToFront:_recordButtonView];
     [self.view bringSubviewToFront:_centerPinImg];
     
-//    NSLog(@"viewDidAppear");
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
     [self LoadAllLocalPoints];
-//    NSLog(@"viewWillAppear");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,10 +98,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"GoCVNPPointDetailViewController"]) {
+//    if ([segue.identifier isEqualToString:@"GoCVNPPointDetailViewController"]) {
+//        UINavigationController *navigationController = segue.destinationViewController;
+//        CVNPPointDetailViewController *pdvc = [navigationController viewControllers][0];
+//        [pdvc setCurrPoint:sender];
+//    }
+    if ([segue.identifier isEqualToString:@"GoCVNPPointPresentTableViewController"]) {
         UINavigationController *navigationController = segue.destinationViewController;
-        CVNPPointDetailViewController *pdvc = [navigationController viewControllers][0];
-        [pdvc setCurrPoint:sender];
+        CVNPPointPresentTableViewController *ppvc = [navigationController viewControllers][0];
+        [ppvc setCurrentPoint:(CVNPPointsModel *)sender];
     }
 }
         
@@ -136,7 +136,8 @@
 
 - (void)tapOnCalloutAccessoryControl:(UIControl *)control forAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map
 {
-    [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:annotation.userInfo];
+//    [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:annotation.userInfo];
+    [self performSegueWithIdentifier:@"GoCVNPPointPresentTableViewController" sender:annotation.userInfo];
 }
 
 - (void)LoadAllLocalPoints
@@ -170,7 +171,8 @@
 
 - (void)recordButtonPressed:(id)sender {
     [self setCenterPointwithMapboxCenterPoint];
-    [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:_centerPoint];
+//    [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:_centerPoint];
+    [self performSegueWithIdentifier:@"GoCVNPPointPresentTableViewController" sender:self.centerPoint];
 }
 
 #pragma mark - Ulti Methods
@@ -185,6 +187,7 @@
     [_centerPoint setCreateDate:[self getCurrtimString]];
     [_centerPoint setIsCenter:YES];
     [_centerPoint setUser_ID:[Config getOwnID]];
+    [_centerPoint setCategory:@""];
 }
 
 - (NSString *)getCurrtimString
