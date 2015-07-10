@@ -154,6 +154,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
             NSString *Local_ID = [rs stringForColumn:@"ID"];
             BOOL isUploaded = [[rs stringForColumn:@"isUploaded"] isEqualToString:@"1"] ? YES : NO;
             CVNPPointsModel *point = [[CVNPPointsModel alloc] initWithLongitude:Longtitude Latitdue:Latitude Title:Title Description:Description User_ID:User_ID Server_ID:nil CreateDate:Date];
+            [point setCategory:Categories_ID];
             [point setIsUpdated:isUploaded];
             [point setLocal_ID:Local_ID];
             [allLocalPoints addObject:point];
@@ -245,6 +246,32 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     } else {
         NSLog(@"error when open db");
         return FALSE;
+    }
+}
+
+- (CVNPCategoryModel *)QueryCategoryInfoById:(NSString *)ID
+{
+    CVNPCategoryModel *result = [CVNPCategoryModel new];
+    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    if ([db open]) {
+        NSString *sql = @"SELECT * FROM Category WHERE ID = ?";
+        FMResultSet *rs = [db executeQuery:sql, ID];
+        while ([rs next]) {
+            NSDictionary *dict = @{
+                                   @"id" : [rs stringForColumn:@"ID"],
+                                   @"name" : [rs stringForColumn:@"Name"],
+                                   @"description" : [rs stringForColumn:@"Description"],
+                                   @"parentID" : [rs stringForColumn:@"ParentID"],
+                                   };
+            CVNPCategoryModel *cate = [[CVNPCategoryModel alloc] initWithAttributes:dict];
+            return cate;
+        }
+        [db close];
+        return result;
+    }
+    else {
+        NSLog(@"error when open db");
+        return nil;
     }
 }
 

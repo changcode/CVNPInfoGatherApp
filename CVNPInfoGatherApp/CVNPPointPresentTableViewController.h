@@ -17,6 +17,7 @@
 @property (strong, readonly, nonatomic) RETableViewSection *gisInfoSection;
 @property (strong, readonly, nonatomic) RETableViewSection *userInfoSection;
 @property (strong, readonly, nonatomic) RETableViewSection *retainSection;
+@property (strong, readonly, nonatomic) RETableViewSection *buttonSection;
 
 @property (strong, nonatomic) CVNPPointsModel *currentPoint;
 @end
