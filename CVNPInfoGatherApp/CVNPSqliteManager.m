@@ -12,13 +12,11 @@
 
 @interface CVNPSqliteManager()
 
-@property (strong, nonatomic) NSString * dbPath;
+@property (strong, nonatomic) NSString * dbFilePath;
 
 @end
 
 @implementation CVNPSqliteManager
-
-@synthesize dbPath;
 
 static CVNPSqliteManager *CVNPSqliteDao = nil;
 
@@ -33,14 +31,21 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 }
 
 - (void)CreateTable{
-    NSString * doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString * path = [doc stringByAppendingPathComponent:@"CVNPInfoGatherApp.sqlite"];
-    self.dbPath = path;
-
     NSFileManager * fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:dbPath] == NO) {
+    
+    NSString * doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString * DBpath = [doc stringByAppendingPathComponent:@"CVNPDB"];
+    
+    if (![fileManager fileExistsAtPath:DBpath]) {
+        [fileManager createDirectoryAtPath:DBpath withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    self.dbFilePath = [DBpath stringByAppendingPathComponent:@"CVNPInfoGatherApp.sqlite"];
+    
+    NSLog(@"DBPath = %@", DBpath);
+    
+    if (![fileManager fileExistsAtPath:self.dbFilePath]) {
         // create it
-        FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+        FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
         if ([db open]) {
             NSString * Localsql  = @"CREATE TABLE 'Location' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'Title' VARCHAR(100), 'Longitude' VARCHAR(30), 'Latitude' VARCHAR(30), 'Description' VARCHAR(255), 'Createdate' VARCHAR(50), 'User_ID' VARCHAR(30), 'Categories_ID' VARCHAR(30), 'isUploaded' INTEGER, 'Server_ID' VARCHAR(30))";
             NSString * CategorySQL = @"CREATE TABLE 'Category' ('ID' INTEGER PRIMARY KEY, 'Name' VARCHAR(100), 'Description' VARCHAR(255), 'ParentID' INTEGER, 'User_ID' VARCHAR(30) )";
@@ -56,12 +61,12 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
             NSLog(@"error when open db");
         }
     }
-    NSLog(@"%@",dbPath);
+    NSLog(@"%@",self.dbFilePath);
 }
 
 - (BOOL)InsertLocal: (CVNPPointsModel *)Point
 {
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString * sql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID, Categories_ID, isUploaded, Server_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
         NSString * title = Point.Title;
@@ -70,7 +75,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         NSString * Description = Point.Description;
         NSString * Createdate = Point.CreateDate;
         NSString * User_ID = Point.User_ID;
-        NSString * Category_ID = Point.Category;
+        NSString * Category_ID = Point.Category ? Point.Category : @"0";
         NSNumber * isUploaded = [NSNumber numberWithInteger:(Point.isUpdated ? (NSInteger)1 :(NSInteger)0)];
         NSString * Server_ID = Point.Server_ID ? Point.Server_ID : @"-1";
         
@@ -89,7 +94,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 
 - (BOOL)DeleteLocalById: (int)ID
 {
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString * sql = @"DELETE FROM Location WHERE id = ?";
         NSNumber *delid = [[NSNumber alloc] initWithInt:ID];
@@ -118,7 +123,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 
 - (BOOL)UpdateLocalById: (int)ID newPoint:(CVNPPointsModel *)Point
 {
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString * sql = @"UPDATE Location SET Title = ?, Description = ?, Categories_ID = ?, isUploaded = ?, Server_ID = ? WHERE ID = ?";
         NSNumber *updateid = [[NSNumber alloc] initWithInt:ID];
@@ -138,7 +143,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 
 - (NSArray *)QueryAllLocal
 {
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     NSMutableArray *allLocalPoints = [[NSMutableArray alloc] init];
     if ([db open]) {
         NSString * sql = @"SELECT * FROM Location";
@@ -177,7 +182,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     
     BOOL exists;
     
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString * selectsql = @"SELECT * FROM Location WHERE Server_ID = ?";
         NSString * insertsql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID, isUploaded, Server_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?) ";
@@ -206,7 +211,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 
 - (BOOL)InsterALLCategoriesFrom:(NSArray *)Categories
 {
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString * sql = @"INSERT INTO Category (ID, Name, Description, ParentID) VALUES(?, ?, ?, ?) ";
         for (CVNPCategoryModel *cate in Categories) {
@@ -232,7 +237,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 
 - (BOOL)DeleteALLCategories
 {
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString * sql = @"DELETE FROM Category";
         BOOL res = [db executeUpdate:sql];
@@ -252,7 +257,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 - (CVNPCategoryModel *)QueryCategoryInfoById:(NSString *)ID
 {
     CVNPCategoryModel *result = [CVNPCategoryModel new];
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString *sql = @"SELECT * FROM Category WHERE ID = ?";
         FMResultSet *rs = [db executeQuery:sql, ID];
@@ -278,7 +283,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 - (NSArray *)QueryAllCategories
 {
     NSMutableArray *result = [NSMutableArray new];
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString *sql = @"SELECT * FROM Category WHERE ParentID != 0";
         FMResultSet *rs = [db executeQuery:sql];
@@ -304,7 +309,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 - (NSArray *)QueryChildCategoriesByCate:(CVNPCategoryModel *)cate
 {
     NSMutableArray *result = [[NSMutableArray alloc] init];
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSNumber * ID = [NSNumber numberWithInt:[cate.Cat_ID intValue]];
         NSString *sql = @"SELECT * FROM Category WHERE ParentID = ?";
@@ -331,7 +336,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 - (BOOL)JudgeCategriesHasChildren:(CVNPCategoryModel *)cate
 {
     int result = 0;
-    FMDatabase * db = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSNumber * ID = [NSNumber numberWithInt:[cate.Cat_ID intValue]];
         NSString *sql = @"SELECT COUNT(ID) FROM Category WHERE ParentID = ?";
