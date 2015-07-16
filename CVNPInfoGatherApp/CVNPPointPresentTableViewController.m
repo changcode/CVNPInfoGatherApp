@@ -5,19 +5,26 @@
 //  Created by Chang on 7/2/15.
 //  Copyright (c) 2015 Kent State University. All rights reserved.
 //
+#import "Config.h"
+#import "CVNPSqliteManager.h"
 
 #import "CVNPPointPresentTableViewController.h"
+
 #import "CVNPCategoryModel.h"
-#import "CVNPSqliteManager.h"
 #import "CVNPCategoryTableViewController.h"
 
-@interface CVNPPointPresentTableViewController () <CVNPCategoryTableViewControllerDelegate, UIActionSheetDelegate>
+#import "CVNPPointPresentImageItem.h"
+
+@interface CVNPPointPresentTableViewController () <CVNPCategoryTableViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (strong, readwrite, nonatomic) RETableViewManager *manager;
+@property (strong, readwrite, nonatomic) RETableViewSection *imageSection;
 @property (strong, readwrite, nonatomic) RETableViewSection *gisInfoSection;
 @property (strong, readwrite, nonatomic) RETableViewSection *userInfoSection;
 @property (strong, readwrite, nonatomic) RETableViewSection *buttonSection;
 @property (strong, readwrite, nonatomic) RETableViewSection *retainSection;
+
+@property (strong, readwrite, nonatomic) CVNPPointPresentImageItem *imageItem;
 
 @property (strong, readwrite, nonatomic) RETextItem *longitudeItem;
 @property (strong, readwrite, nonatomic) RETextItem *latitudeItem;
@@ -38,6 +45,10 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *modifyBarButtonItem;
 
+@property (strong, readwrite, nonatomic) NSNumber *userPhotoID;
+@property (strong, readwrite, nonatomic) NSString *userPhotoFileName;
+@property (strong, readwrite, nonatomic) UIImage *userPhoto;
+
 @end
 
 @implementation CVNPPointPresentTableViewController
@@ -49,7 +60,10 @@
     
     self.manager = [[RETableViewManager alloc] initWithTableView:self.tableView delegate:self];
     
+    self.manager[@"CVNPPointPresentImageItem"] = @"CVNPPointPresentImageCell";
+    
     self.DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
+    self.imageSection = [self addImageControls];
     self.userInfoSection = [self addUsernfoControls];
     self.gisInfoSection = [self addGISControls];
     self.buttonSection = [self addButtonControls];
@@ -69,6 +83,22 @@
 
 
 #pragma mark - RETableViewForm
+
+- (RETableViewSection *)addImageControls
+{
+    RETableViewSection *section = [RETableViewSection sectionWithHeaderTitle:@"Picture"];
+    [self.manager addSection:section];
+    if (self.currentPoint.Photo_ID.intValue != -1) {
+        self.userPhotoFileName = [self.DAO QueryFileNameByPhotoID:self.currentPoint.Photo_ID];
+        if (!self.currentPoint.isCenter) {
+            self.imageItem = [CVNPPointPresentImageItem itemWithImagePath:[[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"CVNPSavedIMG"]stringByAppendingPathComponent:self.userPhotoFileName]];
+            [section addItem:self.imageItem];
+        }
+    }
+    else {
+    }
+    return section;
+}
 
 - (RETableViewSection *)addUsernfoControls
 {
@@ -160,6 +190,19 @@
     RETableViewSection *section = [RETableViewSection sectionWithHeaderTitle:@"User Operation"];
     [self.manager addSection:section];
     
+    RETableViewItem *cameraButtonItem = [RETableViewItem itemWithTitle:@"Photo" accessoryType:UITableViewCellAccessoryNone selectionHandler:^(RETableViewItem *item) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"Camera", @"Library",nil];
+        [actionSheet setTag:2];
+        actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+        
+        [actionSheet showInView:self.view];
+    }];
+    cameraButtonItem.textAlignment = NSTextAlignmentCenter;
+    
     RETableViewItem *uploadButtonItem = [RETableViewItem itemWithTitle:@"Upload" accessoryType:UITableViewCellAccessoryNone selectionHandler:^(RETableViewItem *item) {
         item.title = @"Pressed!";
         [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
@@ -178,7 +221,8 @@
         [actionSheet showInView:self.view];
     }];
     deletelButtonItem.textAlignment = NSTextAlignmentCenter;
- 
+    
+    [section addItem:cameraButtonItem];
     [section addItem:uploadButtonItem];
     [section addItem:deletelButtonItem];
     
@@ -214,6 +258,106 @@
             }
         }
     }
+    if (actionSheet.tag == 2) {
+        switch (buttonIndex) {
+            case 0:
+                [self photoFromCamera];
+                break;
+            case 1:
+                [self photoFromAlbum];
+                break;
+            default:
+                break;  
+        }
+    }
+}
+
+//Take photos from Album
+- (void)photoFromAlbum{
+    
+    UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        //pickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
+    }
+    pickerImage.delegate = self;
+    pickerImage.allowsEditing = NO;
+    [self presentViewController:pickerImage animated:YES completion:^{
+    }];
+    
+}
+
+//Take photos from Camera
+- (void)photoFromCamera{
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;//Set Camer Type for ImagePicker
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = sourceType;
+        picker.cameraDevice=UIImagePickerControllerCameraDeviceRear;
+        [self presentViewController:picker animated:YES completion:^{
+        }];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"This device is not support camera" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+}
+
+//After Add Photo from PickerController
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+    }];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSString *prename = @"CVNPSavedIMG";
+    NSString *myUniqueName = [NSString stringWithFormat:@"%@-%u", prename, (NSUInteger)([[NSDate date] timeIntervalSince1970]*10.0)];
+    self.userPhotoFileName = [myUniqueName stringByAppendingString:@".png"];
+    
+    if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) {
+        //Save Photos to Album
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    }
+    
+    [self saveImage:image withName:self.userPhotoFileName];
+    [self.DAO InsertPhotoRecordswithFileName:self.userPhotoFileName andUser_ID:[[Config getOwnID] isEqualToString:@""] ? @"-1" : [Config getOwnID]];
+    self.userPhotoID = [self.DAO QueryIdByPhotoFileName:self.userPhotoFileName];
+    NSLog(@"%@",self.userPhotoFileName);
+    self.imageItem = [CVNPPointPresentImageItem itemWithImagePath:[[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"CVNPSavedIMG"]stringByAppendingPathComponent:self.userPhotoFileName]];
+    [self.imageSection addItem:self.imageItem];
+    [self.imageSection reloadSectionWithAnimation:UITableViewRowAnimationNone];
+}
+
+//Save IMG into sandbox
+- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+{
+    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+    
+    // Get SandBox PATH in Documents/CVNPSavedIMG
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSString *doc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"CVNPSavedIMG"];
+    
+    if (![fileManager fileExistsAtPath:doc]) {
+        [fileManager createDirectoryAtPath:doc withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    NSString *fullPath = [doc stringByAppendingPathComponent:imageName];
+    
+    // Save Img data to file system
+    [imageData writeToFile:fullPath atomically:NO];
+    
+    self.userPhoto = [UIImage imageWithContentsOfFile:fullPath];
+    
+}
+
+//Cancel Operation
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 #pragma mark - Button Action
@@ -240,6 +384,8 @@
     [self.currentPoint setTitle:self.titleItem.value];
     [self.currentPoint setDescription:self.descriptionItem.value];
     [self.currentPoint setCategory:self.selectedCategory.Cat_ID];
+    
+    [self.currentPoint setPhoto_ID:self.userPhotoID];
     [self.DAO InsertLocal:self.currentPoint];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -258,9 +404,6 @@
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     
     [actionSheet showInView:self.view];
-    
-    NSLog(@"%@", self.titleItem.value);
-    NSLog(@"%@", self.descriptionItem.value);
 }
 
 @end

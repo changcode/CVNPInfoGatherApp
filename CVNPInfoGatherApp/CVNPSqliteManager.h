@@ -15,6 +15,7 @@
 
 + (CVNPSqliteManager *)sharedCVNPSqliteManager;
 
+#pragma mark - Points Methods
 - (NSArray *)QueryAllLocal;
 - (BOOL)InsertLocal: (CVNPPointsModel *)Point;
 - (BOOL)DeleteLocalById: (int)ID;
@@ -22,10 +23,17 @@
 - (BOOL)UpdateLocalById: (int)ID newPoint:(CVNPPointsModel *)Point;
 - (BOOL)SyncFromRemote:(CVNPPointsModel *)Point;
 
+#pragma mark - Categroy Methods
 - (BOOL)InsterALLCategoriesFrom:(NSArray *)Categories;
 - (BOOL)DeleteALLCategories;
 - (CVNPCategoryModel *)QueryCategoryInfoById:(NSString *)ID;
 - (NSArray *)QueryAllCategories;
 - (NSArray *)QueryChildCategoriesByCate:(CVNPCategoryModel *)cate;
 - (BOOL)JudgeCategriesHasChildren:(CVNPCategoryModel *)cate;
+
+#pragma mark - Photos Methods
+- (BOOL)InsertPhotoRecordswithFileName:(NSString *)PhotoFileName andUser_ID:(NSString *)User_ID;
+- (NSNumber *)QueryIdByPhotoFileName:(NSString *)PhotoFileName;
+- (NSString *)QueryFileNameByPhotoID:(NSNumber *)Photo_ID;
+
 @end

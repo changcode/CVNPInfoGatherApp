@@ -47,11 +47,13 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         // create it
         FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
         if ([db open]) {
-            NSString * Localsql  = @"CREATE TABLE 'Location' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'Title' VARCHAR(100), 'Longitude' VARCHAR(30), 'Latitude' VARCHAR(30), 'Description' VARCHAR(255), 'Createdate' VARCHAR(50), 'User_ID' VARCHAR(30), 'Categories_ID' VARCHAR(30), 'isUploaded' INTEGER, 'Server_ID' VARCHAR(30))";
+            NSString * Localsql  = @"CREATE TABLE 'Location' ('ID' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'Title' VARCHAR(100), 'Longitude' VARCHAR(30), 'Latitude' VARCHAR(30), 'Description' VARCHAR(255), 'Createdate' VARCHAR(50), 'User_ID' VARCHAR(30), 'Categories_ID' VARCHAR(30), 'Photo_ID' INTEGER, 'isUploaded' INTEGER, 'Server_ID' VARCHAR(30))";
             NSString * CategorySQL = @"CREATE TABLE 'Category' ('ID' INTEGER PRIMARY KEY, 'Name' VARCHAR(100), 'Description' VARCHAR(255), 'ParentID' INTEGER, 'User_ID' VARCHAR(30) )";
-            BOOL res = [db executeUpdate:Localsql];
-            BOOL cate_res = [db executeUpdate:CategorySQL];
-            if (res && cate_res) {
+            NSString * PhotoSQL = @"CREATE TABLE 'Photo' ('ID' INTEGER PRIMARY KEY, 'FileName' VARCHAR(30), 'User_ID' INTEGER)";
+            BOOL location_res = [db executeUpdate:Localsql];
+            BOOL category_res = [db executeUpdate:CategorySQL];
+            BOOL photo_res = [db executeUpdate:PhotoSQL];
+            if (location_res && category_res && photo_res) {
                 NSLog(@"succ to creating db table");
             } else {
                 NSLog(@"error when creating db table");
@@ -64,22 +66,25 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     NSLog(@"%@",self.dbFilePath);
 }
 
+#pragma mark - Location Method
+
 - (BOOL)InsertLocal: (CVNPPointsModel *)Point
 {
     FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
-        NSString * sql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID, Categories_ID, isUploaded, Server_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+        NSString * sql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID, Categories_ID, Photo_ID, isUploaded, Server_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
         NSString * title = Point.Title;
         NSString * Longitude = Point.Longitude;
         NSString * Latitude = Point.Latitude;
         NSString * Description = Point.Description;
         NSString * Createdate = Point.CreateDate;
-        NSString * User_ID = Point.User_ID;
-        NSString * Category_ID = Point.Category ? Point.Category : @"0";
+        NSString * User_ID = Point.User_ID ? Point.User_ID : @"-1";
+        NSString * Category_ID = Point.Category ? Point.Category : @"-1";
+        NSNumber * Photo_ID = Point.Photo_ID ? Point.Photo_ID : [NSNumber numberWithInt:-1];
         NSNumber * isUploaded = [NSNumber numberWithInteger:(Point.isUpdated ? (NSInteger)1 :(NSInteger)0)];
         NSString * Server_ID = Point.Server_ID ? Point.Server_ID : @"-1";
         
-        BOOL res = [db executeUpdate:sql, title, Longitude, Latitude, Description, Createdate, User_ID, Category_ID, isUploaded, Server_ID];
+        BOOL res = [db executeUpdate:sql, title, Longitude, Latitude, Description, Createdate, User_ID, Category_ID, Photo_ID, isUploaded, Server_ID];
         [db close];
         if (!res) {
             NSLog(@"error to insert data");
@@ -156,10 +161,12 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
             NSString *Date = [rs stringForColumn:@"CreateDate"];
             NSString *User_ID = [rs stringForColumn:@"User_ID"];
             NSString *Categories_ID = [rs stringForColumn:@"Categories_ID"];
+            NSNumber *Photo_ID = [[NSNumber alloc] initWithInt:[[rs stringForColumn:@"Photo_ID"] intValue]];
             NSString *Local_ID = [rs stringForColumn:@"ID"];
             BOOL isUploaded = [[rs stringForColumn:@"isUploaded"] isEqualToString:@"1"] ? YES : NO;
             CVNPPointsModel *point = [[CVNPPointsModel alloc] initWithLongitude:Longtitude Latitdue:Latitude Title:Title Description:Description User_ID:User_ID Server_ID:nil CreateDate:Date];
             [point setCategory:Categories_ID];
+            [point setPhoto_ID:Photo_ID];
             [point setIsUpdated:isUploaded];
             [point setLocal_ID:Local_ID];
             [allLocalPoints addObject:point];
@@ -208,6 +215,8 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     }
     return TRUE;
 }
+
+#pragma mark - Category Method
 
 - (BOOL)InsterALLCategoriesFrom:(NSArray *)Categories
 {
@@ -344,6 +353,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         while ([rs next]) {
             result = [rs intForColumnIndex:0];
         }
+        [db close];
         if (result > 0) {
             return TRUE;
         } else {
@@ -354,6 +364,63 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         NSLog(@"error when open db");
     }
     return FALSE;
+}
+
+#pragma mark - Photo Method
+
+- (BOOL)InsertPhotoRecordswithFileName:(NSString *)PhotoFileName andUser_ID:(NSString *)User_ID
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:self.dbFilePath];
+    if ([db open]) {
+        NSString *sql = @"INSERT INTO Photo (FileName, User_ID) VALUES(?, ?)";
+        BOOL rs = [db executeUpdate:sql, PhotoFileName, [NSNumber numberWithInt:[User_ID intValue]]];
+        if (!rs) {
+            NSLog(@"error when insert to photo db table");
+        } else {
+            NSLog(@"succ to insert to photo db table");
+        }
+        [db close];
+        return TRUE;
+    }else {
+        NSLog(@"error when open db");
+        return FALSE;
+    }
+}
+
+- (NSString *)QueryFileNameByPhotoID:(NSNumber *)Photo_ID
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:self.dbFilePath];
+    if ([db open]) {
+        NSString *sql = @"SELECT FileName FROM Photo WHERE ID = ? LIMIT 1";
+        FMResultSet *rs = [db executeQuery:sql, Photo_ID];
+        while ([rs next]) {
+            NSString *result= [rs stringForColumn:@"FileName"];
+            return result;
+        }
+        [db close];
+        return nil;
+    } else {
+        NSLog(@"Error when open db!");
+        return nil;
+    }
+}
+
+- (NSNumber *)QueryIdByPhotoFileName:(NSString *)PhotoFileName
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:self.dbFilePath];
+    if ([db open]) {
+        NSString *sql = @"SELECT ID FROM Photo WHERE FileName = ? LIMIT 1";
+        FMResultSet *rs = [db executeQuery:sql, PhotoFileName];
+        while ([rs next]) {
+            NSNumber *result= [[NSNumber alloc] initWithInt:[rs intForColumn:@"ID"]];
+            return result;
+        }
+        [db close];
+        return [[NSNumber alloc] initWithInt:-1];
+    } else {
+        NSLog(@"Error when open db!");
+        return [[NSNumber alloc] initWithInt:-1];
+    }
 }
 
 @end
