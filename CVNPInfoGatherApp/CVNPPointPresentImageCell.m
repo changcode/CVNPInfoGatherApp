@@ -32,7 +32,6 @@
 {
     [super cellWillAppear];
     [self.pictureView setImage:[UIImage imageWithContentsOfFile:self.item.imagePath]];
-    NSLog(@"%@", self.item.imagePath);
 }
 
 @end

@@ -1,21 +1,18 @@
 //
-//  CVNPPointPresentTableViewController.m
+//  CVNPPointModifyTableViewController.m
 //  CVNPInfoGatherApp
 //
-//  Created by Chang on 7/2/15.
+//  Created by Chang on 7/16/15.
 //  Copyright (c) 2015 Kent State University. All rights reserved.
 //
 #import "Config.h"
 #import "CVNPSqliteManager.h"
 
-#import "CVNPPointPresentTableViewController.h"
-
-#import "CVNPCategoryModel.h"
 #import "CVNPCategoryTableViewController.h"
-
 #import "CVNPPointPresentImageItem.h"
+#import "CVNPPointModifyTableViewController.h"
 
-@interface CVNPPointPresentTableViewController () <CVNPCategoryTableViewControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface CVNPPointModifyTableViewController ()<CVNPCategoryTableViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, readwrite, nonatomic) RETableViewManager *manager;
 @property (strong, readwrite, nonatomic) RETableViewSection *imageSection;
@@ -41,27 +38,23 @@
 @property (strong, nonatomic) CVNPCategoryModel *pickerCategory;
 @property (strong, nonatomic) CVNPCategoryModel *existCategory;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *addBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *modifyBarButtonItem;
 
 @property (strong, readwrite, nonatomic) NSNumber *userPhotoID;
 @property (strong, readwrite, nonatomic) NSString *userPhotoFileName;
 
+
 @end
 
-@implementation CVNPPointPresentTableViewController
+@implementation CVNPPointModifyTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Point Infomation";
-    
     self.manager = [[RETableViewManager alloc] initWithTableView:self.tableView delegate:self];
+    self.DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
     
     self.manager[@"CVNPPointPresentImageItem"] = @"CVNPPointPresentImageCell";
-    
-    self.DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
     self.imageSection = [self addImageControls];
     self.userInfoSection = [self addUsernfoControls];
     self.gisInfoSection = [self addGISControls];
@@ -71,15 +64,10 @@
     [self.selectedCategory setCat_ID:@"0"];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self updateBarButtonItem];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - RETableViewForm
 
@@ -93,8 +81,6 @@
             self.imageItem = [CVNPPointPresentImageItem itemWithImagePath:[[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"CVNPSavedIMG"]stringByAppendingPathComponent:self.userPhotoFileName]];
             [section addItem:self.imageItem];
         }
-    }
-    else {
     }
     return section;
 }
@@ -119,7 +105,7 @@
     for (CVNPCategoryModel *cate in categoriesObjectInPicker) {
         [cateName addObject:[cate Cat_Name]];
     }
-
+    
     self.categoryPickerItem = [REPickerItem itemWithTitle:@"Category Picker" value:@[[cateName objectAtIndex:0]] placeholder:nil options:@[cateName]];
     self.categoryPickerItem.onChange = ^(REPickerItem *item) {
         for (CVNPCategoryModel *cate in categoriesObjectInPicker) {
@@ -158,7 +144,7 @@
     [section addItem:self.descriptionItem];
     [section addItem:self.categoryPickerItem];
     [section addItem:self.categoryDetailItem];
-
+    
     return section;
 }
 
@@ -249,6 +235,7 @@
             self.currentPoint.Title = self.titleItem.value;
             self.currentPoint.Description = self.descriptionItem.value;
             self.currentPoint.Category = self.selectedCategory.Cat_ID;
+            self.currentPoint.Photo_ID = self.userPhotoID;
             
             [_DAO UpdateLocalById:[self.currentPoint.Local_ID intValue] newPoint:self.currentPoint];
             if (self.navigationItem.leftBarButtonItem == self.navigationItem.backBarButtonItem) {
@@ -259,6 +246,7 @@
         }
     }
 }
+
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (actionSheet.tag == 2) {
@@ -274,6 +262,7 @@
         }
     }
 }
+
 //Take photos from Album
 - (void)photoFromAlbum{
     UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
@@ -331,7 +320,7 @@
     [self saveImage:image withName:self.userPhotoFileName];
     [self.DAO InsertPhotoRecordswithFileName:self.userPhotoFileName andUser_ID:[[Config getOwnID] isEqualToString:@""] ? @"-1" : [Config getOwnID]];
     self.userPhotoID = [self.DAO QueryIdByPhotoFileName:self.userPhotoFileName];
-
+    [self.currentPoint setPhoto_ID:self.userPhotoID];
     self.imageItem = [CVNPPointPresentImageItem itemWithImagePath:[[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"CVNPSavedIMG"]stringByAppendingPathComponent:self.userPhotoFileName]];
     [self.imageSection addItem:self.imageItem];
     [self.imageSection reloadSectionWithAnimation:UITableViewRowAnimationNone];
@@ -361,53 +350,7 @@
     }];
 }
 
-#pragma mark - Button Action
-
-- (void)updateBarButtonItem
-{
-    self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem;
-    if (self.currentPoint.isCenter) {
-        self.navigationItem.rightBarButtonItem = self.addBarButtonItem;
-    } else {
-        self.navigationItem.rightBarButtonItem = self.modifyBarButtonItem;
-    }
-}
-
-- (void)getSelectCategory:(CVNPCategoryModel *)choosen
-{
-    self.selectedCategory = choosen;
-    self.categoryDetailItem.detailLabelText = choosen.Cat_Name;
-    self.categoryDetailItem.style = UITableViewCellStyleValue1;
-    [self.categoryDetailItem reloadRowWithAnimation:UITableViewRowAnimationNone];
-}
-
-- (IBAction)addBarButtonItemClickAction:(id)sender {
-    [self.currentPoint setTitle:self.titleItem.value];
-    [self.currentPoint setDescription:self.descriptionItem.value];
-    [self.currentPoint setCategory:self.selectedCategory.Cat_ID];
-    [self.currentPoint setPhoto_ID:self.userPhotoID];
-    
-    [self.DAO InsertLocal:self.currentPoint];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-- (IBAction)cancelBarButtonItemClickAction:(id)sender {
-    if (![self.userPhotoFileName isEqualToString:@""] && self.currentPoint.isCenter) {
-        [self.DAO DeletePhotoByFileName:self.userPhotoFileName];
-        NSFileManager * fileManager = [NSFileManager defaultManager];
-        NSString *doc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"CVNPSavedIMG"];
-        
-        if ([fileManager fileExistsAtPath:doc]) {
-            NSString *fullPath = [doc stringByAppendingPathComponent:self.userPhotoFileName];
-            BOOL fileExists = [fileManager fileExistsAtPath:fullPath];
-            if (fileExists) {
-                [fileManager removeItemAtPath:fullPath error:nil];
-            }
-        }
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+#pragma marm Button Methods
 
 - (IBAction)modifyBarButtonItemClickAction:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Modify this point"
@@ -420,5 +363,4 @@
     
     [actionSheet showInView:self.view];
 }
-
 @end

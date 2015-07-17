@@ -7,6 +7,7 @@
 //
 #import "CVNPPointsModel.h"
 #import "CVNPAPIClient.h"
+#import "CVNPSqliteManager.h"
 
 @interface CVNPPointsModel()
 
@@ -68,21 +69,75 @@
     }];
 }
 
-+ (NSURLSessionDataTask *)UserUpload:(NSString *)user_id Points:(CVNPPointsModel *)Points withRemotePointsWithBlock:(void(^)(NSString *pointID, NSError *error))block{
-    CVNPAPIClient *api = [CVNPAPIClient sharedClient];
-    api.responseSerializer.acceptableContentTypes = [api.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-    NSString *uploadStr = [NSString stringWithFormat:@"add_location.php?title=%@&longitude=%@&latitude=%@&description=%@&userid=%@", Points.Title, Points.Longitude, Points.Latitude, Points.Description, user_id];
-    return [api GET:uploadStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSNumber *returnServer_ID = [responseObject valueForKey:@"id"];
++ (AFHTTPRequestOperation *)UserUpload:(NSString *)user_id Points:(CVNPPointsModel *)Points withRemotePointsWithBlock:(void(^)(NSString *pointID, NSError *error))block{
+//    CVNPAPIClient *api = [CVNPAPIClient sharedClient];
+//    api.responseSerializer.acceptableContentTypes = [api.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+//    NSString *uploadStr = @"add_location.php";
+    CVNPSqliteManager *DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
+    
+    
+    NSDictionary *parameters = @{@"title" : Points.Title,
+                                 @"longitude" : Points.Longitude,
+                                 @"latitude" : Points.Latitude,
+                                 @"description" : Points.Description,
+                                 @"userid" : user_id,
+                                 @"categories_id" : Points.Category
+                                 };
+    
+    AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
+    NSError *error = [[NSError alloc] init];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableURLRequest *request;
+    if ([Points.Photo_ID intValue] != -1) {
+        NSString *fileName = [DAO QueryFileNameByPhotoID:Points.Photo_ID];
+        NSURL *filePath = [NSURL fileURLWithPath:[[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"CVNPSavedIMG"]stringByAppendingPathComponent:fileName]];
+        
+        request = [serializer multipartFormRequestWithMethod:@"POST" URLString:@"http://parkapps.kent.edu/demo/add_location.php" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileURL:filePath name:@"file" error:nil];
+        } error:&error];
+    } else {
+        request = [serializer requestWithMethod:@"POST" URLString:@"http://parkapps.kent.edu/demo/add_location.php" parameters:parameters error:&error];
+    }
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (block) {
-            NSLog(@"%@",returnServer_ID);
+            NSNumber *returnServer_ID = [responseObject valueForKey:@"id"];
+            NSLog(@"%@", responseObject);
             block([returnServer_ID stringValue], nil);
         }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
             block(@"-1", error);
+            NSLog(@"%@", error.localizedDescription);
         }
     }];
+    return operation;
+//        return [api POST:uploadStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//            [formData appendPartWithFileURL:filePath name:@"file" error:nil];
+//        } success:^(NSURLSessionDataTask *task, id responseObject) {
+//            NSNumber *returnServer_ID = [responseObject valueForKey:@"id"];
+//            if (block) {
+//                NSLog(@"%@",returnServer_ID);
+//                block([returnServer_ID stringValue], nil);
+//            }
+//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//            if (block) {
+//                block(@"-1", error);
+//            }
+//        }];
+    
+    
+    
+//    return [api POST:uploadStr parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSNumber *returnServer_ID = [responseObject valueForKey:@"id"];
+//        if (block) {
+//            NSLog(@"%@",returnServer_ID);
+//            block([returnServer_ID stringValue], nil);
+//        }
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        if (block) {
+//            block(@"-1", error);
+//        }
+//    }];
 }
 
 @end

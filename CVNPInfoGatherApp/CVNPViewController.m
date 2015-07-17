@@ -215,17 +215,19 @@
 
 - (void)updateLocalCategory
 {
-    [_HUD show:YES];
-    _HUD.labelText = @"Category...";
     _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
-    [CVNPCategoryModel PullCategoriesFromRemote:^(NSArray *AllCategories, NSError *error) {
-        if (!error) {
-            [_DAO DeleteALLCategories];
-            [_DAO InsterALLCategoriesFrom:AllCategories];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        [_HUD hide:YES];
-    }];
+    if ([_DAO JudgeCategriesNeedsUpdate]) {
+        [_HUD show:YES];
+        _HUD.labelText = @"Category...";
+        [CVNPCategoryModel PullCategoriesFromRemote:^(NSArray *AllCategories, NSError *error) {
+            if (!error) {
+                [_DAO DeleteALLCategories];
+                [_DAO InsterALLCategoriesFrom:AllCategories];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+            }
+            [_HUD hide:YES];
+        }];
+    }
 }
 @end

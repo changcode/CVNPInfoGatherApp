@@ -5,13 +5,15 @@
 //  Created by Chang on 6/9/15.
 //  Copyright (c) 2015 Kent State University. All rights reserved.
 //
+#import "AFNetworking.h"
 #import "Config.h"
 
 #import "CVNPLoaclPointsTableViewController.h"
 #import "CVNPPointsModel.h"
 #import "CVNPSqliteManager.h"
 
-#import "CVNPPointDetailViewController.h"
+//#import "CVNPPointDetailViewController.h"
+#import "CVNPPointModifyTableViewController.h"
 #import "UIAlertView+AFNetworking.h"
 #import "UIRefreshControl+AFNetworking.h"
 
@@ -60,6 +62,7 @@
 - (void)reload:(__unused id)sender {
     if (_dataSourceSegmentedControl.selectedSegmentIndex == 0) {
         [_HUD show:YES];
+        _HUD.mode = MBProgressHUDModeIndeterminate;
         _HUD.labelText = @"Finishing...";
         self.dataArray = [[NSMutableArray alloc] initWithArray:[self.DAO QueryAllLocal]];
         [self.tableView reloadData];
@@ -145,9 +148,9 @@
         _HUD.labelText = @"Uploading...";
         for (CVNPPointsModel *Point in _dataArray) {
             Point.User_ID = [Config getOwnID];
-            
+            _HUD.labelText = [NSString stringWithFormat:@"Upload %d/Total %d",[_dataArray indexOfObject:Point], [_dataArray count]];
             if (!Point.isUpdated) {
-                [CVNPPointsModel UserUpload:[Config getOwnID] Points:Point withRemotePointsWithBlock:^(NSString *pointID, NSError *error) {
+                AFHTTPRequestOperation *operation = [CVNPPointsModel UserUpload:[Config getOwnID] Points:Point withRemotePointsWithBlock:^(NSString *pointID, NSError *error) {
                     if (!error) {
                         NSString *serverID = pointID;
                         if ([serverID isEqualToString:@"-1"]) {
@@ -165,6 +168,14 @@
                         [self reload:nil];
                     }
                 }];
+                [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                    float progress = (float)totalBytesWritten/totalBytesExpectedToWrite;
+                    _HUD.mode = MBProgressHUDModeDeterminate;
+                    _HUD.labelText = [NSString stringWithFormat:@"This is %d, %lf finished",[_dataArray indexOfObject:Point], progress];
+                    _HUD.progress = progress;
+                    NSLog(@"Wrote %lld/%lld", totalBytesWritten, totalBytesExpectedToWrite);
+                }];
+                [operation start];
             }
         }
         
@@ -189,9 +200,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"GoCVNPPointDetailViewController"]) {
-        CVNPPointDetailViewController *pdvc = segue.destinationViewController;
-        [pdvc setCurrPoint:sender];
+    if ([segue.identifier isEqualToString:@"GoCVNPPointModifyTableViewController"]) {
+        CVNPPointModifyTableViewController *pdvc = segue.destinationViewController;
+        [pdvc setCurrentPoint:(CVNPPointsModel *)sender];
         pdvc.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
     }
 }
@@ -228,8 +239,7 @@
             }
             else {
                 [self.dataArray removeAllObjects];
-#warning need DAO implements
-//                [self.DAO DeleteLocalById:];
+                [self.DAO DeleteAllLocations];
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
             [self.tableView setEditing:NO animated:YES];
@@ -253,7 +263,7 @@
     // Update the delete button's title based on how many items are selected.
     [self updateButtonsToMatchTableState];
     if (!self.tableView.editing) {
-        [self performSegueWithIdentifier:@"GoCVNPPointDetailViewController" sender:[self.dataArray objectAtIndex:indexPath.row]];
+        [self performSegueWithIdentifier:@"GoCVNPPointModifyTableViewController" sender:[self.dataArray objectAtIndex:indexPath.row]];
     }
 }
 

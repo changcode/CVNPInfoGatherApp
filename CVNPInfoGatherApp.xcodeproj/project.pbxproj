@@ -44,6 +44,7 @@
 		A09D01DB1B28B08800678032 /* CVNPUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DA1B28B08800678032 /* CVNPUserModel.m */; };
 		A09D01DE1B28B33300678032 /* CVNPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DD1B28B33300678032 /* CVNPUserManager.m */; };
 		A0A798FA1B3358B300903270 /* CVNPUploadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */; };
+		A0E2EB501B58272D006A31B3 /* CVNPPointModifyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E2EB4F1B58272D006A31B3 /* CVNPPointModifyTableViewController.m */; };
 		A0EA72D91B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EA72D81B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m */; };
 		A0EA72DC1B463126005C8B05 /* CVNPCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EA72DB1B463126005C8B05 /* CVNPCategoryTableViewController.m */; };
 /* End PBXBuildFile section */
@@ -123,6 +124,8 @@
 		A09D01DD1B28B33300678032 /* CVNPUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUserManager.m; sourceTree = "<group>"; };
 		A0A798F81B3358B300903270 /* CVNPUploadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUploadTableViewController.h; sourceTree = "<group>"; };
 		A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPUploadTableViewController.m; sourceTree = "<group>"; };
+		A0E2EB4E1B58272D006A31B3 /* CVNPPointModifyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPPointModifyTableViewController.h; sourceTree = "<group>"; };
+		A0E2EB4F1B58272D006A31B3 /* CVNPPointModifyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPPointModifyTableViewController.m; sourceTree = "<group>"; };
 		A0EA72D71B45D5A7005C8B05 /* CVNPPointPresentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPPointPresentTableViewController.h; sourceTree = "<group>"; };
 		A0EA72D81B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPPointPresentTableViewController.m; sourceTree = "<group>"; };
 		A0EA72DA1B463126005C8B05 /* CVNPCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPCategoryTableViewController.h; sourceTree = "<group>"; };
@@ -229,16 +232,13 @@
 		A04468661B25F9F20037C9C6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A0E2EB511B583567006A31B3 /* Deprecated */,
 				A019D2551B374D7600116B92 /* CVNPTutorialViewController.h */,
 				A019D2561B374D7600116B92 /* CVNPTutorialViewController.m */,
 				A08603331B254F890076D9B7 /* CVNPViewController.h */,
 				A08603341B254F890076D9B7 /* CVNPViewController.m */,
-				A04468631B25F9E60037C9C6 /* CVNPPointDetailViewController.h */,
-				A04468641B25F9E60037C9C6 /* CVNPPointDetailViewController.m */,
 				A09D01D31B27C42600678032 /* CVNPLoaclPointsTableViewController.h */,
 				A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */,
-				A0A798F81B3358B300903270 /* CVNPUploadTableViewController.h */,
-				A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */,
 				A09D01D61B28AF2500678032 /* CVNPUserLoginViewController.h */,
 				A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */,
 				A019D2611B387D2400116B92 /* CVNPLoginRegistrationFormViewController.h */,
@@ -247,6 +247,8 @@
 				A019D2761B38F5F800116B92 /* CVNPUserInfoViewController.m */,
 				A0EA72D71B45D5A7005C8B05 /* CVNPPointPresentTableViewController.h */,
 				A0EA72D81B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m */,
+				A0E2EB4E1B58272D006A31B3 /* CVNPPointModifyTableViewController.h */,
+				A0E2EB4F1B58272D006A31B3 /* CVNPPointModifyTableViewController.m */,
 				A0EA72DA1B463126005C8B05 /* CVNPCategoryTableViewController.h */,
 				A0EA72DB1B463126005C8B05 /* CVNPCategoryTableViewController.m */,
 			);
@@ -319,6 +321,17 @@
 				A08603471B254F890076D9B7 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A0E2EB511B583567006A31B3 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				A04468631B25F9E60037C9C6 /* CVNPPointDetailViewController.h */,
+				A04468641B25F9E60037C9C6 /* CVNPPointDetailViewController.m */,
+				A0A798F81B3358B300903270 /* CVNPUploadTableViewController.h */,
+				A0A798F91B3358B300903270 /* CVNPUploadTableViewController.m */,
+			);
+			name = Deprecated;
 			sourceTree = "<group>";
 		};
 		BBF10FF4F2DE5C2BB2E66A20 /* Frameworks */ = {
@@ -497,6 +510,7 @@
 				A00EDF301B54613B00979C30 /* CVNPPointPresentImageCell.m in Sources */,
 				A09D01D81B28AF2500678032 /* CVNPUserLoginViewController.m in Sources */,
 				A019D25D1B387B9A00116B92 /* CVNPLoginForm.m in Sources */,
+				A0E2EB501B58272D006A31B3 /* CVNPPointModifyTableViewController.m in Sources */,
 				A04ABE841B44CDE400B2BF59 /* CVNPCategoryModel.m in Sources */,
 				A086032F1B254F890076D9B7 /* main.m in Sources */,
 			);
@@ -690,6 +704,78 @@
 			};
 			name = Release;
 		};
+		A0E2EB521B593B00006A31B3 /* ad-doc profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application: cvnp development (7C9RPRE4T4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Developer ID Application: cvnp development (7C9RPRE4T4)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "ad-doc profile";
+		};
+		A0E2EB531B593B00006A31B3 /* ad-doc profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B6732F6B7ABD46D574536EA /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: cvnp development (7C9RPRE4T4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = CVNPInfoGatherApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "ad-doc profile";
+		};
+		A0E2EB541B593B00006A31B3 /* ad-doc profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CVNPInfoGatherAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CVNPInfoGatherApp.app/CVNPInfoGatherApp";
+			};
+			name = "ad-doc profile";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -698,6 +784,7 @@
 			buildConfigurations = (
 				A086034A1B254F890076D9B7 /* Debug */,
 				A086034B1B254F890076D9B7 /* Release */,
+				A0E2EB521B593B00006A31B3 /* ad-doc profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -707,6 +794,7 @@
 			buildConfigurations = (
 				A086034D1B254F890076D9B7 /* Debug */,
 				A086034E1B254F890076D9B7 /* Release */,
+				A0E2EB531B593B00006A31B3 /* ad-doc profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -716,6 +804,7 @@
 			buildConfigurations = (
 				A08603501B254F890076D9B7 /* Debug */,
 				A08603511B254F890076D9B7 /* Release */,
+				A0E2EB541B593B00006A31B3 /* ad-doc profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

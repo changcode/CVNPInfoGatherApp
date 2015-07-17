@@ -126,14 +126,31 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     return true;
 }
 
+- (BOOL)DeleteAllLocations
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:self.dbFilePath];
+    if ([db open]) {
+        NSString * sql = @"DELETE FROM LOCATION";
+        BOOL rs = [db executeUpdate:sql];
+        if (rs) {
+            NSLog(@"Delete all locations");
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+    }
+    return FALSE;
+}
+
 - (BOOL)UpdateLocalById: (int)ID newPoint:(CVNPPointsModel *)Point
 {
     FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
-        NSString * sql = @"UPDATE Location SET Title = ?, Description = ?, Categories_ID = ?, isUploaded = ?, Server_ID = ? WHERE ID = ?";
+        NSString * sql = @"UPDATE Location SET Title = ?, Description = ?, Categories_ID = ?, Photo_ID = ?, isUploaded = ?, Server_ID = ? WHERE ID = ?";
         NSNumber *updateid = [[NSNumber alloc] initWithInt:ID];
         NSNumber *isUpdated = [NSNumber numberWithInteger:Point.isUpdated ? (NSInteger)1 : (NSInteger)0];
-        BOOL res = [db executeUpdate:sql, Point.Title, Point.Description, Point.Category, isUpdated, Point.Server_ID, updateid];
+        BOOL res = [db executeUpdate:sql, Point.Title, Point.Description, Point.Category, Point.Photo_ID, isUpdated, Point.Server_ID, updateid];
         [db close];
         if (!res) {
             NSLog(@"error to update data");
@@ -184,6 +201,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     NSString * Description = Point.Description;
     NSString * Createdate = Point.CreateDate;
     NSString * User_ID = Point.User_ID;
+    NSNumber * Category_ID = [[NSNumber alloc] initWithInt:[Point.Category intValue]];
     NSNumber * isUploaded = [NSNumber numberWithInt:1];
     NSString * Server_ID = Point.Server_ID ? Point.Server_ID : @"0";
     
@@ -192,7 +210,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
     if ([db open]) {
         NSString * selectsql = @"SELECT * FROM Location WHERE Server_ID = ?";
-        NSString * insertsql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID, isUploaded, Server_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?) ";
+        NSString * insertsql = @"INSERT INTO Location (Title, Longitude, Latitude, Description, Createdate, User_ID, Categories_ID, isUploaded, Server_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
         
         FMResultSet * qryres = [db executeQuery:selectsql, Server_ID];
         if ([qryres next]) {
@@ -203,7 +221,7 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
         }
         else
         {
-            BOOL insres = [db executeUpdate:insertsql, title, Longitude, Latitude, Description, Createdate, User_ID, isUploaded, Server_ID];
+            BOOL insres = [db executeUpdate:insertsql, title, Longitude, Latitude, Description, Createdate, User_ID, Category_ID, isUploaded, Server_ID];
             if (!insres) {
                 NSLog(@"error to sync data");
                 return false;
@@ -217,6 +235,28 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
 }
 
 #pragma mark - Category Method
+
+- (BOOL)JudgeCategriesNeedsUpdate
+{
+    FMDatabase * db = [FMDatabase databaseWithPath:self.dbFilePath];
+    if ([db open]) {
+        NSString * sql = @"SELECT COUNT(*) FROM Category";
+        FMResultSet *rs = [db executeQuery:sql];
+        int all = 0;
+        while ([rs next]) {
+            all = [rs intForColumnIndex:0];
+        }
+        if (all < 1) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    } else {
+        NSLog(@"Error when open db");
+        return FALSE;
+    }
+}
 
 - (BOOL)InsterALLCategoriesFrom:(NSArray *)Categories
 {
@@ -420,6 +460,21 @@ static CVNPSqliteManager *CVNPSqliteDao = nil;
     } else {
         NSLog(@"Error when open db!");
         return [[NSNumber alloc] initWithInt:-1];
+    }
+}
+
+- (BOOL)DeletePhotoByFileName:(NSString *)PhotoFileName
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:self.dbFilePath];
+    if ([db open]) {
+        NSString *sql = @"DELETE FROM Photo WHERE FileName = ?";
+        BOOL rs = [db executeUpdate:sql, PhotoFileName];
+        [db close];
+        return rs;
+    }
+    else{
+        NSLog(@"Erroe when open db!");
+        return FALSE;
     }
 }
 

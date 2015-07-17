@@ -20,10 +20,12 @@
 - (BOOL)InsertLocal: (CVNPPointsModel *)Point;
 - (BOOL)DeleteLocalById: (int)ID;
 - (BOOL)DeleteLocalByIds:(NSArray *)IDs;
+- (BOOL)DeleteAllLocations;
 - (BOOL)UpdateLocalById: (int)ID newPoint:(CVNPPointsModel *)Point;
 - (BOOL)SyncFromRemote:(CVNPPointsModel *)Point;
 
 #pragma mark - Categroy Methods
+- (BOOL)JudgeCategriesNeedsUpdate;
 - (BOOL)InsterALLCategoriesFrom:(NSArray *)Categories;
 - (BOOL)DeleteALLCategories;
 - (CVNPCategoryModel *)QueryCategoryInfoById:(NSString *)ID;
@@ -35,5 +37,5 @@
 - (BOOL)InsertPhotoRecordswithFileName:(NSString *)PhotoFileName andUser_ID:(NSString *)User_ID;
 - (NSNumber *)QueryIdByPhotoFileName:(NSString *)PhotoFileName;
 - (NSString *)QueryFileNameByPhotoID:(NSNumber *)Photo_ID;
-
+- (BOOL)DeletePhotoByFileName:(NSString *)PhotoFileName;
 @end
