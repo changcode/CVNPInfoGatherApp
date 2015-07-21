@@ -17,7 +17,7 @@
 @property (strong, nonatomic) RETableViewSection *section;
 
 @property (strong, nonatomic) UISearchController *searchController;
-
+@property (strong, readwrite, nonatomic) UIBarButtonItem *selectBarButton;
 @end
 
 @implementation CVNPCategoryTableViewController
@@ -29,6 +29,9 @@
     [super viewDidLoad];
     _DAO = [CVNPSqliteManager sharedCVNPSqliteManager];
     
+    self.selectBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(selectsomeCategory)];
+    self.navigationItem.rightBarButtonItem = self.selectBarButton;
+
     if (self.level == 0) {
         _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         self.searchController.searchResultsUpdater = self;
@@ -48,6 +51,33 @@
     [self.manager addSection:self.section];
     
     [self.tableView reloadData];
+}
+
+- (void)selectsomeCategory
+{
+    [self updateButtonsToMatchTableState];
+}
+
+- (void)updateButtonsToMatchTableState
+{
+    if (self.tableView.editing)
+    {
+        self.selectBarButton.title = @"Select";
+        [self.tableView setEditing:NO animated:YES];
+    }
+    else
+    {
+        // Not in editing mode.
+        [self.tableView setEditing:YES animated:YES];
+        self.selectBarButton.title = @"Done";
+        
+        if (self.tableView) {
+            self.editButtonItem.enabled = YES;
+        }
+        else {
+            self.editButtonItem.enabled = NO;
+        }
+    }
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
@@ -71,17 +101,24 @@
         for (CVNPCategoryModel *cate in currentlevelitems) {
             BOOL hasChildren = [_DAO JudgeCategriesHasChildren:cate];
             if (hasChildren) {
-                [self.section addItem:[RETableViewItem itemWithTitle:cate.Cat_Name accessoryType: UITableViewCellAccessoryDisclosureIndicator selectionHandler:^(RETableViewItem *item) {
+                RETableViewItem *item =[RETableViewItem itemWithTitle:cate.Cat_Name accessoryType: UITableViewCellAccessoryDisclosureIndicator selectionHandler:^(RETableViewItem *item) {
                     CVNPCategoryTableViewController *controller = [[CVNPCategoryTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
                     [item deselectRowAnimated:YES];
                     controller.level = _level + 1;
                     controller.parentCategory = cate;
                     controller.delegate = weakSelf.navigationController.viewControllers[0];
                     [weakSelf.navigationController pushViewController:controller animated:YES];
-                }]];
+                }];
+                item.editingStyle = UITableViewCellEditingStyleInsert;
+                [item setInsertionHandler:^(RETableViewItem *item) {
+                    if ([weakSelf.delegate respondsToSelector:@selector(getSelectCategory:)]) {
+                        [weakSelf.delegate getSelectCategory:cate];
+                    }
+                    [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                }];
+                [self.section addItem:item];
             } else {
-                
-                [self.section addItem:[RETableViewItem itemWithTitle:cate.Cat_Name accessoryType:UITableViewCellAccessoryNone selectionHandler:^(RETableViewItem *item) {
+                RETableViewItem *item =[RETableViewItem itemWithTitle:cate.Cat_Name accessoryType:UITableViewCellAccessoryNone selectionHandler:^(RETableViewItem *item) {
                     item.accessoryType = UITableViewCellAccessoryCheckmark;
                     [item reloadRowWithAnimation:UITableViewRowAnimationNone];
                     if ([weakSelf.delegate respondsToSelector:@selector(getSelectCategory:)]) {
@@ -89,7 +126,9 @@
                     }
                     [weakSelf.navigationController popToRootViewControllerAnimated:YES];
                     NSLog(@"Selected:%@", cate.Cat_Name);
-                }]];
+                }];
+                item.editingStyle = UITableViewCellEditingStyleInsert;
+                [self.section addItem:item];
             }
         }
         [self.tableView reloadData];

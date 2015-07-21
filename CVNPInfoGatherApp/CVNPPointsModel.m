@@ -100,9 +100,14 @@
     }
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (block) {
-            NSNumber *returnServer_ID = [responseObject valueForKey:@"id"];
+            NSString *result = [responseObject valueForKey:@"result"];
+            if ([result isEqualToString:@"false"]) {
+                block(@"-1", nil);
+            } else {
+                NSNumber *returnServer_ID = [responseObject valueForKey:@"id"];
+                block([returnServer_ID stringValue], nil);
+            }
             NSLog(@"%@", responseObject);
-            block([returnServer_ID stringValue], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {

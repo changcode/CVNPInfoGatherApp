@@ -5,6 +5,9 @@
 //  Created by Chang on 7/2/15.
 //  Copyright (c) 2015 Kent State University. All rights reserved.
 //
+
+#import "AFNetworking.h"
+
 #import "Config.h"
 #import "CVNPSqliteManager.h"
 
@@ -88,6 +91,7 @@
     RETableViewSection *section = [RETableViewSection sectionWithHeaderTitle:@"Picture"];
     [self.manager addSection:section];
     if (self.currentPoint.Photo_ID.intValue != -1) {
+        self.userPhotoID = self.currentPoint.Photo_ID;
         self.userPhotoFileName = [self.DAO QueryFileNameByPhotoID:self.currentPoint.Photo_ID];
         if (!self.currentPoint.isCenter) {
             self.imageItem = [CVNPPointPresentImageItem itemWithImagePath:[[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"CVNPSavedIMG"]stringByAppendingPathComponent:self.userPhotoFileName]];
@@ -203,7 +207,33 @@
     cameraButtonItem.textAlignment = NSTextAlignmentCenter;
     
     RETableViewItem *uploadButtonItem = [RETableViewItem itemWithTitle:@"Upload" accessoryType:UITableViewCellAccessoryNone selectionHandler:^(RETableViewItem *item) {
-        item.title = @"Pressed!";
+        if (self.currentPoint.isUpdated) {
+            UIAlertView *isUploadedAlert = [[UIAlertView alloc] initWithTitle:@"Alreay in Server" message:@"This point is alread existed on server" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [isUploadedAlert show];
+            uploadButtonItem.title = @"Uploaded";
+        } else {
+            AFHTTPRequestOperation *operation = [CVNPPointsModel UserUpload:[Config getOwnID] Points:self.currentPoint withRemotePointsWithBlock:^(NSString *pointID, NSError *error) {
+                if (!error) {
+                    NSString *serverID = pointID;
+                    if ([serverID isEqualToString:@"-1"]) {
+                        [self.currentPoint setServer_ID:@"-1"];
+                        [self.currentPoint setIsUpdated:NO];
+                        UIAlertView *failedAlert = [[UIAlertView alloc] initWithTitle:@"Failed" message:@"Some exceptions occured!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                        [failedAlert show];
+                    }
+                    else {
+                        [self.currentPoint setServer_ID:serverID];
+                        [self.currentPoint setIsUpdated:YES];
+                        UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"This point successfully uploaded" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                        [successAlert show];
+                        uploadButtonItem.title = @"Uploaded";
+                    }
+                    [self.DAO UpdateLocalById:[self.currentPoint.Local_ID intValue] newPoint:self.currentPoint];
+                }
+            }];
+            [operation start];
+
+        }
         [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
     }];
     uploadButtonItem.textAlignment = NSTextAlignmentCenter;
@@ -249,6 +279,7 @@
             self.currentPoint.Title = self.titleItem.value;
             self.currentPoint.Description = self.descriptionItem.value;
             self.currentPoint.Category = self.selectedCategory.Cat_ID;
+            self.currentPoint.Photo_ID = self.userPhotoID;
             
             [_DAO UpdateLocalById:[self.currentPoint.Local_ID intValue] newPoint:self.currentPoint];
             if (self.navigationItem.leftBarButtonItem == self.navigationItem.backBarButtonItem) {

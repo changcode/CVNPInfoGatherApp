@@ -160,11 +160,11 @@
                         else {
                             [Point setServer_ID:serverID];
                             [Point setIsUpdated:YES];
+                            [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
                         }
                         NSIndexPath* rowToReload = [NSIndexPath indexPathForRow:[_dataArray indexOfObject:Point] inSection:0];
                         NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
                         [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationFade];
-                        [self.DAO UpdateLocalById:[Point.Local_ID intValue] newPoint:Point];
                         [self reload:nil];
                     }
                 }];

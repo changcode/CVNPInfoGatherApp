@@ -301,7 +301,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-Iw-yl0">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-Iw-yl0">
                                 <rect key="frame" x="20" y="443" width="280" height="43"/>
                                 <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -485,7 +485,6 @@
                         <outlet property="centerPinImg" destination="64j-wD-OMv" id="qK1-d9-eRv"/>
                         <outlet property="recordButtonView" destination="qRn-J5-WeG" id="ofK-he-WCN"/>
                         <outlet property="tileSourceSegmentSwith" destination="hs4-sP-UTf" id="Wz9-aC-mYM"/>
-                        <segue destination="bl2-Wb-OPO" kind="presentation" identifier="GoCVNPPointDetailViewController" id="L11-d1-ivh"/>
                         <segue destination="54I-G8-fjC" kind="presentation" identifier="GoCVNPPointPresentTableViewController" id="1uo-LS-NBA"/>
                     </connections>
                 </viewController>
@@ -544,6 +543,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bl2-Wb-OPO" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GKb-L9-umz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
