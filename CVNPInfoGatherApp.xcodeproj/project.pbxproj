@@ -39,6 +39,10 @@
 		A086033A1B254F890076D9B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A08603391B254F890076D9B7 /* Images.xcassets */; };
 		A086033D1B254F890076D9B7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A086033B1B254F890076D9B7 /* LaunchScreen.xib */; };
 		A08603491B254F890076D9B7 /* CVNPInfoGatherAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A08603481B254F890076D9B7 /* CVNPInfoGatherAppTests.m */; };
+		A08D1AFD1B6A935700250E14 /* tabbar-setting.png in Resources */ = {isa = PBXBuildFile; fileRef = A08D1AFA1B6A935700250E14 /* tabbar-setting.png */; };
+		A08D1AFE1B6A935700250E14 /* tabbar-setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A08D1AFB1B6A935700250E14 /* tabbar-setting@2x.png */; };
+		A08D1AFF1B6A935700250E14 /* tabbar-setting@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A08D1AFC1B6A935700250E14 /* tabbar-setting@3x.png */; };
+		A08D1B021B6A95B400250E14 /* CVNPSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A08D1B011B6A95B400250E14 /* CVNPSettingTableViewController.m */; };
 		A09D01D51B27C42600678032 /* CVNPLoaclPointsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */; };
 		A09D01D81B28AF2500678032 /* CVNPUserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01D71B28AF2500678032 /* CVNPUserLoginViewController.m */; };
 		A09D01DB1B28B08800678032 /* CVNPUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D01DA1B28B08800678032 /* CVNPUserModel.m */; };
@@ -114,6 +118,11 @@
 		A08603421B254F890076D9B7 /* CVNPInfoGatherAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CVNPInfoGatherAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A08603471B254F890076D9B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A08603481B254F890076D9B7 /* CVNPInfoGatherAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CVNPInfoGatherAppTests.m; sourceTree = "<group>"; };
+		A08D1AFA1B6A935700250E14 /* tabbar-setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-setting.png"; sourceTree = "<group>"; };
+		A08D1AFB1B6A935700250E14 /* tabbar-setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-setting@2x.png"; sourceTree = "<group>"; };
+		A08D1AFC1B6A935700250E14 /* tabbar-setting@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-setting@3x.png"; sourceTree = "<group>"; };
+		A08D1B001B6A95B400250E14 /* CVNPSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPSettingTableViewController.h; sourceTree = "<group>"; };
+		A08D1B011B6A95B400250E14 /* CVNPSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPSettingTableViewController.m; sourceTree = "<group>"; };
 		A09D01D31B27C42600678032 /* CVNPLoaclPointsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPLoaclPointsTableViewController.h; sourceTree = "<group>"; };
 		A09D01D41B27C42600678032 /* CVNPLoaclPointsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVNPLoaclPointsTableViewController.m; sourceTree = "<group>"; };
 		A09D01D61B28AF2500678032 /* CVNPUserLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVNPUserLoginViewController.h; sourceTree = "<group>"; };
@@ -187,6 +196,9 @@
 				A019D2681B38B98E00116B92 /* tabbar-me.png */,
 				A019D2691B38B98E00116B92 /* tabbar-me@2x.png */,
 				A019D26A1B38B98E00116B92 /* tabbar-me@3x.png */,
+				A08D1AFA1B6A935700250E14 /* tabbar-setting.png */,
+				A08D1AFB1B6A935700250E14 /* tabbar-setting@2x.png */,
+				A08D1AFC1B6A935700250E14 /* tabbar-setting@3x.png */,
 			);
 			name = tabbar;
 			sourceTree = "<group>";
@@ -251,6 +263,8 @@
 				A0E2EB4F1B58272D006A31B3 /* CVNPPointModifyTableViewController.m */,
 				A0EA72DA1B463126005C8B05 /* CVNPCategoryTableViewController.h */,
 				A0EA72DB1B463126005C8B05 /* CVNPCategoryTableViewController.m */,
+				A08D1B001B6A95B400250E14 /* CVNPSettingTableViewController.h */,
+				A08D1B011B6A95B400250E14 /* CVNPSettingTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -425,6 +439,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A08D1AFD1B6A935700250E14 /* tabbar-setting.png in Resources */,
 				A04468591B255BD20037C9C6 /* 1-18mapboxtiles.mbtiles in Resources */,
 				A08603381B254F890076D9B7 /* Main.storyboard in Resources */,
 				A086033D1B254F890076D9B7 /* LaunchScreen.xib in Resources */,
@@ -434,7 +449,9 @@
 				A086033A1B254F890076D9B7 /* Images.xcassets in Resources */,
 				A044685B1B255BD20037C9C6 /* CVNPpos.GPX in Resources */,
 				A019D26D1B38B98E00116B92 /* tabbar-discover@3x.png in Resources */,
+				A08D1AFF1B6A935700250E14 /* tabbar-setting@3x.png in Resources */,
 				A019D26B1B38B98E00116B92 /* tabbar-discover.png in Resources */,
+				A08D1AFE1B6A935700250E14 /* tabbar-setting@2x.png in Resources */,
 				A019D26E1B38B98E00116B92 /* tabbar-me.png in Resources */,
 				A019D26F1B38B98E00116B92 /* tabbar-me@2x.png in Resources */,
 			);
@@ -495,6 +512,7 @@
 				A0EA72D91B45D5A7005C8B05 /* CVNPPointPresentTableViewController.m in Sources */,
 				A01C962B1B54AD1600302FED /* CVNPPointPresentImageItem.m in Sources */,
 				A019D2601B387BA900116B92 /* CVNPRegistrationForm.m in Sources */,
+				A08D1B021B6A95B400250E14 /* CVNPSettingTableViewController.m in Sources */,
 				A025AF7A1B30A44A0048A1BF /* CVNPAPIClient.m in Sources */,
 				A0EA72DC1B463126005C8B05 /* CVNPCategoryTableViewController.m in Sources */,
 				A019D2571B374D7600116B92 /* CVNPTutorialViewController.m in Sources */,
